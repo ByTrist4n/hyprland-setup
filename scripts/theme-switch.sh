@@ -2,7 +2,7 @@
 WALL_DIR="$HOME/Pictures/Wallpapers"
 
 # Select wallpaper with wofi
-WALLPAPER=$(find "$WALL_DIR" -type f | wofi -dmenu -p "Wallpaper")
+WALLPAPER=$(find "$WALL_DIR" -type f | rofi -dmenu -p "Wallpaper")
 [ -z "$WALLPAPER" ] && exit 0
 
 # Apply wallpaper with transition
@@ -14,11 +14,6 @@ wpg -s "$WALLPAPER"
 # Refresh waybar and hyprland
 pkill waybar; waybar & disown
 hyprctl reload
-
-# Restart pavucontrol if open
-if pgrep -x pavucontrol > /dev/null; then
-    pkill pavucontrol; sleep 0.3; pavucontrol & disown
-fi
 
 notify-send "🎨 Theme Updated" "$(basename "$WALLPAPER")"
 
