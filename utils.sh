@@ -2,6 +2,7 @@
 # =============================================================
 #  Utils Functions
 # =============================================================
+set -e
 
 # Colors variables
 RED='\033[0;31m'
@@ -14,14 +15,16 @@ BOLD='\033[1m'
 
 # Echo with stepper (example: [1/7])
 log_step() {
-    if [ -z "$STEP_TOTAL" ]; then
-        local caller_script="${BASH_SOURCE[1]}"
-        export STEP_TOTAL=$(grep -c '^log_step ' "$caller_script")
+    local current_file="${BASH_SOURCE[1]}"
+
+    if [[ "$LAST_FILE" != "$current_file" ]]; then
+        export LAST_FILE="$current_file"
+        export STEP_TOTAL=$(grep -c 'log_step' "$current_file")
         export STEP_CURRENT=0
     fi
 
     export STEP_CURRENT=$((STEP_CURRENT + 1))
-    echo "> [$STEP_CURRENT/$STEP_TOTAL] $1"
+    echo -e "==> [$STEP_CURRENT/$STEP_TOTAL] $1"
 }
 export -f log_step
 
