@@ -1,9 +1,8 @@
 #!/bin/bash
-set -e
 # =============================================================
 #  pywal + Kvantum + qt6ct setup
 # =============================================================
-
+set -e
 source "./utils.sh"
 
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
@@ -101,13 +100,11 @@ else
     log_info "Skipping Kitty configuration."
 fi
 
-# -------------------------------------------------------------
-# Setup Complete
-# -------------------------------------------------------------
 echo ""
-echo "✅ Pywal Setup complete!"
+echo "🎉 Pywal Setup complete!"
 echo ""
 echo "Remaining manual checklist:"
 echo " 1. Copy your wallpapers to $WALLPAPER_DIR"
 echo " 2. Run "$HYPR_SCRIPT_DIR/theme-switch.sh" to test"
 echo " 3. Add a keyboard shortcut to switch themes --> \"hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("sh ~/.config/hypr/Trist4nScript/theme-switch.sh"))\""
+echo ""
