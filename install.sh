@@ -1,2 +1,2 @@
 #!/bin/bash
-sh setup-pywal-theme.sh
+source ./setup-pywal-theme.sh
