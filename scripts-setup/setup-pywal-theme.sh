@@ -5,71 +5,71 @@
 set -e
 source "./utils.sh"
 
-WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
-WAL_TEMPLATES="$HOME/.config/wal/templates"
-KVANTUM_PYWAL="$HOME/.config/Kvantum/pywal"
-QT6CT_COLORS="$HOME/.config/qt6ct/colors"
-QT6CT_CONF="$HOME/.config/qt6ct/qt6ct.conf"
-HYPR_SCRIPT_DIR="$HOME/.config/hypr/Trist4nScript"
+wallpaper_dir="$HOME/Pictures/Wallpapers"
+wal_templates="$HOME/.config/wal/templates"
+kvantum_pywal="$HOME/.config/Kvantum/pywal"
+qt6ct_colors="$HOME/.config/qt6ct/colors"
+qt6ct_conf="$HOME/.config/qt6ct/qt6ct.conf"
+hypr_conf="$HOME/.config/hypr/hyprland.lua"
+hypr_script_dir="$HOME/.config/hypr/Trist4nScript"
 kitty_conf="$HOME/.config/kitty/kitty.conf"
 
 log_step "Creation of folders..."
-mkdir -p "$WALLPAPER_DIR"
-mkdir -p "$WAL_TEMPLATES"
-mkdir -p "$KVANTUM_PYWAL"
-mkdir -p "$QT6CT_COLORS"
-mkdir -p "$HYPR_SCRIPT_DIR"
+mkdir -p "$wallpaper_dir"
+mkdir -p "$wal_templates"
+mkdir -p "$kvantum_pywal"
+mkdir -p "$qt6ct_colors"
+mkdir -p "$hypr_script_dir"
 
 # -------------------------------------------------------------
 # Template Kvantum SVG for pywal
 # -------------------------------------------------------------
 log_step "Installation des templates pywal"
-if [ -f "$WAL_TEMPLATES/pywal.svg" ]; then
+if [ -f "$wal_templates/pywal.svg" ]; then
     log_info "Existing templates, skip."
 else
-    log_info "Copy assets/pywal.svg and assets/pywal.kvconfig in $WAL_TEMPLATES"
-    cp ./assets/kvantum/pywal.svg $WAL_TEMPLATES
-    cp ./assets/kvantum/pywal.kvconfig $WAL_TEMPLATES
+    log_info "Copy assets/pywal.svg and assets/pywal.kvconfig in $wal_templates"
+    cp ./assets/kvantum/pywal.svg $wal_templates
+    cp ./assets/kvantum/pywal.kvconfig $wal_templates
 fi
 
 # -------------------------------------------------------------
 # Template qt6ct for pywal
 # -------------------------------------------------------------
 log_step "Creation qt6ct template..."
-cp ./assets/qt/colors-qt6ct.conf $WAL_TEMPLATES
+cp ./assets/qt/colors-qt6ct.conf $wal_templates
 
 # -------------------------------------------------------------
 # Symlink qt6ct/Kvantum colors → cache wal
 # -------------------------------------------------------------
 log_step "Symlink qt6ct colors..."
-ln -sf "$HOME/.cache/wal/colors-qt6ct.conf" "$QT6CT_COLORS/pywal.conf"
+ln -sf "$HOME/.cache/wal/colors-qt6ct.conf" "$qt6ct_colors/pywal.conf"
 log_step "Symlink Kvantum colors..."
-ln -sf "$HOME/.cache/wal/pywal.svg" "$KVANTUM_PYWAL/pywal.svg"
-ln -sf "$HOME/.cache/wal/pywal.kvconfig" "$KVANTUM_PYWAL/pywal.kvconfig"
+ln -sf "$HOME/.cache/wal/pywal.svg" "$kvantum_pywal/pywal.svg"
+ln -sf "$HOME/.cache/wal/pywal.kvconfig" "$kvantum_pywal/pywal.kvconfig"
 
 # -------------------------------------------------------------
 # Config qt6ct
 # -------------------------------------------------------------
 log_step "Configuration qt6ct..."
-if [ -f "$QT6CT_CONF" ]; then
-    sed -i 's|color_scheme_path=.*|color_scheme_path=/home/'"$USER"'/.config/qt6ct/colors/pywal.conf|' "$QT6CT_CONF"
-    sed -i 's/custom_palette=false/custom_palette=true/' "$QT6CT_CONF"
-    log_success "Options have been added to $QT6CT_CONF file."
+if [ -f "$qt6ct_conf" ]; then
+    sed -i 's|color_scheme_path=.*|color_scheme_path=/home/'"$USER"'/.config/qt6ct/colors/pywal.conf|' "$qt6ct_conf"
+    sed -i 's/custom_palette=false/custom_palette=true/' "$qt6ct_conf"
+    log_success "Options have been added to $qt6ct_conf file."
 else
-    mkdir -p "$(dirname "$QT6CT_CONF")"
-    cp ./assets/qt6ct.conf $QT6CT_CONF
-    log_success "A new $QT6CT_CONF file has been created."
+    mkdir -p "$(dirname "$qt6ct_conf")"
+    cp ./assets/qt6ct.conf $qt6ct_conf
+    log_success "A new $qt6ct_conf file has been created."
 fi
 
 # -------------------------------------------------------------
 # Env Variables Qt in hyprland
 # -------------------------------------------------------------
 log_step "Checking the Qt environment variables in Hyprland..."
-HYPR_CONF="$HOME/.config/hypr/hyprland.lua"
-if [ -f "$HYPR_CONF" ]; then
-    if ! grep -q "QT_QPA_PLATFORMTHEME" "$HYPR_CONF"; then
-        echo "-- Qt theming" >> "$HYPR_CONF"
-        echo "hl.env(\"QT_QPA_PLATFORMTHEME\", \"qt6ct\")" >> "$HYPR_CONF"
+if [ -f "$hypr_conf" ]; then
+    if ! grep -q "QT_QPA_PLATFORMTHEME" "$hypr_conf"; then
+        echo "-- Qt theming" >> "$hypr_conf"
+        echo "hl.env(\"QT_QPA_PLATFORMTHEME\", \"qt6ct\")" >> "$hypr_conf"
         log_success "Options have been added  to hyprland.conf"
     else
         log_info "Already present in hyprland.lua"
@@ -82,8 +82,8 @@ fi
 # Install "theme-switch.sh"
 # -------------------------------------------------------------
 log_step "Install theme-switch.sh script..."
-cp "$(dirname "$0")/scripts/theme-switch.sh" "$HYPR_SCRIPT_DIR/" || true
-chmod +x "$HYPR_SCRIPT_DIR/theme-switch.sh" || true
+cp "$(dirname "$0")/scripts/theme-switch.sh" "$hypr_script_dir/" || true
+chmod +x "$hypr_script_dir/theme-switch.sh" || true
 
 # -------------------------------------------------------------
 # Kitty Theme
@@ -104,7 +104,7 @@ echo ""
 echo "🎉 Pywal Setup complete!"
 echo ""
 echo "Remaining manual checklist:"
-echo " 1. Copy your wallpapers to $WALLPAPER_DIR"
-echo " 2. Run "$HYPR_SCRIPT_DIR/theme-switch.sh" to test"
+echo " 1. Copy your wallpapers to $wallpaper_dir"
+echo " 2. Run "$hypr_script_dir/theme-switch.sh" to test"
 echo " 3. Add a keyboard shortcut to switch themes --> \"hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("sh ~/.config/hypr/Trist4nScript/theme-switch.sh"))\""
 echo ""
