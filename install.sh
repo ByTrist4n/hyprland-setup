@@ -16,4 +16,4 @@ if ask_yes_no "Do you want to configure the theme system (Pywal) ?"; then
     source "./scripts-setup/setup-pywal-theme.sh"
 fi
 
-echo -e "🤔 Having trouble? Use the troubleshooting script to resolve the issue. Run the following command: ${BOLD}sh troubleshooting.sh${NC}"
+echo -e "🤔 Having trouble? Use the troubleshooting script to resolve the issue. Run the following command: ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
