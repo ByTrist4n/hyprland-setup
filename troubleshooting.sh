@@ -19,8 +19,9 @@ select opt in "${options[@]}"; do
             fi
 
             if ! grep -q "ç" "$xcompose"; then
-                echo '<dead_acute> <c>     : "ç"' >> $xcompose
-                echo '<dead_acute> <C>     : "Ç"' >> $xcompose
+                echo 'include "%L"' >> $xcompose
+                echo '<dead_acute> <c> : "ç" ccedilla' >> $xcompose
+                echo '<dead_acute> <C> : "Ç" Ccedilla' >> $xcompose
                 log_success "Done: Cedilla fix applied."
             else
                 log_info "Cedialla's fix is ​​already done"
