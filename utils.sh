@@ -40,7 +40,6 @@ export -f log_warn
 
 # Ask Question [Y/n]
 ask_yes_no() {
-    echo -e ""
     while true; do
         read -p "$(echo -e "🤔 $1 [Y/n] ")" yn
         case $yn in
