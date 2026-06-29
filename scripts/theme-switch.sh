@@ -20,8 +20,9 @@ find ~/.config/wlogout/assets/ -name "*.svg" -exec sed -i "s/fill=\"#[0-9a-fA-F]
 # Hyprland Config colors
 cp "$wal_colors" "$hypr_colors"
 
-# Refresh waybar and hyprland
+# Refresh Apps
 pkill waybar; waybar & disown
+pkill swaync; swaync
 hyprctl reload
 
 notify-send "🎨 Theme Updated" "$(basename "$wallpaper")"
