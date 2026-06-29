@@ -7,7 +7,6 @@ source "./utils.sh"
 
 wallpaper_dir="$HOME/Pictures/Wallpapers"
 wal_templates="$HOME/.config/wal/templates"
-wal_colors="$HOME/.cache/wal/colors.lua"
 kvantum_pywal="$HOME/.config/Kvantum/pywal"
 qt6ct_colors="$HOME/.config/qt6ct/colors"
 qt6ct_conf="$HOME/.config/qt6ct/qt6ct.conf"
@@ -107,11 +106,8 @@ fi
 # -------------------------------------------------------------
 log_step "Colors in Hyprland window"
 if ask_yes_no "Do you want to configure colors in Hyprland window?"; then
-    cp ./assets/wal/colors.lua $wal_templates
-    if [ -e "$hypr_colors" ] || [ -L "$hypr_colors" ]; then
-        rm "$hypr_colors"
-    fi
-    ln -s "$wal_colors" "$hypr_colors"
+    cp ./assets/wal/lua/colors-template.lua $wal_templates/colors.lua
+    cp ./assets/wal/lua/colors-default.lua $hypr_colors
 else
     log_info "Skipping colors in Hyprland configuration."
 fi
