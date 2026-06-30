@@ -3,9 +3,14 @@ wallpaper_dir="$HOME/Pictures/Wallpapers"
 hypr_colors="$HOME/.config/hypr/config/colors.lua"
 wal_colors="$HOME/.cache/wal/colors.lua"
 
-# Select wallpaper with wofi
-wallpaper=$(find "$wallpaper_dir" -type f | rofi -dmenu -p "Wallpaper")
-[ -z "$wallpaper" ] && exit 0
+# Select wallpaper with rofi
+selected=$(find "$wallpaper_dir" -type f | while read -r line; do 
+    echo -e "$(basename "$line")\x00icon\x1f$line"; 
+done | rofi -dmenu -theme ~/.config/rofi/wallpaper.rasi)
+
+[ -z "$selected" ] && exit 0
+
+wallpaper=$(find "$wallpaper_dir" -name "$selected" | head -n 1)
 
 # Apply wallpaper with transition
 awww img "$wallpaper" --transition-type grow --transition-duration 1
