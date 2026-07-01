@@ -11,7 +11,7 @@ sudo pacman -S --needed --noconfirm \
     zsh nvim yay brightnessctl pavucontrol blueman \
     ttf-jetbrains-mono-nerd \
     wl-clipboard hyprlock hypridle \
-    qt5ct qt6ct cliphist sed rofi flameshot yazi
+    qt5ct qt6ct cliphist rofi flameshot yazi
 
 # Yay packages
 log_step "Installing AUR packages..."
