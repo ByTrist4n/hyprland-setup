@@ -20,7 +20,8 @@ yay -S --needed --noconfirm \
     dolphin \
     vscodium-bin zen-browser pear-desktop logiops \
     awww python-pywal16 wpgtk nwg-look papirus-icon-theme kvantum \
-    libcava
+    libcava \
+    rofimoji ydotool   
 
 _with_cava=true yay -S --needed --noconfirm waybar-git 
 
