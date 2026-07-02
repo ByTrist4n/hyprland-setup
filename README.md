@@ -30,8 +30,8 @@ Here is a script to configure the Hyprland of dreams ✨
 
 ### 📦 Core Dependencies (Pacman)
 
-| Package                                                                                                | Description                                        |
-| :----------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
+| Package                                                                                               | Description                                        |
+| :---------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
 | 🐚 [zsh](https://github.com/zsh-users/zsh)                                                             | Advanced shell replacement for Bash                |
 | 📝 [nvim](https://github.com/neovim/neovim)                                                            | Vim-based text editor for configuration            |
 | 🚀 [yay](https://github.com/Jguer/yay)                                                                 | AUR helper and pacman wrapper                      |
@@ -50,33 +50,33 @@ Here is a script to configure the Hyprland of dreams ✨
 
 ### 🛸 AUR Dependencies (Yay)
 
-| Package                                                                               | Description                                                                                         |
-| :------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------- |
-| 🚪 [wlogout](https://github.com/ArtsyMacaw/wlogout)                                   | Wayland-based logout menu                                                                           |
-| 🔔 [swaync](https://github.com/ErikReider/SwayNotificationCenter)                     | Sway Notification Center for Wayland                                                                |
-| 🌐 [nm-connection-editor](https://gitlab.gnome.org/GNOME/network-manager-applet)      | NetworkManager advanced connection editor GUI                                                       |
-| 🐬 [dolphin](https://invent.kde.org/system/dolphin)                                   | KDE file manager                                                                                    |
-| 💻 [vscodium-bin](https://github.com/VSCodium/vscodium)                               | Telemetry-free open-source build of VS Code                                                         |
-| 🧭 [zen-browser](https://github.com/zen-browser/desktop)                              | Firefox-based browser focused on privacy                                                            |
-| 🎵 [pear-desktop](https://github.com/pear-devs/pear-desktop)                          | Music App                                                                                           |
-| 🖱️ [logiops](https://github.com/PixlOne/logiops)                                      | Configuration driver for Logitech mice                                                              |
-| 🖼️ [awww](https://codeberg.org/LGFae/awww)                                            | Dynamic wallpaper generator and wrapper                                                             |
-| 🌈 [python-pywal16](https://github.com/eylles/pywal16)                                | Color palette generation from images (Pywal fork)                                                   |
-| 🛠️ [wpgtk](https://github.com/deviantfero/wpgtk)                                      | Universal theme template manager using Pywal                                                        |
-| 🕶️ [nwg-look](https://github.com/nwg-piotr/nwg-look)                                  | GTK3/4 configuration customization tool for Wayland                                                 |
-| 🎨 [papirus-icon-theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) | Material design icon theme for Linux                                                                |
-| 🌌 [kvantum](https://github.com/tsujan/Kvantum)                                       | SVG-based theme engine for Qt5/Qt6                                                                  |
-| 📊 [libcava](https://github.com/karlstav/cava)                                        | Console-based Audio Visualizer shared library                                                       |
-| 📊 [waybar-git](https://github.com/Alexays/Waybar)                                    | Highly customizable Wayland bar with Cava support                                                   |
+| Package                                                                              | Description                                                             |
+| :----------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
+| 🚪 [wlogout](https://github.com/ArtsyMacaw/wlogout)                                   | Wayland-based logout menu                                               |
+| 🔔 [swaync](https://github.com/ErikReider/SwayNotificationCenter)                     | Sway Notification Center for Wayland                                    |
+| 🌐 [nm-connection-editor](https://gitlab.gnome.org/GNOME/network-manager-applet)      | NetworkManager advanced connection editor GUI                           |
+| 🐬 [dolphin](https://invent.kde.org/system/dolphin)                                   | KDE file manager                                                        |
+| 💻 [vscodium-bin](https://github.com/VSCodium/vscodium)                               | Telemetry-free open-source build of VS Code                             |
+| 🧭 [zen-browser](https://github.com/zen-browser/desktop)                              | Firefox-based browser focused on privacy                                |
+| 🎵 [pear-desktop](https://github.com/pear-devs/pear-desktop)                          | Music App                                                               |
+| 🖱️ [logiops](https://github.com/PixlOne/logiops)                                      | Configuration driver for Logitech mice                                  |
+| 🖼️ [awww](https://codeberg.org/LGFae/awww)                                            | Dynamic wallpaper generator and wrapper                                 |
+| 🌈 [python-pywal16](https://github.com/eylles/pywal16)                                | Color palette generation from images (Pywal fork)                       |
+| 🛠️ [wpgtk](https://github.com/deviantfero/wpgtk)                                      | Universal theme template manager using Pywal                            |
+| 🕶️ [nwg-look](https://github.com/nwg-piotr/nwg-look)                                  | GTK3/4 configuration customization tool for Wayland                     |
+| 🎨 [papirus-icon-theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) | Material design icon theme for Linux                                    |
+| 🌌 [kvantum](https://github.com/tsujan/Kvantum)                                       | SVG-based theme engine for Qt5/Qt6                                      |
+| 📊 [libcava](https://github.com/karlstav/cava)                                        | Console-based Audio Visualizer shared library                           |
+| 📊 [waybar-git](https://github.com/Alexays/Waybar)                                    | Highly customizable Wayland bar with Cava support                       |
 | 😃 [rofimoji](https://github.com/fdw/rofimoji)                                        | Emoji, unicode and general character picker for rofi on X11 and Wayland |
-| 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                 | Generic command-line automation tool                                                                |
+| 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                  | Generic command-line automation tool                                    |
 
  ydotool  
 
 ### ⚡ Shell Frameworks & Plugins
 
-| Package                                                                    | Description                                  |
-| :------------------------------------------------------------------------- | :------------------------------------------- |
+| Package                                                                   | Description                                  |
+| :------------------------------------------------------------------------ | :------------------------------------------- |
 | 🧙‍♂️ [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)                         | Framework for managing Zsh configurations    |
 | 🔮 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-like fast shell completions as you type |
 
