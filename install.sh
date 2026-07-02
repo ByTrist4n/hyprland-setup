@@ -10,55 +10,57 @@ echo "By Tris4n"
 
 source "./utils.sh"
 
-source "./scripts/setup-dependencies.sh"
+if ask_yes_no "Before beginning the installation, back up your system. Use of this program is at your own risk.\nWould you like to continue with the installation?"; then
+    source "./scripts/setup-dependencies.sh"
 
-# -------------------------------------------------------------
-# Clone and Deploy Hyprland Dotfiles (Configuration folders)
-# -------------------------------------------------------------
-log_step "Deploying Hyprland configuration files..."
+    # -------------------------------------------------------------
+    # Clone and Deploy Hyprland Dotfiles (Configuration folders)
+    # -------------------------------------------------------------
+    log_step "Deploying Hyprland configuration files..."
 
-DOTFILES_URL="https://github.com/TristanDefachel/hyprland-dot-files.git"
-DOTFILES_DIR="$(mktemp -d)"
-dir_hypr="$HOME/.config/hypr"
+    DOTFILES_URL="https://github.com/TristanDefachel/hyprland-dot-files.git"
+    DOTFILES_DIR="$(mktemp -d)"
+    dir_hypr="$HOME/.config/hypr"
 
-if git clone --depth 1 "$DOTFILES_URL" "$DOTFILES_DIR"; then
-    mkdir -p "$HOME/.config"
-    
-    log_info "Copying configuration folders to ~/.config/..."
-    
-    # Loop through the repository root to copy only directories, skipping files like README.md or .gitignore
-    for item in "$DOTFILES_DIR"/*; do
-        if [ -d "$item" ]; then
-            cp -r "$item" "$HOME/.config/"
-        fi
-    done
-    hyprctl reload
+    if git clone --depth 1 "$DOTFILES_URL" "$DOTFILES_DIR"; then
+        mkdir -p "$HOME/.config"
+        
+        log_info "Copying configuration folders to ~/.config/..."
+        
+        # Loop through the repository root to copy only directories, skipping files like README.md or .gitignore
+        for item in "$DOTFILES_DIR"/*; do
+            if [ -d "$item" ]; then
+                cp -r "$item" "$HOME/.config/"
+            fi
+        done
+        hyprctl reload
 
-    log_success "Dotfiles have been successfully deployed."
-else
-    log_error "Failed to clone $DOTFILES_URL."
-fi
-
-rm -rf "$DOTFILES_DIR"
-
-if ask_yes_no "Would you like to set up a dynamic theme that picks up the current colours from your wallpaper and applies them to all the apps in your Hyprland environment (See https://github.com/TristanDefachel/theme-sw1tcher)?"; then
-    log_step "Set up Theme Sw1tcher..."
-
-    REPO_URL="https://github.com/TristanDefachel/theme-sw1tcher.git"
-    THEME_SWITCHER_DIR="$(mktemp -d)"
-
-    if git clone --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
-        (cd "$THEME_SWITCHER_DIR" && ./install.sh) \
-            && log_success "Theme Sw1tcher has been successfully configured." \
-            || log_error "Theme Sw1tcher install.sh has failed."
+        log_success "Dotfiles have been successfully deployed."
     else
-        log_error "Failed to clone $REPO_URL."
+        log_error "Failed to clone $DOTFILES_URL."
     fi
 
-    rm -rf "$THEME_SWITCHER_DIR"
-fi
+    rm -rf "$DOTFILES_DIR"
 
-echo ""
-echo ""
-echo "Well done 💪 You now have a great Hyperland setup"
-echo -e "🤔 Having trouble? Use the troubleshooting script to resolve the issue. Run the following command: ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
+    if ask_yes_no "Would you like to set up a dynamic theme that picks up the current colours from your wallpaper and applies them to all the apps in your Hyprland environment (See https://github.com/TristanDefachel/theme-sw1tcher)?"; then
+        log_step "Set up Theme Sw1tcher..."
+
+        REPO_URL="https://github.com/TristanDefachel/theme-sw1tcher.git"
+        THEME_SWITCHER_DIR="$(mktemp -d)"
+
+        if git clone --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
+            (cd "$THEME_SWITCHER_DIR" && ./install.sh) \
+                && log_success "Theme Sw1tcher has been successfully configured." \
+                || log_error "Theme Sw1tcher install.sh has failed."
+        else
+            log_error "Failed to clone $REPO_URL."
+        fi
+
+        rm -rf "$THEME_SWITCHER_DIR"
+    fi
+
+    echo ""
+    echo ""
+    echo "Well done 💪 You now have a great Hyperland setup"
+    echo -e "🤔 Having trouble? Use the troubleshooting script to resolve the issue. Run the following command: ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
+fi 
