@@ -1,7 +1,7 @@
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Sixtyfour&size=24&pause=1000&color=18F71D&width=435&lines=Hyprland+Setup;By+Trist4n)](https://git.io/typing-svg)
 
-![](https://img.shields.io/github/last-commit/tristandefachel/hyprland-dotfiles?&style=for-the-badge&labelColor=252733)
-[![](https://img.shields.io/github/repo-size/tristandefachel/hyprland-dotfiles?color=%23DDB&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=252733)](https://github.com/TristanDefachel/Hyprland-DotFiles)
+[![](https://img.shields.io/github/last-commit/TristanDefachel/hyprland-setup?&style=for-the-badge&labelColor=252733)](https://github.com/TristanDefachel/hyprland-setup)
+[![](https://img.shields.io/github/repo-size/TristanDefachel/hyprland-setup?color=%23DDB&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=252733)](https://github.com/TristanDefachel/hyprland-setup)
 
 # About
 Here is a script to configure the Hyprland of dreams ✨
