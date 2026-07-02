@@ -12,6 +12,35 @@ source "./utils.sh"
 
 source "./scripts/setup-dependencies.sh"
 
+# -------------------------------------------------------------
+# Clone and Deploy Hyprland Dotfiles (Configuration folders)
+# -------------------------------------------------------------
+log_step "Deploying Hyprland configuration files..."
+
+DOTFILES_URL="https://github.com/TristanDefachel/hyprland-dot-files.git"
+DOTFILES_DIR="$(mktemp -d)"
+dir_hypr="$HOME/.config/hypr"
+
+if git clone --depth 1 "$DOTFILES_URL" "$DOTFILES_DIR"; then
+    mkdir -p "$HOME/.config"
+    
+    log_info "Copying configuration folders to ~/.config/..."
+    
+    # Loop through the repository root to copy only directories, skipping files like README.md or .gitignore
+    for item in "$DOTFILES_DIR"/*; do
+        if [ -d "$item" ]; then
+            cp -r "$item" "$HOME/.config/"
+        fi
+    done
+    hyprctl reload
+
+    log_success "Dotfiles have been successfully deployed."
+else
+    log_error "Failed to clone $DOTFILES_URL."
+fi
+
+rm -rf "$DOTFILES_DIR"
+
 if ask_yes_no "Would you like to set up a dynamic theme that picks up the current colours from your wallpaper and applies them to all the apps in your Hyprland environment (See https://github.com/TristanDefachel/theme-sw1tcher)?"; then
     log_step "Set up Theme Sw1tcher..."
 
@@ -29,4 +58,7 @@ if ask_yes_no "Would you like to set up a dynamic theme that picks up the curren
     rm -rf "$THEME_SWITCHER_DIR"
 fi
 
+echo ""
+echo ""
+echo "Well done 💪 You now have a great Hyperland setup"
 echo -e "🤔 Having trouble? Use the troubleshooting script to resolve the issue. Run the following command: ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
