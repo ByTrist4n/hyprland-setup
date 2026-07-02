@@ -4,7 +4,23 @@
 [![](https://img.shields.io/github/repo-size/tristandefachel/hyprland-dotfiles?color=%23DDB&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=252733)](https://github.com/TristanDefachel/Hyprland-DotFiles)
 
 # About
-Here is my script to configure the Hyprland of my dreams ✨
+Here is a script to configure the Hyprland of dreams ✨
+
+# Features
+ - **Information Bar**
+ - **App Launcher**
+ - **Notifications center**
+ - **Theme Switcher** : Use the colors from the current wallpaper and apply them to all applications in the environment (GTK, Qt, etc)
+
+# Screenshots
+**Information Bar** 
+![Preview](./screenshots/screenshot_desktop.jpg)
+**App Launcher** 
+![Screenshot Launch](screenshots/screenshot_launch.jpg)
+**Notifications center**
+![Screenshot notification](screenshots/screenshot_notification.jpg) 
+**Theme switcher**
+![Screenshot Switch theme](screenshots/screenshot_theme_switch.jpg)
 
 # 🛠️ Tech Stack
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
