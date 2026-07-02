@@ -1,16 +1,26 @@
 #!/bin/bash
+source "./utils.sh"
+
 echo "                         _                 _   __      _               ";
 echo "  /\\  /\\_   _ _ __  _ __| | __ _ _ __   __| | / _\\ ___| |_ _   _ _ __  ";
 echo " / /_/ / | | | '_ \\| '__| |/ _\` | '_ \\ / _\` | \\ \\ / _ \\ __| | | | '_ \\ ";
 echo "/ __  /| |_| | |_) | |  | | (_| | | | | (_| | _\\ \\  __/ |_| |_| | |_) |";
 echo "\\/ /_/  \\__, | .__/|_|  |_|\\__,_|_| |_|\\__,_| \\__/\\___|\\__|\\__,_| .__/ ";
 echo "        |___/|_|                                                |_|    ";
+echo -e "   ${BOLD}✨ Installation for the Hyprland of dreams ${NC}• ${BLUE}By Trist4n${NC}"
+echo -e "────────────────────────────────────────────────────────────────────────"
 echo ""
-echo "By Tris4n"
 
-source "./utils.sh"
+# -------------------------------------------------------------
+# Safety Check Prompt
+# -------------------------------------------------------------
+echo -e "┌──────┤ WARNING ├─────────────────────────────────────────────────────┐"
+echo -e "│ Before beginning the installation, please back up your system.       │"
+echo -e "│ You use this programme entirely at your own risk.                    │"
+echo -e "└──────────────────────────────────────────────────────────────────────┘"
+echo ""
 
-if ask_yes_no "Before beginning the installation, back up your system. Use of this program is at your own risk.\nWould you like to continue with the installation?"; then
+if ask_yes_no "Would you like to continue with the installation?"; then
     source "./scripts/setup-dependencies.sh"
 
     # -------------------------------------------------------------
@@ -22,7 +32,7 @@ if ask_yes_no "Before beginning the installation, back up your system. Use of th
     DOTFILES_DIR="$(mktemp -d)"
     dir_hypr="$HOME/.config/hypr"
 
-    if git clone --depth 1 "$DOTFILES_URL" "$DOTFILES_DIR"; then
+    if git clone --depth 1 "$DOTFILES_URL" "$DOTFILES_DIR" >/dev/null 2>&1; then
         mkdir -p "$HOME/.config"
         
         log_info "Copying configuration folders to ~/.config/..."
@@ -42,6 +52,9 @@ if ask_yes_no "Before beginning the installation, back up your system. Use of th
 
     rm -rf "$DOTFILES_DIR"
 
+    # -------------------------------------------------------------
+    # Install Theme Sw1tcher (Dynamic Colors Integration)
+    # -------------------------------------------------------------
     if ask_yes_no "Would you like to set up a dynamic theme that picks up the current colours from your wallpaper and applies them to all the apps in your Hyprland environment (See https://github.com/TristanDefachel/theme-sw1tcher)?"; then
         log_step "Set up Theme Sw1tcher..."
 
@@ -59,8 +72,14 @@ if ask_yes_no "Before beginning the installation, back up your system. Use of th
         rm -rf "$THEME_SWITCHER_DIR"
     fi
 
+    # -------------------------------------------------------------
+    # Success Screen
+    # -------------------------------------------------------------
     echo ""
+    echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
+    echo -e "  ${GREEN}🎉 Well done 💪 You now have a great Hyprland setup!${NC}"
+    echo -e "  🤔 Having trouble?${NC} Run the troubleshooting script to fix issues:"
+    echo -e "     ➔ ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
+    echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
     echo ""
-    echo "Well done 💪 You now have a great Hyperland setup"
-    echo -e "🤔 Having trouble? Use the troubleshooting script to resolve the issue. Run the following command: ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
-fi 
+fi
