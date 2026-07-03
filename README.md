@@ -6,6 +6,8 @@
 # About
 Here is a script to configure the Hyprland of dreams ✨
 
+If you like it, star the repo ⭐
+
 # Features
  - **Information Bar**
  - **App Launcher**
@@ -22,6 +24,14 @@ Here is a script to configure the Hyprland of dreams ✨
 ![Screenshot notification](screenshots/screenshot_notification.jpg) 
 **Theme switcher**
 ![Screenshot Switch theme](screenshots/screenshot_theme_switch.jpg)
+
+# Roadmap
+- [x] Installation Dependencies
+- [x] Theme switcher based on current wallpaper colors
+- [x] Information Bar
+- [x] App Launcher
+- [x] Notifications center
+- [ ] Libraries featuring a wide range of themes, with varied designs and colors
 
 # 🛠️ Tech Stack
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
@@ -79,11 +89,3 @@ Here is a script to configure the Hyprland of dreams ✨
 | :------------------------------------------------------------------------ | :------------------------------------------- |
 | 🧙‍♂️ [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)                         | Framework for managing Zsh configurations    |
 | 🔮 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-like fast shell completions as you type |
-
-# Future TODO
-- [x] Installation Dependencies
-- [x] Theme switcher based on current wallpaper colors
-- [x] Information Bar
-- [x] App Launcher
-- [x] Notifications center
-- [ ] Libraries featuring a wide range of themes, with varied designs and colors
