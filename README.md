@@ -79,9 +79,7 @@ If you like it, star the repo ⭐
 | 📊 [libcava](https://github.com/karlstav/cava)                                        | Console-based Audio Visualizer shared library                           |
 | 📊 [waybar-git](https://github.com/Alexays/Waybar)                                    | Highly customizable Wayland bar with Cava support                       |
 | 😃 [rofimoji](https://github.com/fdw/rofimoji)                                        | Emoji, unicode and general character picker for rofi on X11 and Wayland |
-| 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                  | Generic command-line automation tool                                    |
-
- ydotool  
+| 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                  | Generic command-line automation tool                                    |  
 
 ### ⚡ Shell Frameworks & Plugins
 
