@@ -3,45 +3,63 @@
 [![](https://img.shields.io/github/last-commit/TristanDefachel/hyprland-setup?&style=for-the-badge&labelColor=252733)](https://github.com/TristanDefachel/hyprland-setup)
 [![](https://img.shields.io/github/repo-size/TristanDefachel/hyprland-setup?color=%23DDB&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=252733)](https://github.com/TristanDefachel/hyprland-setup)
 
-# About
+# What is it?
+
 Here is a script to configure the Hyprland of dreams ✨
 
-If you like it, star the repo ⭐
+> 🫰 Thank you for the stars ⭐
 
-# Features
- - **Information Bar**
- - **App Launcher**
- - **Notifications center**
- - **Theme Switcher** : Use the colors from the current wallpaper and apply them to all applications in the environment (GTK, Qt, etc)
-- Intuitive keyboard shortcuts for screenshots, launchers, emoji, Theme switching, and more !
+## Hyprland Setup Showcase
 
-# Screenshots
-**Information Bar** 
-![Preview](./screenshots/screenshot_desktop.jpg)
-**App Launcher** 
+![Screenshot Desktop](./screenshots/screenshot_preview.jpg)
+
+<details>
+  <summary><b>✨ Click here to see more screenshots of the Hyprland setup</b></summary>
+  <br>
+
+**Information Bar**
+![Screenshot Desktop](./screenshots/screenshot_desktop.jpg)
+**App Launcher**
 ![Screenshot Launch](screenshots/screenshot_launch.jpg)
 **Notifications center**
-![Screenshot notification](screenshots/screenshot_notification.jpg) 
+![Screenshot notification](screenshots/screenshot_notification.jpg)
 **Theme switcher**
 ![Screenshot Switch theme](screenshots/screenshot_theme_switch.jpg)
 
-# Roadmap
-- [x] Installation Dependencies
-- [x] Theme switcher based on current wallpaper colors
-- [x] Information Bar
-- [x] App Launcher
-- [x] Notifications center
-- [ ] Libraries featuring a wide range of themes, with varied designs and colors
+</details>
+
+<br>
+
+# Installation
+
+To install, clone the repository and execute the installation script from the root directory:
+Bash
+
+```bash
+git clone https://github.com/TristanDefachel/hyprland-dot-files.git
+cd hyprland-dot-files
+sh install.sh
+```
+
+# Features
+
+- **Information Bar**
+- **App Launcher**
+- **Notifications center**
+- **Theme Switcher** : Use the colors from the current wallpaper and apply them to all applications in the environment (GTK, Qt, etc)
+- **Intuitive keyboard shortcuts** for screenshots, launchers, emoji, Theme switching, and more !
+
+<br>
 
 # 🛠️ Tech Stack
+
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-blue?style=for-the-badge&logo=hyprland)](https://hypr.land)
 
-
 ### 📦 Core Dependencies (Pacman)
 
-| Package                                                                                               | Description                                        |
-| :---------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
+| Package                                                                                                | Description                                        |
+| :----------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
 | 🐚 [zsh](https://github.com/zsh-users/zsh)                                                             | Advanced shell replacement for Bash                |
 | 📝 [nvim](https://github.com/neovim/neovim)                                                            | Vim-based text editor for configuration            |
 | 🚀 [yay](https://github.com/Jguer/yay)                                                                 | AUR helper and pacman wrapper                      |
@@ -60,8 +78,8 @@ If you like it, star the repo ⭐
 
 ### 🛸 AUR Dependencies (Yay)
 
-| Package                                                                              | Description                                                             |
-| :----------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
+| Package                                                                               | Description                                                             |
+| :------------------------------------------------------------------------------------ | :---------------------------------------------------------------------- |
 | 🚪 [wlogout](https://github.com/ArtsyMacaw/wlogout)                                   | Wayland-based logout menu                                               |
 | 🔔 [swaync](https://github.com/ErikReider/SwayNotificationCenter)                     | Sway Notification Center for Wayland                                    |
 | 🌐 [nm-connection-editor](https://gitlab.gnome.org/GNOME/network-manager-applet)      | NetworkManager advanced connection editor GUI                           |
@@ -79,11 +97,22 @@ If you like it, star the repo ⭐
 | 📊 [libcava](https://github.com/karlstav/cava)                                        | Console-based Audio Visualizer shared library                           |
 | 📊 [waybar-git](https://github.com/Alexays/Waybar)                                    | Highly customizable Wayland bar with Cava support                       |
 | 😃 [rofimoji](https://github.com/fdw/rofimoji)                                        | Emoji, unicode and general character picker for rofi on X11 and Wayland |
-| 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                  | Generic command-line automation tool                                    |  
+| 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                  | Generic command-line automation tool                                    |
 
 ### ⚡ Shell Frameworks & Plugins
 
-| Package                                                                   | Description                                  |
-| :------------------------------------------------------------------------ | :------------------------------------------- |
+| Package                                                                    | Description                                  |
+| :------------------------------------------------------------------------- | :------------------------------------------- |
 | 🧙‍♂️ [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)                         | Framework for managing Zsh configurations    |
 | 🔮 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-like fast shell completions as you type |
+
+<br>
+
+# Roadmap
+
+- [x] Installation Dependencies
+- [x] Theme switcher based on current wallpaper colors
+- [x] Information Bar
+- [x] App Launcher
+- [x] Notifications center
+- [ ] Libraries featuring a wide range of themes, with varied designs and colors
