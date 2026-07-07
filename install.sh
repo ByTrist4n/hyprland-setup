@@ -35,15 +35,30 @@ if ask_yes_no "Would you like to continue with the installation?"; then
     if git clone --depth 1 "$DOTFILES_URL" "$DOTFILES_DIR" >/dev/null 2>&1; then
         mkdir -p "$HOME/.config"
         
-        log_info "Copying configuration folders to ~/.config/..."
+        log_info "Copying configuration folders..."
         
-        # Loop through the repository root to copy only directories, skipping files like README.md or .gitignore
+        # Enable dotglob, see hidden files like .zshrc inside the folders
+        shopt -s dotglob
+
         for item in "$DOTFILES_DIR"/*; do
             if [ -d "$item" ]; then
-                cp -r "$item" "$HOME/.config/"
+                # Extract the directory name (e.g., "HOME", "hypr", "waybar")
+                dirname=$(basename "$item")
+
+                if [ "$dirname" = "HOME" ] || [ "$dirname" = "\$HOME" ]; then
+                    cp -r "$item"/* "$HOME/"
+                else
+                    cp -r "$item" "$HOME/.config/"
+                fi
             fi
         done
-        hyprctl reload
+
+        # Disable dotglob
+        shopt -u dotglob
+
+        if command -v hyprctl &> /dev/null; then
+            hyprctl reload
+        fi
 
         log_success "Dotfiles have been successfully deployed."
     else
