@@ -11,6 +11,7 @@ sudo pacman -S --needed --noconfirm \
     zsh nvim yay brightnessctl pavucontrol blueman \
     ttf-jetbrains-mono-nerd \
     wl-clipboard hyprlock hypridle \
+    wf-recorder slurp \
     qt5ct qt6ct cliphist rofi flameshot yazi \
     archlinux-xdg-menu
     
