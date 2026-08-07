@@ -7,7 +7,7 @@ echo " / /_/ / | | | '_ \\| '__| |/ _\` | '_ \\ / _\` | \\ \\ / _ \\ __| | | | '
 echo "/ __  /| |_| | |_) | |  | | (_| | | | | (_| | _\\ \\  __/ |_| |_| | |_) |";
 echo "\\/ /_/  \\__, | .__/|_|  |_|\\__,_|_| |_|\\__,_| \\__/\\___|\\__|\\__,_| .__/ ";
 echo "        |___/|_|                                                |_|    ";
-echo -e "   ${BOLD}✨ Installation for the Hyprland of dreams ${NC}• ${BLUE}By Trist4n${NC}"
+echo -e "   ${BOLD}✨ Installation Script for the Hyprland of your Dreams ${NC}• ${BLUE}By Trist4n${NC}"
 echo -e "────────────────────────────────────────────────────────────────────────"
 echo ""
 
@@ -35,26 +35,39 @@ if ask_yes_no "Would you like to continue with the installation?"; then
     if git clone --depth 1 "$DOTFILES_URL" "$DOTFILES_DIR" >/dev/null 2>&1; then
         mkdir -p "$HOME/.config"
         
-        log_info "Copying configuration folders..."
+        log_info "Copying configuration files and folders..."
         
-        # Enable dotglob, see hidden files like .zshrc inside the folders
+        # Enable dotglob to match hidden items
         shopt -s dotglob
 
         for item in "$DOTFILES_DIR"/*; do
-            if [ -d "$item" ]; then
-                # Extract the directory name (e.g., "HOME", "hypr", "waybar")
+            if [ -e "$item" ]; then
+                # Extract file or directory name
                 dirname=$(basename "$item")
 
+                # Skip Git tracking metadata completely
+                if [ "$dirname" = ".git" ] || [ "$dirname" = ".gitignore" ]; then
+                    continue
+                fi
+
                 if [ "$dirname" = "HOME" ] || [ "$dirname" = "\$HOME" ]; then
-                    cp -r "$item"/* "$HOME/"
+                    cp -rf "$item"/* "$HOME/"
                 else
-                    cp -r "$item" "$HOME/.config/"
+                    cp -rf "$item" "$HOME/.config/"
                 fi
             fi
         done
 
         # Disable dotglob
         shopt -u dotglob
+
+        log_info "Hyprland Plugins, Enable Hyprbars plugin..."
+        hyprpm update 
+        # Add official plugin repository if not already installed
+        if ! hyprpm list | grep -q "hyprland-plugins"; then
+            hyprpm add https://github.com/hyprwm/hyprland-plugins
+        fi     
+        hyprpm enable hyprbars
 
         if command -v hyprctl &> /dev/null; then
             hyprctl reload
