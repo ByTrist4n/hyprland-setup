@@ -61,14 +61,6 @@ if ask_yes_no "Would you like to continue with the installation?"; then
         # Disable dotglob
         shopt -u dotglob
 
-        log_info "Hyprland Plugins, Enable Hyprbars plugin..."
-        hyprpm update 
-        # Add official plugin repository if not already installed
-        if ! hyprpm list | grep -q "hyprland-plugins"; then
-            hyprpm add https://github.com/hyprwm/hyprland-plugins
-        fi     
-        hyprpm enable hyprbars
-
         if command -v hyprctl &> /dev/null; then
             hyprctl reload
         fi
