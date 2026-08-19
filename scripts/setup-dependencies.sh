@@ -13,8 +13,8 @@ sudo pacman -S --needed --noconfirm \
     wl-clipboard hyprlock hypridle \
     wf-recorder slurp \
     qt5ct qt6ct cliphist rofi flameshot yazi \
-    archlinux-xdg-menu
-    
+    archlinux-xdg-menu quickshell
+
 # Yay packages
 log_step "Installing AUR packages..."
 yay -S --needed --noconfirm \
