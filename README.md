@@ -1,11 +1,49 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Sixtyfour&size=24&pause=1000&color=18F71D&width=435&lines=Hyprland+Setup;By+Trist4n)](https://git.io/typing-svg)
+[![](https://img.shields.io/github/last-commit/Iam-Trist4n/hyprland-setup?&style=for-the-badge&labelColor=252733)](https://github.com/Iam-Trist4n/hyprland-setup)
+[![](https://img.shields.io/github/repo-size/Iam-Trist4n/hyprland-setup?color=%23DDB&label=REPO+SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=252733)](https://github.com/Iam-Trist4n/hyprland-setup)
+[![](https://img.shields.io/badge/Hyprland-v0.55%2B-1793d1?logo=hyprland&style=for-the-badge&logoColor=1793d1&labelColor=252733)](https://github.com/Iam-Trist4n/hyprland-setup)
 
-[![](https://img.shields.io/github/last-commit/TristanDefachel/hyprland-setup?&style=for-the-badge&labelColor=252733)](https://github.com/TristanDefachel/hyprland-setup)
-[![](https://img.shields.io/github/repo-size/TristanDefachel/hyprland-setup?color=%23DDB&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=252733)](https://github.com/TristanDefachel/hyprland-setup)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Sixtyfour&size=24&pause=1000&color=1793d1&width=435&lines=Hyprland+Setup;By+Trist4n)](https://git.io/typing-svg)
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#what-is-it">What is it?</a>
+        <ul>
+            <li><a href="#hyprland-setup-showcase">Hyprland Setup Showcase</a></li>
+        </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+        <ul>
+            <li><a href="#prerequisites">Prerequisites</a></li>
+            <li><a href="#installation">Installation</a></li>
+        </ul>
+    </li>
+    <li><a href="#Features">Features</a></li>
+    <li><a href="#tech-stack">Tech Stack</a></li>
+        <ul>
+            <li><a href="#-core-dependencies-pacman">📦 Core Dependencies (Pacman)</a></li>
+            <li><a href="#-aur-dependencies-yay">🛸 AUR Dependencies (Yay)</a></li>
+            <li><a href="#-shell-frameworks--plugins-">⚡ Shell Frameworks & Plugins</a></li>
+        </ul>
+    <li><a href="#do-you-have-any-ideas-">Do you have any ideas 💡?</a></li>
+    <li><a href="#do-you-have-bugs-">Do you have bugs 💡?</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+
+  </ol>
+</details>
+
+<br>
 
 # What is it?
 
 Here is a script to configure the Hyprland of dreams ✨
+
+He is a simply one shot script to Setup your Hyprland.
+
+For example, after a fresh install or if you simply fancy a change of style 😎
 
 > 🫰 Thank you for the stars ⭐
 
@@ -30,13 +68,22 @@ Here is a script to configure the Hyprland of dreams ✨
 
 <br>
 
-# Installation
+# Getting Started
+
+## Prerequisites
+
+- Hyprland v0.55 minimum with lua, run :
+  ```bash
+  hyprland --version
+  ```
+
+## Installation
 
 To install, clone the repository and execute the installation script from the root directory:
 Bash
 
 ```bash
-git clone https://github.com/TristanDefachel/hyprland-dot-files.git
+git clone https://github.com/Iam-Trist4n/hyprland-dot-files.git
 cd hyprland-dot-files
 sh install.sh
 ```
@@ -51,32 +98,35 @@ sh install.sh
 
 <br>
 
-# 🛠️ Tech Stack
+# Tech Stack
 
-[![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
+[![Arch Linux](https://img.shields.io/badge/Arch%20Linux%20Distros-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-blue?style=for-the-badge&logo=hyprland)](https://hypr.land)
 
-### 📦 Core Dependencies (Pacman)
+## 📦 Core Dependencies (Pacman)
 
-| Package                                                                                                | Description                                        |
-| :----------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
-| 🐚 [zsh](https://github.com/zsh-users/zsh)                                                             | Advanced shell replacement for Bash                |
-| 📝 [nvim](https://github.com/neovim/neovim)                                                            | Vim-based text editor for configuration            |
-| 🚀 [yay](https://github.com/Jguer/yay)                                                                 | AUR helper and pacman wrapper                      |
-| ☀️ [brightnessctl](https://github.com/Hummer12007/brightnessctl)                                       | Lightweight brightness control utility             |
-| 🔊 [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol)                                | PulseAudio/PipeWire volume control GUI             |
-| 🔵 [blueman](https://github.com/blueman-project/blueman)                                               | Bluetooth management GTK tool                      |
-| 🔤 [ttf-jetbrains-mono-nerd](https://github.com/ryanoasis/nerd-fonts)                                  | Developer font with specialized glyphs and icons   |
-| 📋 [wl-clipboard](https://github.com/bugaevc/wl-clipboard)                                             | Command-line copy/paste utilities for Wayland      |
-| 🔒 [hyprlock](https://github.com/hyprwm/hyprlock)                                                      | Fast, secure screen locker for Hyprland            |
-| 💤 [hypridle](https://github.com/hyprwm/hypridle)                                                      | Idle management daemon for Hyprland                |
-| 🎨 [qt5ct](https://sourceforge.net/projects/qt5ct/) / [qt6ct](https://sourceforge.net/projects/qt5ct/) | Qt5 and Qt6 configuration utilities                |
-| 📜 [cliphist](https://github.com/Sentriz/cliphist)                                                     | Wayland clipboard manager (text and images)        |
-| 🔍 [rofi](https://github.com/davatorium/rofi)                                                          | Window switcher and application launcher           |
-| 📸 [flameshot](https://github.com/flameshot-org/flameshot)                                             | Powerful yet simple-to-use screenshot software     |
-| 📂 [yazi](https://github.com/sxyazi/yazi)                                                              | Blazing fast terminal file manager written in Rust |
+| Package                                                                                                | Description                                                           |
+| :----------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| 🐚 [zsh](https://github.com/zsh-users/zsh)                                                             | Advanced shell replacement for Bash                                   |
+| 📝 [nvim](https://github.com/neovim/neovim)                                                            | Vim-based text editor for configuration                               |
+| 🚀 [yay](https://github.com/Jguer/yay)                                                                 | AUR helper and pacman wrapper                                         |
+| ☀️ [brightnessctl](https://github.com/Hummer12007/brightnessctl)                                       | Lightweight brightness control utility                                |
+| 🔊 [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol)                                | PulseAudio/PipeWire volume control GUI                                |
+| 🔵 [blueman](https://github.com/blueman-project/blueman)                                               | Bluetooth management GTK tool                                         |
+| 🔤 [ttf-jetbrains-mono-nerd](https://github.com/ryanoasis/nerd-fonts)                                  | Developer font with specialized glyphs and icons                      |
+| 📋 [wl-clipboard](https://github.com/bugaevc/wl-clipboard)                                             | Command-line copy/paste utilities for Wayland                         |
+| 🔒 [hyprlock](https://github.com/hyprwm/hyprlock)                                                      | Fast, secure screen locker for Hyprland                               |
+| 💤 [hypridle](https://github.com/hyprwm/hypridle)                                                      | Idle management daemon for Hyprland                                   |
+| 🎨 [qt5ct](https://sourceforge.net/projects/qt5ct/) / [qt6ct](https://sourceforge.net/projects/qt5ct/) | Qt5 and Qt6 configuration utilities                                   |
+| 📜 [cliphist](https://github.com/Sentriz/cliphist)                                                     | Wayland clipboard manager (text and images)                           |
+| 🔍 [rofi](https://github.com/davatorium/rofi)                                                          | Window switcher and application launcher                              |
+| 📸 [flameshot](https://github.com/flameshot-org/flameshot)                                             | Powerful yet simple-to-use screenshot software                        |
+| 📂 [yazi](https://github.com/sxyazi/yazi)                                                              | Blazing fast terminal file manager written in Rust                    |
+| ⌨️ [fcitx5](https://github.com/fcitx/fcitx5)                                                           | Fcitx 5 is a generic input method framework released under LGPL-2.1+. |
+| 📹 [wf-recorder](https://github.com/ammen99/wf-recorder)                                               | Fwf-recorder is a utility program for screen recording                |
+| 🪟 [slurp](https://github.com/emersion/slurp)                                                          | Select a region in a Wayland compositor                               |
 
-### 🛸 AUR Dependencies (Yay)
+## 🛸 AUR Dependencies (Yay)
 
 | Package                                                                               | Description                                                             |
 | :------------------------------------------------------------------------------------ | :---------------------------------------------------------------------- |
@@ -99,7 +149,7 @@ sh install.sh
 | 😃 [rofimoji](https://github.com/fdw/rofimoji)                                        | Emoji, unicode and general character picker for rofi on X11 and Wayland |
 | 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                  | Generic command-line automation tool                                    |
 
-### ⚡ Shell Frameworks & Plugins
+## ⚡ Shell Frameworks & Plugins
 
 | Package                                                                    | Description                                  |
 | :------------------------------------------------------------------------- | :------------------------------------------- |
@@ -108,6 +158,14 @@ sh install.sh
 
 <br>
 
+# Do you have any ideas 💡?
+
+Come share them in the [discussions section](https://github.com/Iam-Trist4n/hyprland-setup/discussions).
+
+# Do you have bugs 💡?
+
+Report them to us in the [discussions section](https://github.com/Iam-Trist4n/hyprland-setup/discussions).
+
 # Roadmap
 
 - [x] Installation Dependencies
@@ -115,4 +173,7 @@ sh install.sh
 - [x] Information Bar
 - [x] App Launcher
 - [x] Notifications center
-- [ ] Libraries featuring a wide range of themes, with varied designs and colors
+- [ ] Switch from "Waybar" to "Quickshell"
+- [ ] Add Quickshell tools
+- [ ] Libraries offering a wide range of themes, with a variety of designs and colours
+- [ ] Save the `.config` file before installation
