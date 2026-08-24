@@ -13,7 +13,8 @@ sudo pacman -S --needed --noconfirm \
     wl-clipboard hyprlock hypridle \
     wf-recorder slurp \
     qt5ct qt6ct cliphist rofi flameshot yazi \
-    archlinux-xdg-menu
+    archlinux-xdg-menu \
+    fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool
     
 # Yay packages
 log_step "Installing AUR packages..."
