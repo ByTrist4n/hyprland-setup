@@ -28,7 +28,7 @@ log_step() {
 }
 export -f log_step
 
-log_success() { echo -e "  ${GREEN}✔${NC} $1"; }
+log_success() { echo -e "  ${GREEN}✔${NC} $1"; echo ""; }
 export -f log_success
 
 log_info() { echo -e "  ${BLUE}➜${NC} $1"; }
@@ -41,7 +41,7 @@ export -f log_warn
 # Ask Question [Y/n]
 ask_yes_no() {
     while true; do
-        read -p "$(echo -e "🤔 $1 [Y/n] ")" yn
+        read -p "$(echo ""; echo -e "🤔 $1 [Y/n] ")" yn
         case $yn in
             ""|Yes|yes|Y|y) return 0 ;;
             No|no|N|n) return 1 ;;
