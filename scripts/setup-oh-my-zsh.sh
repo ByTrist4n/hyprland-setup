@@ -20,7 +20,7 @@ if ask_yes_no "Would you like to install Oh My Zsh, plugins, and CLI tools (fzf,
     fi
 
     log_step "Installing CLI helper tools (fzf, zoxide, atuin)..."
-    sudo pacman -S --needed --noconfirm fzf zoxide atuin
+    sudo pacman -S --needed --noconfirm fzf zoxide atuin eza
 
     log_step "Setting up Zsh plugins and themes..."
     mkdir -p "$ZSH_CUSTOM/plugins" "$ZSH_CUSTOM/themes"
