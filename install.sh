@@ -62,6 +62,7 @@ if ask_yes_no "Would you like to continue with the installation?"; then
 
     rm -rf "$DOTFILES_DIR"
 
+    source "./scripts/setup-lazyvim.sh"
 	source "./scripts/setup-theme-sw1tcher.sh"
 
     # -------------------------------------------------------------
