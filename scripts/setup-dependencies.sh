@@ -19,7 +19,8 @@ sudo pacman -S --needed --noconfirm \
     qt5ct qt6ct cliphist rofi flameshot yazi \
     archlinux-xdg-menu \
     fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool \
-    zip
+    zip \
+    libreoffice-still
     
 # Yay packages
 log_step "Installing AUR packages..."
