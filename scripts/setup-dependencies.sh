@@ -18,7 +18,8 @@ sudo pacman -S --needed --noconfirm \
     wf-recorder slurp \
     qt5ct qt6ct cliphist rofi flameshot yazi \
     archlinux-xdg-menu \
-    fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool
+    fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool \
+    zip
     
 # Yay packages
 log_step "Installing AUR packages..."
