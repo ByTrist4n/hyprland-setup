@@ -1,6 +1,6 @@
-[![](https://img.shields.io/github/last-commit/Iam-Trist4n/hyprland-setup?&style=for-the-badge&labelColor=252733)](https://github.com/Iam-Trist4n/hyprland-setup)
-[![](https://img.shields.io/github/repo-size/Iam-Trist4n/hyprland-setup?color=%23DDB&label=REPO+SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=252733)](https://github.com/Iam-Trist4n/hyprland-setup)
-[![](https://img.shields.io/badge/Hyprland-v0.55%2B-1793d1?logo=hyprland&style=for-the-badge&logoColor=1793d1&labelColor=252733)](https://github.com/Iam-Trist4n/hyprland-setup)
+[![](https://img.shields.io/github/last-commit/ByTrist4n/hyprland-setup?&style=for-the-badge&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
+[![](https://img.shields.io/github/repo-size/ByTrist4n/hyprland-setup?color=%23DDB&label=REPO+SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
+[![](https://img.shields.io/badge/Hyprland-v0.55%2B-1793d1?logo=hyprland&style=for-the-badge&logoColor=1793d1&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Sixtyfour&size=24&pause=1000&color=1793d1&width=435&lines=Hyprland+Setup;By+Trist4n)](https://git.io/typing-svg)
 
@@ -83,7 +83,7 @@ To install, clone the repository and execute the installation script from the ro
 Bash
 
 ```bash
-git clone https://github.com/Iam-Trist4n/hyprland-dot-files.git
+git clone https://github.com/ByTrist4n/hyprland-dot-files.git
 cd hyprland-dot-files
 sh install.sh
 ```
@@ -103,68 +103,79 @@ sh install.sh
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux%20Distros-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-blue?style=for-the-badge&logo=hyprland)](https://hypr.land)
 
-## 📦 Core Dependencies (Pacman)
+## 📦 Pacman Packages
 
-| Package                                                                                                | Description                                                           |
-| :----------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
-| 🐚 [zsh](https://github.com/zsh-users/zsh)                                                             | Advanced shell replacement for Bash                                   |
-| 📝 [nvim](https://github.com/neovim/neovim)                                                            | Vim-based text editor for configuration                               |
-| 🚀 [yay](https://github.com/Jguer/yay)                                                                 | AUR helper and pacman wrapper                                         |
-| ☀️ [brightnessctl](https://github.com/Hummer12007/brightnessctl)                                       | Lightweight brightness control utility                                |
-| 🔊 [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol)                                | PulseAudio/PipeWire volume control GUI                                |
-| 🔵 [blueman](https://github.com/blueman-project/blueman)                                               | Bluetooth management GTK tool                                         |
-| 🔤 [ttf-jetbrains-mono-nerd](https://github.com/ryanoasis/nerd-fonts)                                  | Developer font with specialized glyphs and icons                      |
-| 📋 [wl-clipboard](https://github.com/bugaevc/wl-clipboard)                                             | Command-line copy/paste utilities for Wayland                         |
-| 🔒 [hyprlock](https://github.com/hyprwm/hyprlock)                                                      | Fast, secure screen locker for Hyprland                               |
-| 💤 [hypridle](https://github.com/hyprwm/hypridle)                                                      | Idle management daemon for Hyprland                                   |
-| 🎨 [qt5ct](https://sourceforge.net/projects/qt5ct/) / [qt6ct](https://sourceforge.net/projects/qt5ct/) | Qt5 and Qt6 configuration utilities                                   |
-| 📜 [cliphist](https://github.com/Sentriz/cliphist)                                                     | Wayland clipboard manager (text and images)                           |
-| 🔍 [rofi](https://github.com/davatorium/rofi)                                                          | Window switcher and application launcher                              |
-| 📸 [flameshot](https://github.com/flameshot-org/flameshot)                                             | Powerful yet simple-to-use screenshot software                        |
-| 📂 [yazi](https://github.com/sxyazi/yazi)                                                              | Blazing fast terminal file manager written in Rust                    |
-| ⌨️ [fcitx5](https://github.com/fcitx/fcitx5)                                                           | Fcitx 5 is a generic input method framework released under LGPL-2.1+. |
-| 📹 [wf-recorder](https://github.com/ammen99/wf-recorder)                                               | Fwf-recorder is a utility program for screen recording                |
-| 🪟 [slurp](https://github.com/emersion/slurp)                                                          | Select a region in a Wayland compositor                               |
+| Package                                                                                                | Description                                              |
+| :----------------------------------------------------------------------------------------------------- | :------------------------------------------------------- |
+| 🐚 [zsh](https://github.com/zsh-users/zsh)                                                             | Advanced shell replacement for Bash                      |
+| 📝 [nvim](https://github.com/neovim/neovim)                                                            | Vim-based text editor for configuration                  |
+| 🚀 [yay](https://github.com/Jguer/yay)                                                                 | AUR helper and pacman wrapper                            |
+| ☀️ [brightnessctl](https://github.com/Hummer12007/brightnessctl)                                       | Lightweight brightness control utility                   |
+| 🔊 [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol)                                | PulseAudio/PipeWire volume control GUI                   |
+| 🔵 [blueman](https://github.com/blueman-project/blueman)                                               | Bluetooth management GTK tool                            |
+| 🔤 [ttf-jetbrains-mono-nerd](https://github.com/ryanoasis/nerd-fonts)                                  | Developer font with specialized glyphs and icons         |
+| 📋 [wl-clipboard](https://github.com/bugaevc/wl-clipboard)                                             | Command-line copy/paste utilities for Wayland            |
+| 🔒 [hyprlock](https://github.com/hyprwm/hyprlock)                                                      | Fast, secure screen locker for Hyprland                  |
+| 💤 [hypridle](https://github.com/hyprwm/hypridle)                                                      | Idle management daemon for Hyprland                      |
+| 📹 [wf-recorder](https://github.com/ammen99/wf-recorder)                                               | Utility program for Wayland screen recording             |
+| 🪟 [slurp](https://github.com/emersion/slurp)                                                          | Select a region in a Wayland compositor                  |
+| 🎨 [qt5ct](https://sourceforge.net/projects/qt5ct/) / [qt6ct](https://sourceforge.net/projects/qt5ct/) | Qt5 and Qt6 configuration utilities                      |
+| 📜 [cliphist](https://github.com/Sentriz/cliphist)                                                     | Wayland clipboard manager (text and images)              |
+| 🔍 [rofi](https://github.com/davatorium/rofi)                                                          | Window switcher and application launcher                 |
+| 📸 [flameshot](https://github.com/flameshot-org/flameshot)                                             | Powerful yet simple-to-use screenshot software           |
+| 📂 [yazi](https://github.com/sxyazi/yazi)                                                              | Blazing fast terminal file manager written in Rust       |
+| 📑 [archlinux-xdg-menu](https://archlinux.org/packages/extra/any/archlinux-xdg-menu/)                  | Automatic XDG menu generator for Arch Linux              |
+| ⌨️ [fcitx5](https://github.com/fcitx/fcitx5)                                                           | Flexible input method framework (GTK/Qt/Configtool)      |
+| 📦 [zip](https://infozip.sourceforge.net/)                                                             | Compression and file packaging utility                   |
+| 📄 [libreoffice-still](https://www.libreoffice.org/)                                                   | Stable branch of the LibreOffice office suite            |
+| 🔍 [fzf](https://github.com/junegunn/fzf)                                                              | Command-line fuzzy finder                                |
+| 📂 [zoxide](https://github.com/ajeetdsouza/zoxide)                                                     | Smarter cd command for fast directory navigation         |
+| 📜 [atuin](https://github.com/atuinsh/atuin)                                                           | Magical shell history synced across machines with SQLite |
+| 📁 [eza](https://github.com/eza-community/eza)                                                         | Modern, feature-rich replacement for `ls`                |
 
 ## 🛸 AUR Dependencies (Yay)
 
-| Package                                                                               | Description                                                             |
-| :------------------------------------------------------------------------------------ | :---------------------------------------------------------------------- |
-| 🚪 [wlogout](https://github.com/ArtsyMacaw/wlogout)                                   | Wayland-based logout menu                                               |
-| 🔔 [swaync](https://github.com/ErikReider/SwayNotificationCenter)                     | Sway Notification Center for Wayland                                    |
-| 🌐 [nm-connection-editor](https://gitlab.gnome.org/GNOME/network-manager-applet)      | NetworkManager advanced connection editor GUI                           |
-| 🐬 [dolphin](https://invent.kde.org/system/dolphin)                                   | KDE file manager                                                        |
-| 💻 [vscodium-bin](https://github.com/VSCodium/vscodium)                               | Telemetry-free open-source build of VS Code                             |
-| 🧭 [zen-browser](https://github.com/zen-browser/desktop)                              | Firefox-based browser focused on privacy                                |
-| 🎵 [pear-desktop](https://github.com/pear-devs/pear-desktop)                          | Music App                                                               |
-| 🖱️ [logiops](https://github.com/PixlOne/logiops)                                      | Configuration driver for Logitech mice                                  |
-| 🖼️ [awww](https://codeberg.org/LGFae/awww)                                            | Dynamic wallpaper generator and wrapper                                 |
-| 🌈 [python-pywal16](https://github.com/eylles/pywal16)                                | Color palette generation from images (Pywal fork)                       |
-| 🛠️ [wpgtk](https://github.com/deviantfero/wpgtk)                                      | Universal theme template manager using Pywal                            |
-| 🕶️ [nwg-look](https://github.com/nwg-piotr/nwg-look)                                  | GTK3/4 configuration customization tool for Wayland                     |
-| 🎨 [papirus-icon-theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) | Material design icon theme for Linux                                    |
-| 🌌 [kvantum](https://github.com/tsujan/Kvantum)                                       | SVG-based theme engine for Qt5/Qt6                                      |
-| 📊 [libcava](https://github.com/karlstav/cava)                                        | Console-based Audio Visualizer shared library                           |
-| 📊 [waybar-git](https://github.com/Alexays/Waybar)                                    | Highly customizable Wayland bar with Cava support                       |
-| 😃 [rofimoji](https://github.com/fdw/rofimoji)                                        | Emoji, unicode and general character picker for rofi on X11 and Wayland |
-| 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                  | Generic command-line automation tool                                    |
+| Package                                                                               | Description                                             |
+| :------------------------------------------------------------------------------------ | :------------------------------------------------------ |
+| 🚪 [wlogout](https://github.com/ArtsyMacaw/wlogout)                                   | Wayland-based logout menu                               |
+| 🔔 [swaync](https://github.com/ErikReider/SwayNotificationCenter)                     | Sway Notification Center for Wayland                    |
+| 🌐 [nm-connection-editor](https://gitlab.gnome.org/GNOME/network-manager-applet)      | NetworkManager advanced connection editor GUI           |
+| 🐬 [dolphin](https://invent.kde.org/system/dolphin)                                   | KDE file manager                                        |
+| 💻 [vscodium-bin](https://github.com/VSCodium/vscodium)                               | Telemetry-free open-source build of VS Code             |
+| 🧭 [zen-browser](https://github.com/zen-browser/desktop)                              | Firefox-based browser focused on privacy                |
+| 🎵 [pear-desktop](https://github.com/pear-devs/pear-desktop)                          | Desktop music application                               |
+| 🖱️ [logiops](https://github.com/PixlOne/logiops)                                      | Configuration driver for Logitech mice                  |
+| 🖼️ [awww](https://codeberg.org/LGFae/awww)                                            | Dynamic wallpaper generator and wrapper                 |
+| 🌈 [python-pywal16](https://github.com/eylles/pywal16)                                | Color palette generation from images (Pywal fork)       |
+| 🛠️ [wpgtk](https://github.com/deviantfero/wpgtk)                                      | Universal theme template manager using Pywal            |
+| 🕶️ [nwg-look](https://github.com/nwg-piotr/nwg-look)                                  | GTK3/4 configuration customization tool for Wayland     |
+| 🎨 [papirus-icon-theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) | Material design icon theme for Linux                    |
+| 🌌 [kvantum](https://github.com/tsujan/Kvantum)                                       | SVG-based theme engine for Qt5/Qt6                      |
+| 📊 [libcava](https://github.com/karlstav/cava)                                        | Console-based Audio Visualizer shared library           |
+| 📊 [waybar-git](https://github.com/Alexays/Waybar)                                    | Highly customizable Wayland bar built with Cava support |
+| 😃 [rofimoji](https://github.com/fdw/rofimoji)                                        | Emoji, unicode and character picker for Rofi            |
+| 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool)                                  | Generic command-line automation tool for Wayland        |
 
-## ⚡ Shell Frameworks & Plugins
+## ⚡ Shell Framework, Plugins & Integrations
 
-| Package                                                                    | Description                                  |
-| :------------------------------------------------------------------------- | :------------------------------------------- |
-| 🧙‍♂️ [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)                         | Framework for managing Zsh configurations    |
-| 🔮 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-like fast shell completions as you type |
+| Tool / Component                                                                   | Description                                                   |
+| :--------------------------------------------------------------------------------- | :------------------------------------------------------------ |
+| 🧙‍♂️ [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)                                 | Framework for managing Zsh configurations                     |
+| 💡 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)         | Fish-like fast shell completions as you type                  |
+| 🎨 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Fish-shell like syntax highlighting for Zsh                   |
+| 📰 ["headline" an Oh My Zsh Theme](https://github.com/moarram/headline)            | Clean and minimal theme for Oh My Zsh                         |
+| 💤 [LazyVim](https://github.com/LazyVim/starter)                                   | Neovim setup powered by lazy.nvim for fast configuration      |
+| 🎭 [Theme Sw1tcher](https://github.com/ByTrist4n/theme-sw1tcher)                   | Integration tool for dynamic system color palettes and themes |
 
 <br>
 
 # Do you have any ideas 💡?
 
-Come share them in the [discussions section](https://github.com/Iam-Trist4n/hyprland-setup/discussions).
+Come share them in the [discussions section](https://github.com/ByTrist4n/hyprland-setup/discussions).
 
-# Do you have bugs 💡?
+# Do you have bugs 🐛?
 
-Report them to us in the [discussions section](https://github.com/Iam-Trist4n/hyprland-setup/discussions).
+Report them to us in the [discussions section](https://github.com/ByTrist4n/hyprland-setup/discussions).
 
 # Roadmap
 
@@ -174,6 +185,7 @@ Report them to us in the [discussions section](https://github.com/Iam-Trist4n/hy
 - [x] App Launcher
 - [x] Notifications center
 - [ ] Switch from "Waybar" to "Quickshell"
-- [ ] Add Quickshell tools
+- [ ] Add Quickshell tools/widgets
 - [ ] Libraries offering a wide range of themes, with a variety of designs and colours
-- [ ] Save the `.config` file before installation
+- [ ] Save the the current `.config` file before installation
+- [ ] Improved installation process, with the option of full or partial installation.

@@ -5,6 +5,10 @@
 set -e
 source "./utils.sh"
 
+# Refresh mirrors and databases to avoid broken mirror issues
+log_step "Updating Pacman database..."
+sudo pacman -Sy --noconfirm
+
 # Pacman packages
 log_step "Installing core and basic packages via Pacman..."
 sudo pacman -S --needed --noconfirm \
@@ -14,7 +18,9 @@ sudo pacman -S --needed --noconfirm \
     wf-recorder slurp \
     qt5ct qt6ct cliphist rofi flameshot yazi \
     archlinux-xdg-menu \
-    fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool
+    fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool \
+    zip \
+    libreoffice-still
     
 # Yay packages
 log_step "Installing AUR packages..."
@@ -28,15 +34,4 @@ yay -S --needed --noconfirm \
 
 _with_cava=true yay -S --needed --noconfirm waybar-git 
 
-log_step "Install Oh My Zsh..."
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    log_success "Oh My Zsh has been installed"
-else
-    log_info "Oh My Zsh is already installed."
-fi
-
-echo ""
-echo "🎉 Dependencies Setup complete!"
-echo ""
+log_success "Dependencies Setup complete!"
