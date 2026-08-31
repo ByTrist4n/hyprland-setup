@@ -165,7 +165,7 @@ sh install.sh
 | 🎨 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Fish-shell like syntax highlighting for Zsh                   |
 | 📰 ["headline" an Oh My Zsh Theme](https://github.com/moarram/headline)            | Clean and minimal theme for Oh My Zsh                         |
 | 💤 [LazyVim](https://github.com/LazyVim/starter)                                   | Neovim setup powered by lazy.nvim for fast configuration      |
-| 🎭 [Theme Sw1tcher](https://github.com/Iam-Trist4n/theme-sw1tcher)                 | Integration tool for dynamic system color palettes and themes |
+| 🎭 [Theme Sw1tcher](https://github.com/ByTrist4n/theme-sw1tcher)                   | Integration tool for dynamic system color palettes and themes |
 
 <br>
 

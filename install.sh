@@ -11,7 +11,7 @@ echo " / /_/ / | | | '_ \\| '__| |/ _\` | '_ \\ / _\` | \\ \\ / _ \\ __| | | | '
 echo "/ __  /| |_| | |_) | |  | | (_| | | | | (_| | _\\ \\  __/ |_| |_| | |_) |";
 echo "\\/ /_/  \\__, | .__/|_|  |_|\\__,_|_| |_|\\__,_| \\__/\\___|\\__|\\__,_| .__/ ";
 echo "        |___/|_|                                                |_|    ";
-echo -e "   ${BOLD}✨ Installation Script for the Hyprland of your Dreams ${NC}• ${BLUE}By '\e]8;;https://github.com/Iam-Trist4n/\e\\Iam-Trist4n\e]8;;\e\\'${NC}"
+echo -e "   ${BOLD}✨ Installation Script for the Hyprland of your Dreams ${NC}• ${BLUE}By '\e]8;;https://github.com/ByTrist4n/\e\\ByTrist4n\e]8;;\e\\'${NC}"
 echo -e "────────────────────────────────────────────────────────────────────────"
 echo ""
 

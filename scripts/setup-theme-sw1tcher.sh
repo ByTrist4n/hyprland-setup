@@ -1,10 +1,10 @@
  # -------------------------------------------------------------
     # Install Theme Sw1tcher (Dynamic Colors Integration)
     # -------------------------------------------------------------
-    if ask_yes_no "Would you like to set up Theme Sw1tcher (https://github.com/Iam-Trist4n/theme-sw1tcher)?"; then
+    if ask_yes_no "Would you like to set up Theme Sw1tcher (https://github.com/ByTrist4n/theme-sw1tcher)?"; then
         log_step "Set up Theme Sw1tcher..."
 
-        REPO_URL="https://github.com/Iam-Trist4n/theme-sw1tcher.git"
+        REPO_URL="https://github.com/ByTrist4n/theme-sw1tcher.git"
         THEME_SWITCHER_DIR="$(mktemp -d)"
 
         if git clone --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
