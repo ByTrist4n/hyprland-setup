@@ -21,16 +21,16 @@ sudo pacman -S --needed --noconfirm \
     fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool \
     zip \
     libreoffice-still \
+    dolphin nm-connection-editor \
+    papirus-icon-theme kvantum cava \
     quickshell
-    
-# Yay packages
+
+# Yay packages (AUR Repositories)
 log_step "Installing AUR packages..."
 yay -S --needed --noconfirm \
-    wlogout nm-connection-editor \
-    dolphin \
+    wlogout \
     vscodium-bin zen-browser pear-desktop logiops \
-    awww python-pywal16 wpgtk nwg-look papirus-icon-theme kvantum \
-    cava \
-    rofimoji ydotool   
+    awww pywal-16-git wpgtk nwg-look \
+    rofimoji ydotool
 
 log_success "Dependencies Setup complete!"
