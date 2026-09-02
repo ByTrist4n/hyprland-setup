@@ -20,18 +20,17 @@ sudo pacman -S --needed --noconfirm \
     archlinux-xdg-menu \
     fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool \
     zip \
-    libreoffice-still
+    libreoffice-still \ 
+    quickshell
     
 # Yay packages
 log_step "Installing AUR packages..."
 yay -S --needed --noconfirm \
-    wlogout swaync nm-connection-editor \
+    wlogout nm-connection-editor \
     dolphin \
     vscodium-bin zen-browser pear-desktop logiops \
     awww python-pywal16 wpgtk nwg-look papirus-icon-theme kvantum \
-    libcava \
+    cava \
     rofimoji ydotool   
-
-_with_cava=true yay -S --needed --noconfirm waybar-git 
 
 log_success "Dependencies Setup complete!"
