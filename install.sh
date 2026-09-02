@@ -13,11 +13,15 @@ echo -e "───────────────────────�
 echo ""
 echo -e "┌──────┤ WARNING ├─────────────────────────────────────────────────────┐"
 echo -e "│ Before beginning the installation, please back up your system.       │"
+echo -e "│ For your information, the script backs up \"~/.config/\" and \".zshrc\". │"
+echo -e "│                                                                      │"
 echo -e "│ You use this programme entirely at your own risk.                    │"
 echo -e "└──────────────────────────────────────────────────────────────────────┘"
 echo ""
 
 if ask_yes_no "Would you like to continue with the installation?"; then
+
+    bash "./scripts/backup.sh"
     bash "./scripts/setup-dependencies.sh"
     bash "./scripts/setup-oh-my-zsh.sh"
 
@@ -38,12 +42,6 @@ if ask_yes_no "Would you like to continue with the installation?"; then
     # Copy configuration files into ~/.config/ without deleting source files
     cp -rf "$DOTFILES_DIR"/* "$HOME/.config/"
 
-    # Backup existing .zshrc if it exists and is not already a symlink
-    if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
-        log_info "Backing up existing .zshrc to .zshrc.bak..."
-        mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
-    fi
-
     # Symlink .zshrc from ~/.config/zsh/.zshrc to $HOME/.zshrc
     if [ -f "$HOME/.config/zsh/.zshrc" ]; then
         log_info "Linking .zshrc to home directory..."
@@ -51,7 +49,7 @@ if ask_yes_no "Would you like to continue with the installation?"; then
     fi
 
     # Reload Hyprland configuration if running
-    if command -v hyprctl &> /dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+    if command -v hyprctl &>/dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
         hyprctl reload
     fi
 
