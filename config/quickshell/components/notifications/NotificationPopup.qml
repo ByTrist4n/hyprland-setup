@@ -29,7 +29,8 @@ PanelWindow {
     ListView {
         id: popupList
 
-        anchors.fill: parent
+        width: parent.width
+        height: contentHeight
         model: manager.popupNotifications
         spacing: 8
         interactive: false
@@ -46,20 +47,18 @@ PanelWindow {
                 anchors.fill: parent
                 notification: modelData
                 onRemoveRequested: (id) => {
-                    manager.removeNotification(id);
+                    return manager.removeNotification(id);
                 }
                 onActionRequested: (id, actionId) => {
-                    manager.invokeAction(modelData, actionId);
+                    return manager.invokeAction(modelData, actionId);
                 }
             }
 
             Timer {
-                interval: 5000
+                interval: 3000
                 running: true
                 repeat: false
-                onTriggered: {
-                    manager.removePopup(modelData.id);
-                }
+                onTriggered: manager.removePopup(modelData.id)
             }
 
         }

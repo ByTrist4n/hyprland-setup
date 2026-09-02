@@ -43,7 +43,7 @@ PanelWindow {
         id: popup
 
         z: 1
-        width: 360
+        width: 380
         height: Math.min(centerColumn.implicitHeight + 28, 700)
         radius: 12
         color: ThemeColor.bgBase
