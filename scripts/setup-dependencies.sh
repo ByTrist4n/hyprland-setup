@@ -12,7 +12,7 @@ sudo pacman -Sy --noconfirm
 # Pacman packages
 log_step "Installing core and basic packages via Pacman..."
 sudo pacman -S --needed --noconfirm \
-    hyprland sddm zsh nvim yay brightnessctl pavucontrol blueman \
+    hyprland sddm kitty zsh nvim yay brightnessctl pavucontrol blueman \
     ttf-jetbrains-mono-nerd \
     wl-clipboard hyprlock hypridle \
     wf-recorder slurp \
