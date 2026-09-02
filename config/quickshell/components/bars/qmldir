@@ -1,0 +1,6 @@
+module components.bar
+BarWorkspaces 1.0 BarWorkspaces.qml
+BarMusic 1.0 BarMusic.qml
+BarDate 1.0 BarDate.qml
+BarNotification 1.0 BarNotification.qml
+BarNetwork 1.0 BarNetwork.qml

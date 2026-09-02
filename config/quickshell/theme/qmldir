@@ -1,0 +1,2 @@
+singleton ThemeColor 1.0 ThemeColor.qml
+singleton ThemeFont 1.0 ThemeFont.qml

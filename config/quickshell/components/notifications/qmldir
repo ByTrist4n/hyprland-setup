@@ -1,0 +1,5 @@
+module components.bar
+NotificationCenter 1.0 NotificationCenter.qml
+NotificationItem 1.0 NotificationItem.qml
+NotificationManager 1.0 NotificationManager.qml
+NotificationPopup 1.0 NotificationPopup.qml
