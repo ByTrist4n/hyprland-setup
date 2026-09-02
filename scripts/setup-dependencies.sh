@@ -9,38 +9,90 @@ sudo -v
 
 # Refresh mirrors and databases
 log_step "Updating Pacman database..."
-(sudo pacman -Sy --noconfirm > /dev/null 2>&1) &
+(sudo pacman -Sy --noconfirm >/dev/null 2>&1) &
 spin $!
 log_success "Pacman database updated!"
 
-# Pacman packages
-log_step "Installing core and basic packages via Pacman..."
+# Core System & Essential Environment Packages (Strictly required for Hyprland Setup)
+log_step "Installing core system packages via Pacman..."
 (sudo pacman -S --needed --noconfirm \
-    hyprland sddm kitty zsh nvim yay brightnessctl pavucontrol blueman \
-    ttf-jetbrains-mono-nerd \
-    wl-clipboard hyprlock hypridle \
-    wf-recorder slurp \
-    qt5ct qt6ct cliphist rofi flameshot yazi \
     archlinux-xdg-menu \
-    fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool \
+    blueman \
+    brightnessctl \
+    cava \
+    cliphist \
+    dolphin \
+    fcitx5 \
+    fcitx5-configtool \
+    fcitx5-gtk \
+    fcitx5-qt \
+    hyprland \
+    hypridle \
+    hyprlock \
+    kitty \
+    kvantum \
+    nm-connection-editor \
+    nvim \
+    papirus-icon-theme \
+    pavucontrol \
+    qt5ct \
+    qt6ct \
+    quickshell \
+    rofi \
+    sddm \
+    slurp \
+    ttf-jetbrains-mono-nerd \
+    wf-recorder \
+    wl-clipboard \
+    yay \
     zip \
-    libreoffice-still \
-    dolphin nm-connection-editor \
-    papirus-icon-theme kvantum cava \
-    quickshell > /dev/null 2>&1) &
+    zsh >/dev/null 2>&1) &
 
 spin $!
-log_success "Pacman packages installed successfully!"
+log_success "Core system packages installed!"
 
-# Yay packages (AUR Repositories)
-log_step "Installing AUR packages..."
+# Core AUR Packages
+log_step "Installing core AUR packages..."
 (yay -S --needed --noconfirm \
+    awww \
+    nwg-look \
+    pywal-16-git \
+    rofimoji \
     wlogout \
-    vscodium-bin zen-browser pear-desktop logiops \
-    awww pywal-16-git wpgtk nwg-look \
-    rofimoji ydotool > /dev/null 2>&1) &
+    wpgtk \
+    ydotool >/dev/null 2>&1) &
 
 spin $!
-log_success "AUR packages installed successfully!"
+log_success "Core AUR packages installed!"
+
+log_step "Extra applications"
+echo ""
+echo -e "${BLUE}Optional extra applications list:${NC}"
+echo -e "  • ${YELLOW}flameshot${NC}         - Advanced screenshot tool"
+echo -e "  • ${YELLOW}libreoffice-still${NC} - Office suite"
+echo -e "  • ${YELLOW}yazi${NC}              - Terminal file manager"
+echo -e "  • ${YELLOW}logiops${NC}           - Logitech MX app"
+echo -e "  • ${YELLOW}pear-desktop${NC}      - YT music application"
+echo -e "  • ${YELLOW}vscodium-bin${NC}      - Open-source Code Editor"
+echo -e "  • ${YELLOW}zen-browser${NC}       - Best Web Browser (Firefox core)"
+echo ""
+if ask_yes_no "Would you like to install these extra applications?"; then
+    log_info "Installing extra Pacman applications..."
+    (sudo pacman -S --needed --noconfirm \
+        flameshot \
+        libreoffice-still \
+        yazi >/dev/null 2>&1) &
+    spin $!
+
+    log_info "Installing extra AUR applications..."
+    (yay -S --needed --noconfirm \
+        logiops \
+        pear-desktop \
+        vscodium-bin \
+        zen-browser >/dev/null 2>&1) &
+    spin $!
+
+    log_success "Extra applications installed successfully!"
+fi
 
 log_success "Dependencies Setup complete!"
