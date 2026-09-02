@@ -5,13 +5,17 @@
 set -e
 source "./utils.sh"
 
-# Refresh mirrors and databases to avoid broken mirror issues
+sudo -v
+
+# Refresh mirrors and databases
 log_step "Updating Pacman database..."
-sudo pacman -Sy --noconfirm
+(sudo pacman -Sy --noconfirm > /dev/null 2>&1) &
+spin $!
+log_success "Pacman database updated!"
 
 # Pacman packages
 log_step "Installing core and basic packages via Pacman..."
-sudo pacman -S --needed --noconfirm \
+(sudo pacman -S --needed --noconfirm \
     hyprland sddm kitty zsh nvim yay brightnessctl pavucontrol blueman \
     ttf-jetbrains-mono-nerd \
     wl-clipboard hyprlock hypridle \
@@ -23,14 +27,20 @@ sudo pacman -S --needed --noconfirm \
     libreoffice-still \
     dolphin nm-connection-editor \
     papirus-icon-theme kvantum cava \
-    quickshell
+    quickshell > /dev/null 2>&1) &
+
+spin $!
+log_success "Pacman packages installed successfully!"
 
 # Yay packages (AUR Repositories)
 log_step "Installing AUR packages..."
-yay -S --needed --noconfirm \
+(yay -S --needed --noconfirm \
     wlogout \
     vscodium-bin zen-browser pear-desktop logiops \
     awww pywal-16-git wpgtk nwg-look \
-    rofimoji ydotool
+    rofimoji ydotool > /dev/null 2>&1) &
+
+spin $!
+log_success "AUR packages installed successfully!"
 
 log_success "Dependencies Setup complete!"

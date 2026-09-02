@@ -50,3 +50,26 @@ ask_yes_no() {
     done
 }
 export -f ask_yes_no
+
+# Spinner function to display a loading animation while running a command
+spin() {
+    local pid=$1
+    local delay=0.1
+    local spinstr='|/-\'
+    
+    # Hide the terminal cursor
+    tput civis
+    
+    while kill -0 "$pid" 2>/dev/null; do
+        local temp=${spinstr#?}
+        printf " [%c] " "$spinstr"
+        spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\b\b\b\b\b"
+    done
+    
+    # Clear spinner and restore cursor
+    printf "    \b\b\b\b"
+    tput cnorm
+}
+export -f spin
