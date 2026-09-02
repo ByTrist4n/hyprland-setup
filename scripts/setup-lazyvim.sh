@@ -21,7 +21,7 @@ if ask_yes_no "Would you like to install LazyVim?"; then
     (
         git clone --quiet "https://github.com/LazyVim/starter" "$HOME/.config/nvim"
         rm -rf "$HOME/.config/nvim/.git"
-    ) >/dev/null 2>&1 &
+    ) > /dev/null 2>&1 &
 
     spin $!
     log_success "LazyVim successfully installed in $HOME/.config/nvim"

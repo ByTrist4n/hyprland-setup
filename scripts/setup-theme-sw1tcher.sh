@@ -18,7 +18,7 @@ if ask_yes_no "Would you like to set up Theme Sw1tcher (https://github.com/ByTri
         else
             exit 1
         fi
-    ) >/dev/null 2>&1 &
+    ) > /dev/null 2>&1 &
 
     spin $!
 

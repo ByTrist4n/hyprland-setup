@@ -17,21 +17,21 @@ TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 OUTPUT_FILE="$VIDEOS_DIR/recording_${TIMESTAMP}.mp4"
 
 case "$CHOICE" in
-    *"Area"*)
-        # Interactive region drag with slurp
-        GEOM=$(slurp)
-        ;;
-    *"Active window"*)
-        # Get active window geometry from Hyprland IPC
-        GEOM=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
-        ;;
-    *"Full screen"*)
-        # Get focused monitor geometry from Hyprland IPC
-        GEOM=$(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | "\(.x),\(.y) \(.width)x\(.height)"')
-        ;;
-    *)
-        exit 0
-        ;;
+*"Area"*)
+    # Interactive region drag with slurp
+    GEOM=$(slurp)
+    ;;
+*"Active window"*)
+    # Get active window geometry from Hyprland IPC
+    GEOM=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+    ;;
+*"Full screen"*)
+    # Get focused monitor geometry from Hyprland IPC
+    GEOM=$(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | "\(.x),\(.y) \(.width)x\(.height)"')
+    ;;
+*)
+    exit 0
+    ;;
 esac
 
 # Start recording if geometry is valid
