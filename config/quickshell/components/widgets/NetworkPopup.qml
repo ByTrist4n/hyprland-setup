@@ -11,6 +11,7 @@ PanelWindow {
     id: root
 
     required property real barHeight
+    required property bool isPrimaryScreen
     property bool opened: false
     property var wifiDevice: {
         for (let i = 0; i < Networking.devices.values.length; ++i) {
@@ -23,7 +24,7 @@ PanelWindow {
     }
     property var bluetoothAdapter: Bluetooth.defaultAdapter
 
-    visible: opened
+    visible: opened && isPrimaryScreen
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -73,7 +74,7 @@ PanelWindow {
         anchors {
             top: parent.top
             right: parent.right
-            topMargin: root.barHeight + 12
+            topMargin: root.barHeight
             rightMargin: 16
         }
 

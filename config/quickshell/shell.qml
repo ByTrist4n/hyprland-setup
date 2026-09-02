@@ -10,110 +10,125 @@ import Quickshell.Hyprland
 import Quickshell.Services.Notifications
 
 ShellRoot {
-    PanelWindow {
-        id: root
+    Variants {
+        model: Quickshell.screens
 
-        implicitHeight: barContainer.implicitHeight
-        color: "transparent"
+        PanelWindow {
+            id: root
 
-        anchors {
-            top: true
-            left: true
-            right: true
-        }
+            required property var modelData
+            readonly property real popupBarHeight: barContainer.height + 12
+            readonly property bool isPrimaryScreen: modelData === Quickshell.screens[0]
 
-        margins {
-            top: 8
-            left: 12
-            right: 12
-        }
+            screen: modelData
+            implicitHeight: barContainer.implicitHeight
+            color: "transparent"
 
-        Rectangle {
-            id: barContainer
+            anchors {
+                top: true
+                left: true
+                right: true
+            }
 
-            anchors.fill: parent
-            implicitHeight: barRow.implicitHeight + 16
-            color: ThemeColor.bgBase
-            radius: 16
-            border.width: 1
-            border.color: ThemeColor.borderBase
+            margins {
+                top: 8
+                left: 12
+                right: 12
+            }
 
-            RowLayout {
-                id: barRow
+            Rectangle {
+                id: barContainer
 
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: 8
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.rightMargin: 8
-                spacing: 8
+                anchors.fill: parent
+                implicitHeight: barRow.implicitHeight + 16
+                color: ThemeColor.bgBase
+                radius: 16
+                border.width: 1
+                border.color: ThemeColor.borderBase
 
-                BarWorkspaces {
+                RowLayout {
+                    id: barRow
+
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: 8
+                    anchors.rightMargin: 8
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 8
+
+                    BarWorkspaces {
+                    }
+
+                    BarMusic {
+                    }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    BarNetwork {
+                        id: barNetwork
+
+                        networkPopup: networkPopup
+                    }
+
                 }
 
-                BarMusic {
+                BarDate {
+                    id: barDate
+
+                    anchors.centerIn: parent
                 }
 
-                Item {
-                    Layout.fillWidth: true
-                }
+                BarNotification {
+                    id: barNotification
 
-                BarNetwork {
-                    id: barNetwork
-
-                    networkPopup: networkPopup
+                    anchors.left: barDate.right
+                    anchors.leftMargin: 8
+                    anchors.verticalCenter: barDate.verticalCenter
+                    notificationManager: notificationManager
+                    notificationCenter: notificationCenter
                 }
 
             }
 
-            BarDate {
-                id: barDate
+            NotificationServer {
+                id: server
 
-                anchors.centerIn: parent
+                bodySupported: true
+                bodyMarkupSupported: false
+                actionsSupported: true
             }
 
-            BarNotification {
-                id: barNotification
+            NotificationManager {
+                id: notificationManager
 
-                anchors.left: barDate.right
-                anchors.leftMargin: 8
-                anchors.verticalCenter: barDate.verticalCenter
-                notificationManager: notificationManager
-                notificationCenter: notificationCenter
+                server: server
+            }
+
+            NotificationPopup {
+                barHeight: root.popupBarHeight
+                manager: notificationManager
+                isPrimaryScreen: root.isPrimaryScreen
+            }
+
+            NotificationCenter {
+                id: notificationCenter
+
+                barHeight: root.popupBarHeight
+                manager: notificationManager
+                isPrimaryScreen: root.isPrimaryScreen
+            }
+
+            NetworkPopup {
+                id: networkPopup
+
+                barHeight: root.popupBarHeight
+                isPrimaryScreen: root.isPrimaryScreen
             }
 
         }
 
-    }
-
-    NotificationServer {
-        id: server
-
-        bodySupported: true
-        bodyMarkupSupported: false
-        actionsSupported: true
-    }
-
-    NotificationManager {
-        id: notificationManager
-
-        server: server
-    }
-
-    NotificationPopup {
-        manager: notificationManager
-    }
-
-    NotificationCenter {
-        id: notificationCenter
-
-        manager: notificationManager
-    }
-
-    NetworkPopup {
-        id: networkPopup
-
-        barHeight: barContainer.height
     }
 
 }

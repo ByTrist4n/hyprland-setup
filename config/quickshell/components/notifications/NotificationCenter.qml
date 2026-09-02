@@ -4,158 +4,164 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 
-Scope {
+PanelWindow {
     id: root
 
     required property var manager
+    required property real barHeight
+    required property bool isPrimaryScreen
     property bool opened: false
 
     function toggle() {
         opened = !opened;
     }
 
-    Variants {
-        model: Quickshell.screens
+    visible: opened && isPrimaryScreen
+    color: "transparent"
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    exclusionMode: ExclusionMode.Ignore
+    focusable: true
 
-        PanelWindow {
-            id: window
+    // Fullscreen backdrop to handle click outside
+    anchors {
+        top: true
+        bottom: true
+        left: true
+        right: true
+    }
 
-            required property var modelData
+    MouseArea {
+        anchors.fill: parent
+        z: 0
+        onClicked: {
+            root.opened = false;
+        }
+    }
 
-            screen: modelData
-            visible: root.opened
-            color: "transparent"
-            implicitWidth: 380
-            implicitHeight: Math.min(centerColumn.implicitHeight, 700)
-            WlrLayershell.layer: WlrLayer.Overlay
-            exclusionMode: ExclusionMode.Ignore
+    Rectangle {
+        id: popup
+
+        z: 1
+        width: 360
+        height: Math.min(centerColumn.implicitHeight + 28, 700)
+        radius: 12
+        color: ThemeColor.bgBase
+        border.width: 1
+        border.color: ThemeColor.borderBase
+
+        anchors {
+            top: parent.top
+            right: parent.right
+            topMargin: root.barHeight
+            rightMargin: 16
+        }
+
+        ColumnLayout {
+            id: centerColumn
+
+            spacing: 0
 
             anchors {
-                top: true
-                right: true
+                left: parent.left
+                right: parent.right
+                top: parent.top
             }
 
-            margins {
-                top: 16
-                right: 16
-            }
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 58
 
-            Rectangle {
-                anchors.fill: parent
-                radius: 12
-                color: ThemeColor.bgBase
-                border.width: 1
-                border.color: ThemeColor.borderBase
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 18
+                    anchors.rightMargin: 12
 
-                ColumnLayout {
-                    id: centerColumn
-
-                    spacing: 0
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        top: parent.top
+                    Text {
+                        Layout.fillWidth: true
+                        text: "Notifications"
+                        color: ThemeColor.fgPrimary
+                        font.pixelSize: ThemeFont.lg
+                        font.bold: true
                     }
 
-                    Item {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 58
-
-                        RowLayout {
-                            anchors.fill: parent
-                            anchors.leftMargin: 18
-                            anchors.rightMargin: 12
-
-                            Text {
-                                Layout.fillWidth: true
-                                text: "Notifications"
-                                color: ThemeColor.fgPrimary
-                                font.pixelSize: ThemeFont.lg
-                                font.bold: true
-                            }
-
-                            Text {
-                                visible: manager.notifications.length > 0
-                                text: manager.notifications.length
-                                color: ThemeColor.fgPrimary
-                                font.pixelSize: ThemeFont.sm
-                            }
-
-                            Rectangle {
-                                width: 28
-                                height: 28
-                                radius: 8
-                                color: clearMouse.containsMouse ? ThemeColor.bgSurfaceHover : "transparent"
-
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: "󰃢"
-                                    color: ThemeColor.fgPrimary
-                                    font.pixelSize: ThemeFont.lg
-                                }
-
-                                MouseArea {
-                                    id: clearMouse
-
-                                    anchors.fill: parent
-                                    hoverEnabled: true
-                                    onClicked: {
-                                        manager.clearAll();
-                                    }
-                                }
-
-                            }
-
-                        }
-
+                    Text {
+                        visible: manager.notifications.length > 0
+                        text: manager.notifications.length
+                        color: ThemeColor.fgPrimary
+                        font.pixelSize: ThemeFont.sm
                     }
 
                     Rectangle {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 1
-                        color: ThemeColor.borderBase
-                    }
-
-                    Item {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 120
-                        visible: manager.notifications.length === 0
+                        width: 28
+                        height: 28
+                        radius: 8
+                        color: clearMouse.containsMouse ? ThemeColor.bgSurfaceHover : "transparent"
 
                         Text {
                             anchors.centerIn: parent
-                            text: "Aucune notification"
-                            color: ThemeColor.fgMuted
-                            font.pixelSize: ThemeFont.sm
+                            text: "󰃢"
+                            color: ThemeColor.fgPrimary
+                            font.pixelSize: ThemeFont.lg
                         }
 
-                    }
+                        MouseArea {
+                            id: clearMouse
 
-                    ListView {
-                        id: notificationList
-
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: Math.min(contentHeight, 640)
-                        visible: manager.notifications.length > 0
-                        clip: true
-                        spacing: 8
-                        model: manager.notifications
-
-                        delegate: NotificationItem {
-                            required property var modelData
-
-                            width: notificationList.width
-                            notification: modelData
-                            onRemoveRequested: (id) => {
-                                manager.removeNotification(id);
-                            }
-                            onActionRequested: (id, actionId) => {
-                                manager.invokeAction(modelData, actionId);
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onClicked: {
+                                manager.clearAll();
                             }
                         }
 
                     }
 
+                }
+
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 1
+                color: ThemeColor.borderBase
+            }
+
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 120
+                visible: manager.notifications.length === 0
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "Aucune notification"
+                    color: ThemeColor.fgMuted
+                    font.pixelSize: ThemeFont.sm
+                }
+
+            }
+
+            ListView {
+                id: notificationList
+
+                Layout.fillWidth: true
+                Layout.preferredHeight: Math.min(contentHeight, 640)
+                visible: manager.notifications.length > 0
+                clip: true
+                spacing: 8
+                model: manager.notifications
+
+                delegate: NotificationItem {
+                    required property var modelData
+
+                    width: notificationList.width
+                    notification: modelData
+                    onRemoveRequested: (id) => {
+                        manager.removeNotification(id);
+                    }
+                    onActionRequested: (id, actionId) => {
+                        manager.invokeAction(modelData, actionId);
+                    }
                 }
 
             }
