@@ -22,10 +22,10 @@ Rectangle {
 
         Text {
             text: {
-                if (root.volumePopup.muted)
+                if (root.volumePopup.audioMuted)
                     return "󰝟";
 
-                const volume = root.volumePopup.volume;
+                const volume = root.volumePopup.audioVolume;
                 if (volume <= 0)
                     return "󰕿";
 
@@ -34,15 +34,23 @@ Rectangle {
 
                 return "󰕾";
             }
-            color: root.volumePopup.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+            color: root.volumePopup.audioMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
             font.pixelSize: ThemeFont.lg
         }
 
         Text {
-            text: root.volumePopup.muted ? "Mute" : Math.round(root.volumePopup.volume * 100) + "%"
-            color: root.volumePopup.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
+            text: root.volumePopup.audioMuted ? "Mute" : Math.round(root.volumePopup.audioVolume * 100) + "%"
+            color: root.volumePopup.audioMuted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
             font.pixelSize: ThemeFont.sm
             font.bold: true
+        }
+
+        Text {
+            text: "| 󰍭  Mute"
+            color: root.volumePopup.audioMuted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
+            font.pixelSize: ThemeFont.sm
+            font.bold: true
+            visible: root.volumePopup.micMuted
         }
 
     }
@@ -56,13 +64,13 @@ Rectangle {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: (mouse) => {
             if (mouse.button == Qt.RightButton)
-                root.volumePopup.toggleMute();
+                root.volumePopup.toggleNodeMute(volumePopup.sink);
             else
                 root.volumePopup.isOpened = !root.volumePopup.isOpened;
         }
         onWheel: (wheel) => {
             const delta = wheel.angleDelta.y > 0 ? 0.05 : -0.05;
-            root.volumePopup.changeVolume(root.volumePopup.volume + delta);
+            root.volumePopup.setNodeVolume(volumePopup.sink, root.volumePopup.audioVolume + delta);
         }
     }
 

@@ -12,40 +12,48 @@ PanelWindow {
     required property bool isPrimaryScreen
     property bool isOpened: false
     readonly property PwNode sink: Pipewire.defaultAudioSink
-    readonly property real volume: {
-        if (!sink || !sink.audio)
+    readonly property PwNode source: Pipewire.defaultAudioSource
+    readonly property real audioVolume: getVolume(sink)
+    readonly property bool audioMuted: getMuted(sink)
+    readonly property real micVolume: getVolume(source)
+    readonly property bool micMuted: getMuted(source)
+    property bool isSliderDragging: false
+    property bool isMicSliderDragging: false
+
+    function getVolume(node) {
+        if (!node || !node.audio)
             return 0;
 
-        return Math.max(0, Math.min(1, sink.audio.volume));
+        return Math.max(0, Math.min(1, node.audio.volume));
     }
-    readonly property bool muted: {
-        if (!sink || !sink.audio)
+
+    function getMuted(node) {
+        if (!node || !node.audio)
             return false;
 
-        return sink.audio.muted;
+        return node.audio.muted;
     }
-    property bool isSliderDragging: false
 
-    function changeVolume(newVolume) {
-        if (!root.sink || !root.sink.audio)
+    function setNodeVolume(node, newVolume) {
+        if (!node || !node.audio)
             return ;
 
-        root.sink.audio.volume = Math.max(0, Math.min(1, Number(newVolume)));
+        node.audio.volume = Math.max(0, Math.min(1, Number(newVolume)));
     }
 
-    function setVolumeFromPosition(x, width) {
+    function setNodeVolumeFromPosition(node, x, width) {
         if (width <= 0)
             return ;
 
         const ratio = Math.max(0, Math.min(1, x / width));
-        root.changeVolume(ratio);
+        root.setNodeVolume(node, ratio);
     }
 
-    function toggleMute() {
-        if (!root.sink || !root.sink.audio)
+    function toggleNodeMute(node) {
+        if (!node || !node.audio)
             return ;
 
-        root.sink.audio.muted = !root.sink.audio.muted;
+        node.audio.muted = !node.audio.muted;
     }
 
     visible: isOpened && isPrimaryScreen
@@ -70,7 +78,16 @@ PanelWindow {
     }
 
     PwObjectTracker {
-        objects: root.sink ? [root.sink] : []
+        objects: {
+            let list = [];
+            if (root.sink)
+                list.push(root.sink);
+
+            if (root.source)
+                list.push(root.source);
+
+            return list;
+        }
     }
 
     MouseArea {
@@ -105,7 +122,7 @@ PanelWindow {
             id: content
 
             anchors.margins: 16
-            spacing: 14
+            spacing: 16
 
             anchors {
                 left: parent.left
@@ -117,7 +134,7 @@ PanelWindow {
                 Layout.fillWidth: true
 
                 Text {
-                    text: "Volume"
+                    text: "Audio Controls"
                     color: ThemeColor.fgPrimary
                     font.pixelSize: ThemeFont.lg
                     font.bold: true
@@ -141,27 +158,117 @@ PanelWindow {
 
             }
 
-            RowLayout {
+            // ==================== AUDIO OUTPUT ====================
+            ColumnLayout {
                 Layout.fillWidth: true
+                spacing: 8
 
-                Text {
-                    text: root.muted ? "Mute" : Math.round(root.volume * 100) + "%"
-                    color: root.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
-                    font.pixelSize: ThemeFont.md
-                    font.bold: true
+                RowLayout {
                     Layout.fillWidth: true
+
+                    Text {
+                        text: "Volume"
+                        color: ThemeColor.fgMuted
+                        font.pixelSize: ThemeFont.sm
+                        font.bold: true
+                        Layout.fillWidth: true
+                    }
+
+                    Text {
+                        text: root.audioMuted ? "Mute" : Math.round(root.audioVolume * 100) + "%"
+                        color: root.audioMuted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
+                        font.pixelSize: ThemeFont.md
+                        font.bold: true
+                    }
+
+                    Text {
+                        text: root.audioMuted ? "󰝟" : "󰕾"
+                        color: root.audioMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                        font.pixelSize: ThemeFont.lg
+
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: {
+                                root.toggleNodeMute(root.sink);
+                            }
+                        }
+
+                    }
+
                 }
 
-                Text {
-                    text: root.muted ? "󰝟" : "󰕾"
-                    color: root.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
-                    font.pixelSize: ThemeFont.lg
+                Item {
+                    id: slider
+
+                    Layout.fillWidth: true
+                    implicitHeight: 24
+
+                    Rectangle {
+                        id: track
+
+                        x: 0
+                        width: parent.width
+                        height: 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        radius: height / 2
+                        color: ThemeColor.bgSurface
+                    }
+
+                    Rectangle {
+                        id: fill
+
+                        anchors.left: track.left
+                        anchors.verticalCenter: track.verticalCenter
+                        width: track.width * root.audioVolume
+                        height: track.height
+                        radius: height / 2
+                        color: root.audioMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                    }
+
+                    Rectangle {
+                        id: handle
+
+                        width: 18
+                        height: 18
+                        radius: 9
+                        anchors.verticalCenter: track.verticalCenter
+                        x: Math.max(0, Math.min(slider.width - width, root.audioVolume * slider.width - width / 2))
+                        color: root.audioMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                        border.width: 2
+                        border.color: ThemeColor.bgBase
+                    }
 
                     MouseArea {
+                        id: sliderMouseArea
+
                         anchors.fill: parent
+                        hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            root.toggleMute();
+                        preventStealing: true
+                        onPressed: (mouse) => {
+                            root.isSliderDragging = true;
+                            root.setNodeVolumeFromPosition(root.sink, mouse.x, slider.width);
+                        }
+                        onPositionChanged: (mouse) => {
+                            if (!pressed)
+                                return ;
+
+                            root.setNodeVolumeFromPosition(root.sink, mouse.x, slider.width);
+                        }
+                        onReleased: {
+                            root.isSliderDragging = false;
+                        }
+                        onCanceled: {
+                            root.isSliderDragging = false;
+                        }
+                        onWheel: (wheel) => {
+                            const step = 0.02;
+                            if (wheel.angleDelta.y > 0)
+                                root.setNodeVolume(root.sink, root.audioVolume + step);
+                            else if (wheel.angleDelta.y < 0)
+                                root.setNodeVolume(root.sink, root.audioVolume - step);
+                            wheel.accepted = true;
                         }
                     }
 
@@ -169,78 +276,127 @@ PanelWindow {
 
             }
 
-            Item {
-                id: slider
-
+            Rectangle {
                 Layout.fillWidth: true
-                implicitHeight: 32
+                implicitHeight: 1
+                color: ThemeColor.borderBase
+                opacity: 0.5
+            }
 
-                Rectangle {
-                    id: track
+            // ==================== MICROPHONE ====================
+            ColumnLayout {
+                Layout.fillWidth: true
+                spacing: 8
 
-                    x: 0
-                    width: parent.width
-                    height: 8
-                    anchors.verticalCenter: parent.verticalCenter
-                    radius: height / 2
-                    color: ThemeColor.bgSurface
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    Text {
+                        text: "Microphone"
+                        color: ThemeColor.fgMuted
+                        font.pixelSize: ThemeFont.sm
+                        font.bold: true
+                        Layout.fillWidth: true
+                    }
+
+                    Text {
+                        text: root.micMuted ? "Mute" : Math.round(root.micVolume * 100) + "%"
+                        color: root.micMuted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
+                        font.pixelSize: ThemeFont.md
+                        font.bold: true
+                    }
+
+                    Text {
+                        text: root.micMuted ? "󰍭" : "󰍬"
+                        color: root.micMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                        font.pixelSize: ThemeFont.lg
+
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: {
+                                root.toggleNodeMute(root.source);
+                            }
+                        }
+
+                    }
+
                 }
 
-                Rectangle {
-                    id: fill
+                Item {
+                    id: micSlider
 
-                    anchors.left: track.left
-                    anchors.verticalCenter: track.verticalCenter
-                    width: track.width * root.volume
-                    height: track.height
-                    radius: height / 2
-                    color: root.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
-                }
+                    Layout.fillWidth: true
+                    implicitHeight: 24
 
-                Rectangle {
-                    id: handle
+                    Rectangle {
+                        id: micTrack
 
-                    width: 18
-                    height: 18
-                    radius: 9
-                    anchors.verticalCenter: track.verticalCenter
-                    x: Math.max(0, Math.min(slider.width - width, root.volume * slider.width - width / 2))
-                    color: root.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
-                    border.width: 2
-                    border.color: ThemeColor.bgBase
-                }
-
-                MouseArea {
-                    id: sliderMouseArea
-
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    preventStealing: true
-                    onPressed: (mouse) => {
-                        root.isSliderDragging = true;
-                        root.setVolumeFromPosition(mouse.x, slider.width);
+                        x: 0
+                        width: parent.width
+                        height: 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        radius: height / 2
+                        color: ThemeColor.bgSurface
                     }
-                    onPositionChanged: (mouse) => {
-                        if (!pressed)
-                            return ;
 
-                        root.setVolumeFromPosition(mouse.x, slider.width);
+                    Rectangle {
+                        id: micFill
+
+                        anchors.left: micTrack.left
+                        anchors.verticalCenter: micTrack.verticalCenter
+                        width: micTrack.width * root.micVolume
+                        height: micTrack.height
+                        radius: height / 2
+                        color: root.micMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
                     }
-                    onReleased: {
-                        root.isSliderDragging = false;
+
+                    Rectangle {
+                        id: micHandle
+
+                        width: 18
+                        height: 18
+                        radius: 9
+                        anchors.verticalCenter: micTrack.verticalCenter
+                        x: Math.max(0, Math.min(micSlider.width - width, root.micVolume * micSlider.width - width / 2))
+                        color: root.micMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                        border.width: 2
+                        border.color: ThemeColor.bgBase
                     }
-                    onCanceled: {
-                        root.isSliderDragging = false;
+
+                    MouseArea {
+                        id: micSliderMouseArea
+
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        preventStealing: true
+                        onPressed: (mouse) => {
+                            root.isMicSliderDragging = true;
+                            root.setNodeVolumeFromPosition(root.source, mouse.x, micSlider.width);
+                        }
+                        onPositionChanged: (mouse) => {
+                            if (!pressed)
+                                return ;
+
+                            root.setNodeVolumeFromPosition(root.source, mouse.x, micSlider.width);
+                        }
+                        onReleased: {
+                            root.isMicSliderDragging = false;
+                        }
+                        onCanceled: {
+                            root.isMicSliderDragging = false;
+                        }
+                        onWheel: (wheel) => {
+                            const step = 0.02;
+                            if (wheel.angleDelta.y > 0)
+                                root.setNodeVolume(root.source, root.micVolume + step);
+                            else if (wheel.angleDelta.y < 0)
+                                root.setNodeVolume(root.source, root.micVolume - step);
+                            wheel.accepted = true;
+                        }
                     }
-                    onWheel: (wheel) => {
-                        const step = 0.02;
-                        if (wheel.angleDelta.y > 0)
-                            root.changeVolume(root.volume + step);
-                        else if (wheel.angleDelta.y < 0)
-                            root.changeVolume(root.volume - step);
-                        wheel.accepted = true;
-                    }
+
                 }
 
             }
