@@ -70,13 +70,6 @@ PanelWindow {
         bottom: true
     }
 
-    margins {
-        top: 0
-        left: 0
-        right: 0
-        bottom: 0
-    }
-
     PwObjectTracker {
         objects: {
             let list = [];
@@ -103,11 +96,9 @@ PanelWindow {
     Rectangle {
         id: popup
 
-        z: 10
+        z: 1
         width: 300
         height: content.implicitHeight + 32
-        anchors.topMargin: root.barHeight + 8
-        anchors.rightMargin: 12
         radius: 16
         color: ThemeColor.bgBase
         border.width: 1
@@ -116,6 +107,8 @@ PanelWindow {
         anchors {
             top: parent.top
             right: parent.right
+            topMargin: root.barHeight
+            rightMargin: 16
         }
 
         ColumnLayout {
