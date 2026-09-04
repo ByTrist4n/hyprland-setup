@@ -66,6 +66,12 @@ ShellRoot {
                         Layout.fillWidth: true
                     }
 
+                    BarVolume {
+                        id: barVolume
+
+                        volumePopup: volumePopup
+                    }
+
                     BarNetwork {
                         id: barNetwork
 
@@ -117,6 +123,13 @@ ShellRoot {
 
                 barHeight: root.popupBarHeight
                 manager: notificationManager
+                isPrimaryScreen: root.isPrimaryScreen
+            }
+
+            VolumePopup {
+                id: volumePopup
+
+                barHeight: root.popupBarHeight
                 isPrimaryScreen: root.isPrimaryScreen
             }
 
