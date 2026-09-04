@@ -50,4 +50,13 @@ Rectangle {
 
     }
 
+    MouseArea {
+        id: musicMouseArea
+
+        anchors.fill: parent
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+        onClicked: musicPopup.isOpened = !musicPopup.isOpened
+    }
+
 }

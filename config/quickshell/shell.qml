@@ -60,6 +60,7 @@ ShellRoot {
                     }
 
                     BarMusic {
+                        id: barMusic
                     }
 
                     Item {
@@ -100,6 +101,15 @@ ShellRoot {
                     notificationCenter: notificationCenter
                 }
 
+            }
+
+            MusicPopup {
+                id: musicPopup
+
+                barHeight: root.popupBarHeight
+                isPrimaryScreen: root.isPrimaryScreen
+                widgetX: barMusic.x + 20
+                widgetWidth: barMusic.width
             }
 
             NotificationServer {

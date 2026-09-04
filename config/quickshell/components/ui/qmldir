@@ -1,0 +1,3 @@
+module components.ui
+
+UiButton 1.0 UiButton.qml

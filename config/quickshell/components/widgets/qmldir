@@ -1,6 +1,6 @@
 module components.widgets
 Calendar 1.0 Calendar.qml
-Music 1.0 Music.qml
+MusicPopup 1.0 MusicPopup.qml
 CavaVisualizer 1.0 CavaVisualizer.qml
 NetworkPopup 1.0 NetworkPopup.qml
 VolumePopup 1.0 VolumePopup.qml
