@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Bluetooth
+import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Networking
 import Quickshell.Wayland
@@ -46,18 +47,6 @@ PanelWindow {
         onClicked: {
             root.isOpened = false;
         }
-    }
-
-    Process {
-        id: nmProcess
-
-        command: ["nm-connection-editor"]
-    }
-
-    Process {
-        id: bluetoothProcess
-
-        command: ["blueman-manager"]
     }
 
     Rectangle {
@@ -430,7 +419,7 @@ PanelWindow {
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            nmProcess.running = true;
+                            Hyprland.dispatch("hl.dsp.exec_cmd(\"nm-connection-editor\")");
                             root.isOpened = false;
                         }
                     }
@@ -470,7 +459,7 @@ PanelWindow {
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            bluetoothProcess.running = true;
+                            Hyprland.dispatch("hl.dsp.exec_cmd(\"blueman-manager\")");
                             root.isOpened = false;
                         }
                     }
