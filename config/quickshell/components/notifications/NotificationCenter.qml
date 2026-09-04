@@ -76,6 +76,7 @@ PanelWindow {
                     anchors.fill: parent
                     anchors.leftMargin: 18
                     anchors.rightMargin: 12
+                    spacing: 8
 
                     Text {
                         Layout.fillWidth: true
@@ -85,33 +86,63 @@ PanelWindow {
                         font.bold: true
                     }
 
-                    Text {
-                        visible: manager.notifications.length > 0
-                        text: manager.notifications.length
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.sm
-                    }
-
                     Rectangle {
-                        width: 28
-                        height: 28
+                        implicitWidth: clearRow.implicitWidth + 12
+                        implicitHeight: 28
                         radius: 8
-                        color: clearMouse.containsMouse ? ThemeColor.bgSurfaceHover : "transparent"
+                        color: clearMouseArea.containsMouse ? ThemeColor.bgSurfaceHover : "transparent"
+                        visible: manager.notifications.length > 0
 
-                        Text {
+                        RowLayout {
+                            id: clearRow
+
                             anchors.centerIn: parent
-                            text: "󰃢"
-                            color: ThemeColor.fgPrimary
-                            font.pixelSize: ThemeFont.lg
+                            spacing: 6
+
+                            Text {
+                                text: manager.notifications.length
+                                color: ThemeColor.fgPrimary
+                                font.pixelSize: ThemeFont.sm
+                                font.bold: true
+                            }
+
+                            Text {
+                                text: "󰃢"
+                                color: ThemeColor.fgPrimary
+                                font.pixelSize: ThemeFont.lg
+                            }
+
                         }
 
                         MouseArea {
-                            id: clearMouse
+                            id: clearMouseArea
 
                             anchors.fill: parent
                             hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 manager.clearAll();
+                            }
+                        }
+
+                    }
+
+                    Item {
+                        implicitWidth: 28
+                        implicitHeight: 28
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: "󰅖"
+                            color: ThemeColor.fgMuted
+                            font.pixelSize: ThemeFont.md
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: {
+                                root.isOpened = false;
                             }
                         }
 
@@ -134,7 +165,7 @@ PanelWindow {
 
                 Text {
                     anchors.centerIn: parent
-                    text: "Aucune notification"
+                    text: "No notification"
                     color: ThemeColor.fgMuted
                     font.pixelSize: ThemeFont.sm
                 }
