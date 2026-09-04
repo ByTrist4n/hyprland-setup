@@ -10,13 +10,13 @@ PanelWindow {
     required property var manager
     required property real barHeight
     required property bool isPrimaryScreen
-    property bool opened: false
+    property bool isOpened: false
 
     function toggle() {
-        opened = !opened;
+        isOpened = !isOpened;
     }
 
-    visible: opened && isPrimaryScreen
+    visible: isOpened && isPrimaryScreen
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -35,7 +35,7 @@ PanelWindow {
         anchors.fill: parent
         z: 0
         onClicked: {
-            root.opened = false;
+            root.isOpened = false;
         }
     }
 

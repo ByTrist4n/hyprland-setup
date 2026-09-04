@@ -40,7 +40,7 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: networkPopup.opened = !networkPopup.opened
+        onClicked: networkPopup.isOpened = !networkPopup.isOpened
     }
 
 }

@@ -12,7 +12,7 @@ PanelWindow {
 
     required property real barHeight
     required property bool isPrimaryScreen
-    property bool opened: false
+    property bool isOpened: false
     property var wifiDevice: {
         for (let i = 0; i < Networking.devices.values.length; ++i) {
             const device = Networking.devices.values[i];
@@ -24,7 +24,7 @@ PanelWindow {
     }
     property var bluetoothAdapter: Bluetooth.defaultAdapter
 
-    visible: opened && isPrimaryScreen
+    visible: isOpened && isPrimaryScreen
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -44,7 +44,7 @@ PanelWindow {
         anchors.fill: parent
         z: 0
         onClicked: {
-            root.opened = false;
+            root.isOpened = false;
         }
     }
 
@@ -116,7 +116,7 @@ PanelWindow {
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            root.opened = false;
+                            root.isOpened = false;
                         }
                     }
 
@@ -302,7 +302,7 @@ PanelWindow {
 
                 delegate: Rectangle {
                     required property var modelData
-                    property bool busy: false
+                    property bool isBusy: false
 
                     visible: modelData.paired
                     width: bluetoothList.width
@@ -312,7 +312,7 @@ PanelWindow {
 
                     Connections {
                         function onConnectedChanged() {
-                            busy = false;
+                            isBusy = false;
                         }
 
                         target: modelData
@@ -339,13 +339,13 @@ PanelWindow {
                         }
 
                         Text {
-                            text: busy || modelData.connecting ? "Loading…" : ""
+                            text: isBusy || modelData.connecting ? "Loading…" : ""
                             color: ThemeColor.accentSecondary
                             font.pixelSize: ThemeFont.md
                         }
 
                         Text {
-                            visible: !busy && !modelData.connecting
+                            visible: !isBusy && !modelData.connecting
                             text: modelData.connected ? "✓" : "›"
                             color: modelData.connected ? ThemeColor.success : ThemeColor.fgMuted
                             font.pixelSize: ThemeFont.md
@@ -360,12 +360,12 @@ PanelWindow {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        enabled: !busy && !modelData.connecting
+                        enabled: !isBusy && !modelData.connecting
                         onClicked: {
-                            if (busy)
+                            if (isBusy)
                                 return ;
 
-                            busy = true;
+                            isBusy = true;
                             if (modelData.connected)
                                 modelData.disconnect();
                             else
@@ -431,7 +431,7 @@ PanelWindow {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             nmProcess.running = true;
-                            root.opened = false;
+                            root.isOpened = false;
                         }
                     }
 
@@ -471,7 +471,7 @@ PanelWindow {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             bluetoothProcess.running = true;
-                            root.opened = false;
+                            root.isOpened = false;
                         }
                     }
 

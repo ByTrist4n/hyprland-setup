@@ -58,7 +58,7 @@ Rectangle {
             if (mouse.button == Qt.RightButton)
                 root.volumePopup.toggleMute();
             else
-                root.volumePopup.opened = !root.volumePopup.opened;
+                root.volumePopup.isOpened = !root.volumePopup.isOpened;
         }
         onWheel: (wheel) => {
             const delta = wheel.angleDelta.y > 0 ? 0.05 : -0.05;

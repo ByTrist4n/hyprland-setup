@@ -10,7 +10,7 @@ PanelWindow {
 
     required property real barHeight
     required property bool isPrimaryScreen
-    property bool opened: false
+    property bool isOpened: false
     readonly property PwNode sink: Pipewire.defaultAudioSink
     readonly property real volume: {
         if (!sink || !sink.audio)
@@ -24,7 +24,7 @@ PanelWindow {
 
         return sink.audio.muted;
     }
-    property bool sliderDragging: false
+    property bool isSliderDragging: false
 
     function changeVolume(newVolume) {
         if (!root.sink || !root.sink.audio)
@@ -48,7 +48,7 @@ PanelWindow {
         root.sink.audio.muted = !root.sink.audio.muted;
     }
 
-    visible: opened && isPrimaryScreen
+    visible: isOpened && isPrimaryScreen
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
@@ -79,7 +79,7 @@ PanelWindow {
         anchors.fill: parent
         z: 0
         onClicked: {
-            root.opened = false;
+            root.isOpened = false;
         }
     }
 
@@ -133,7 +133,7 @@ PanelWindow {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            root.opened = false;
+                            root.isOpened = false;
                         }
                     }
 
@@ -218,7 +218,7 @@ PanelWindow {
                     cursorShape: Qt.PointingHandCursor
                     preventStealing: true
                     onPressed: (mouse) => {
-                        root.sliderDragging = true;
+                        root.isSliderDragging = true;
                         root.setVolumeFromPosition(mouse.x, slider.width);
                     }
                     onPositionChanged: (mouse) => {
@@ -228,10 +228,10 @@ PanelWindow {
                         root.setVolumeFromPosition(mouse.x, slider.width);
                     }
                     onReleased: {
-                        root.sliderDragging = false;
+                        root.isSliderDragging = false;
                     }
                     onCanceled: {
-                        root.sliderDragging = false;
+                        root.isSliderDragging = false;
                     }
                     onWheel: (wheel) => {
                         const step = 0.02;
