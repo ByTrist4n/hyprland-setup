@@ -78,6 +78,10 @@ ShellRoot {
                         networkPopup: networkPopup
                     }
 
+                    BarSetting {
+                        Layout.leftMargin: 8
+                    }
+
                 }
 
                 BarDate {

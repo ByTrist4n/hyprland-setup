@@ -5,3 +5,4 @@ BarDate 1.0 BarDate.qml
 BarNotification 1.0 BarNotification.qml
 BarNetwork 1.0 BarNetwork.qml
 BarVolume 1.0 BarVolume.qml
+BarSetting 1.0 BarSetting.qml
