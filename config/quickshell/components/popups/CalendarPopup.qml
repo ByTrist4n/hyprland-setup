@@ -3,24 +3,38 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Hyprland
+import Quickshell.Wayland
 
-PopupWindow {
-    id: calendarPopup
+PanelWindow {
+    id: root
 
-    property Item targetItem
+    required property real barHeight
+    required property bool isPrimaryScreen
+    property bool isOpened: false
+    property real widgetX: 0
+    property real widgetWidth: 0
 
-    function toggle() {
-        visible = !visible;
+    visible: isOpened && isPrimaryScreen
+    color: "transparent"
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    exclusionMode: ExclusionMode.Ignore
+    focusable: true
+
+    anchors {
+        top: true
+        bottom: true
+        left: true
+        right: true
     }
 
-    anchor.item: targetItem
-    anchor.edges: Edges.Bottom
-    anchor.gravity: Edges.Bottom
-    visible: false
-    color: "transparent"
-    implicitWidth: calendarFrame.implicitWidth
-    implicitHeight: calendarFrame.implicitHeight
+    MouseArea {
+        anchors.fill: parent
+        z: 0
+        onClicked: {
+            root.isOpened = false;
+        }
+    }
 
     Rectangle {
         id: calendarFrame
@@ -31,6 +45,9 @@ PopupWindow {
         border.color: ThemeColor.borderBase
         border.width: 1
         radius: 8
+        x: Math.max(16, root.widgetX + (root.widgetWidth / 2) - (width / 2))
+        y: root.barHeight
+        z: 1
 
         ColumnLayout {
             id: mainLayout

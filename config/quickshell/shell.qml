@@ -113,6 +113,15 @@ ShellRoot {
                 widgetWidth: barMusic.width
             }
 
+            CalendarPopup {
+                id: calendarPopup
+
+                barHeight: root.popupBarHeight
+                isPrimaryScreen: root.isPrimaryScreen
+                widgetX: barDate.x + 20
+                widgetWidth: barDate.width
+            }
+
             NotificationServer {
                 id: server
 

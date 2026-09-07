@@ -1,4 +1,3 @@
 module components.widgets
 
-Calendar 1.0 Calendar.qml
 CavaVisualizer 1.0 CavaVisualizer.qml

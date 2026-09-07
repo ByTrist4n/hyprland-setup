@@ -1,5 +1,5 @@
-import "../../components/widgets"
 import "../../theme"
+import "../widgets"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -7,7 +7,7 @@ import Quickshell
 import Quickshell.Hyprland
 
 Rectangle {
-    id: clockPill
+    id: root
 
     anchors.centerIn: parent
     implicitWidth: clockLayout.implicitWidth + 16
@@ -60,15 +60,7 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: {
-            calendarPopup.toggle();
-        }
-    }
-
-    Calendar {
-        id: calendarPopup
-
-        targetItem: clockPill
+        onClicked: calendarPopup.isOpened = !calendarPopup.isOpened
     }
 
 }

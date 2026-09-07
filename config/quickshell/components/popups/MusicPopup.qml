@@ -43,7 +43,6 @@ PanelWindow {
     Rectangle {
         id: popup
 
-        z: 1
         width: 380
         height: Math.min(musicRow.implicitHeight + 28, 700)
         color: ThemeColor.bgSurface
@@ -52,6 +51,7 @@ PanelWindow {
         border.width: 1
         x: Math.max(16, root.widgetX + (root.widgetWidth / 2) - (width / 2))
         y: root.barHeight
+        z: 1
 
         RowLayout {
             id: musicRow
