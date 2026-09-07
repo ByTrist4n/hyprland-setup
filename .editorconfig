@@ -6,10 +6,11 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = space
+indent_size = 2
 
 [*.sh]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 [*.lua]
 indent_style = space
@@ -18,5 +19,10 @@ indent_size = 2
 [*.json]
 indent_style = space
 indent_size = 2
+
+[*.qml]
+indent_style = space
+indent_size = 4
+
 [*.md]
-trim_trailing_whitespace = false
+trim_trailing_whitespace = true
