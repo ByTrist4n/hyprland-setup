@@ -5,5 +5,15 @@
   "singleQuote": false,
   "trailingComma": "es5",
   "printWidth": 100,
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "plugins": ["prettier-plugin-sh"],
+  "overrides": [
+    {
+      "files": "*.jsonc",
+      "options": {
+        "parser": "jsonc",
+        "trailingComma": "none"
+      }
+    }
+  ]
 }
