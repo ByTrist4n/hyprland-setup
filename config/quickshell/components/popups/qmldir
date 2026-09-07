@@ -1,4 +1,5 @@
-module components.bar
+module components.popups
+
 MusicPopup 1.0 MusicPopup.qml
 NetworkPopup 1.0 NetworkPopup.qml
 VolumePopup 1.0 VolumePopup.qml

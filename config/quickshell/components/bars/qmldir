@@ -1,4 +1,5 @@
-module components.bar
+module components.bars
+
 BarWorkspaces 1.0 BarWorkspaces.qml
 BarMusic 1.0 BarMusic.qml
 BarDate 1.0 BarDate.qml
