@@ -118,7 +118,7 @@ ShellRoot {
 
                 barHeight: root.popupBarHeight
                 isPrimaryScreen: root.isPrimaryScreen
-                widgetX: barDate.x + 20
+                widgetX: barDate.x + barContainer.x + root.margins.left
                 widgetWidth: barDate.width
             }
 

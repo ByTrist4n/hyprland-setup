@@ -60,7 +60,7 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: calendarPopup.isOpened = !calendarPopup.isOpened
+        onClicked: calendarPopup.toggle()
     }
 
 }
