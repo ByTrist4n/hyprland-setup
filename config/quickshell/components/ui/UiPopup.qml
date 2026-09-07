@@ -10,6 +10,8 @@ PanelWindow {
     required property bool isPrimaryScreen
     required property real widgetX
     required property real widgetWidth
+    property real minWidth: 100
+    property real minHeight: 100
     property bool isOpened: false
     default property alias content: innerItem.children
 
@@ -40,8 +42,8 @@ PanelWindow {
     Rectangle {
         id: contentContainer
 
-        implicitWidth: innerItem.childrenRect.width + 24
-        implicitHeight: innerItem.childrenRect.height + 24
+        implicitWidth: Math.max(root.minWidth, innerItem.implicitWidth + 24)
+        implicitHeight: Math.max(root.minHeight, innerItem.implicitHeight + 24)
         color: ThemeColor.bgBase
         border.color: ThemeColor.borderBase
         border.width: 1
@@ -55,6 +57,8 @@ PanelWindow {
 
             anchors.fill: parent
             anchors.margins: 12
+            implicitWidth: childrenRect.width
+            implicitHeight: childrenRect.height
         }
 
     }
