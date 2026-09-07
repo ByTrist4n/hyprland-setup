@@ -1,5 +1,6 @@
 import "./components/bars"
 import "./components/notifications"
+import "./components/popups"
 import "./components/widgets"
 import "./theme"
 import QtQuick

@@ -1,3 +1,4 @@
+import "../../services"
 import "../../theme"
 import "../widgets"
 import QtQuick
@@ -8,9 +9,6 @@ import Quickshell.Services.Mpris
 
 Rectangle {
     id: root
-
-    // Fetch the active MPRIS player or fallback to first available
-    property MprisPlayer activePlayer: Mpris.players.values.length > 0 ? Mpris.players.values[0] : null
 
     implicitWidth: musicRow.implicitWidth + 16
     implicitHeight: musicRow.implicitHeight + 16
@@ -23,23 +21,37 @@ Rectangle {
         id: musicRow
 
         anchors.centerIn: parent
-        spacing: 12
+        spacing: 16
 
-        // Track Title
-        Text {
-            text: root.activePlayer && root.activePlayer.trackTitle ? root.activePlayer.trackTitle : "No media playing"
-            color: ThemeColor.fgPrimary
-            font.pixelSize: ThemeFont.sm
-            font.bold: true
-            elide: Text.ElideRight
-        }
+        RowLayout {
+            spacing: 6
 
-        // Artist Name
-        Text {
-            text: "- " + (root.activePlayer && root.activePlayer.trackArtist ? root.activePlayer.trackArtist : "Unknown artist")
-            color: ThemeColor.fgMuted
-            font.pixelSize: ThemeFont.xs
-            elide: Text.ElideRight
+            Text {
+                text: MediaService.isPlaying ? "󰝚" : "󰝛"
+                color: ThemeColor.fgPrimary
+                font.pixelSize: ThemeFont.sm
+                // Prevent width collapse during icon switch
+                Layout.preferredWidth: 16
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Text {
+                text: MediaService.trackTitle
+                Layout.maximumWidth: 200
+                color: ThemeColor.fgPrimary
+                font.pixelSize: ThemeFont.sm
+                font.bold: true
+                elide: Text.ElideRight
+            }
+
+            Text {
+                text: "- " + MediaService.trackArtist
+                Layout.maximumWidth: 150
+                color: ThemeColor.fgMuted
+                font.pixelSize: ThemeFont.xs
+                elide: Text.ElideRight
+            }
+
         }
 
         CavaVisualizer {

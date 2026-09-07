@@ -1,3 +1,4 @@
+import "../../services"
 import "../../theme"
 import "../ui"
 import Qt5Compat.GraphicalEffects
@@ -42,8 +43,6 @@ PanelWindow {
     Rectangle {
         id: popup
 
-        property MprisPlayer activePlayer: Mpris.players.values.length > 0 ? Mpris.players.values[0] : null
-
         z: 1
         width: 380
         height: Math.min(musicRow.implicitHeight + 28, 700)
@@ -70,8 +69,8 @@ PanelWindow {
                 Image {
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectCrop
-                    source: popup.activePlayer ? popup.activePlayer.trackArtUrl : ""
-                    visible: (popup.activePlayer && popup.activePlayer.trackArtUrl) ? true : false
+                    source: MediaService ? MediaService.trackArtUrl : ""
+                    visible: null != MediaService
                     layer.enabled: true
 
                     layer.effect: OpacityMask {
@@ -88,10 +87,10 @@ PanelWindow {
 
                 Text {
                     anchors.centerIn: parent
-                    text: "󰎈"
+                    text: ""
                     font.pixelSize: ThemeFont.lg
                     color: ThemeColor.fgPrimary
-                    visible: !popup.activePlayer.trackArtUrl
+                    visible: null == MediaService
                 }
 
             }
@@ -103,7 +102,7 @@ PanelWindow {
 
                 Text {
                     Layout.fillWidth: true
-                    text: popup.activePlayer && popup.activePlayer.trackTitle ? popup.activePlayer.trackTitle : "No media playing"
+                    text: MediaService && MediaService.trackTitle ? MediaService.trackTitle : "No media playing"
                     color: ThemeColor.fgPrimary
                     font.pixelSize: ThemeFont.sm
                     font.bold: true
@@ -112,10 +111,47 @@ PanelWindow {
 
                 Text {
                     Layout.fillWidth: true
-                    text: popup.activePlayer && popup.activePlayer.trackArtist ? popup.activePlayer.trackArtist : "Unknown artist"
+                    text: MediaService && MediaService.trackArtist ? MediaService.trackArtist : "Unknown artist"
                     color: ThemeColor.fgPrimary
                     font.pixelSize: ThemeFont.xs
                     elide: Text.ElideRight
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 6
+                    visible: MediaService.availablePlayers.length > 1
+
+                    Repeater {
+                        model: MediaService.availablePlayers
+
+                        delegate: Rectangle {
+                            required property MprisPlayer modelData
+
+                            width: 24
+                            height: 24
+                            radius: 4
+                            color: MediaService.activePlayer === modelData ? ThemeColor.bgSurfaceActive : "transparent"
+                            border.color: MediaService.activePlayer === modelData ? ThemeColor.borderBase : "transparent"
+                            border.width: 1
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: MediaService.playerIcon(modelData)
+                                font.pixelSize: ThemeFont.xs
+                                color: ThemeColor.fgPrimary
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: MediaService.selectPlayer(modelData)
+                            }
+
+                        }
+
+                    }
+
                 }
 
                 RowLayout {
@@ -124,22 +160,22 @@ PanelWindow {
 
                     UiButton {
                         Layout.fillWidth: true
-                        enabled: popup.activePlayer ? popup.activePlayer.canGoPrevious : false
-                        onClicked: popup.activePlayer.previous()
+                        enabled: MediaService
+                        onClicked: MediaService.previous()
                         textButton: "󰼨"
                     }
 
                     UiButton {
                         Layout.fillWidth: true
-                        enabled: popup.activePlayer ? popup.activePlayer.canTogglePlaying : false
-                        onClicked: popup.activePlayer.togglePlaying()
-                        textButton: (popup.activePlayer && popup.activePlayer.isPlaying) ? "󰏤" : "󰐊"
+                        enabled: MediaService
+                        onClicked: MediaService.togglePlaying()
+                        textButton: (MediaService && MediaService.isPlaying) ? "󰏤" : "󰐊"
                     }
 
                     UiButton {
                         Layout.fillWidth: true
-                        enabled: popup.activePlayer ? popup.activePlayer.canGoNext : false
-                        onClicked: popup.activePlayer.next()
+                        enabled: MediaService
+                        onClicked: MediaService.next()
                         textButton: "󰼧"
                     }
 
