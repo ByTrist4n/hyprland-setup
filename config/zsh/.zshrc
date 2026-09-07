@@ -6,13 +6,13 @@ export ZSH_CUSTOM="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/custom"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="headline/headline"
 
-zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto # update automatically without asking
 zstyle ':omz:update' frequency 13
 
 # Plugins list
 plugins=(
   git
-  zsh-autosuggestions 
+  zsh-autosuggestions
   zsh-syntax-highlighting
   zoxide
   fzf
@@ -28,28 +28,28 @@ HL_INFO_MODE='auto'
 HL_OVERWRITE='on'
 HL_LAYOUT_STYLE="%{$light_black%}"
 HL_LAYOUT_TEMPLATE=(
-  _PRE    "${IS_SSH+ %{$reset$faint%\}ssh}" # shows " ssh" if this is an SSH session
-  USER    ' ...'
-  HOST    " %{$reset$faint%}at%{$reset$HL_LAYOUT_STYLE%} ..."
-  VENV    " %{$reset$faint%}with%{$reset$HL_LAYOUT_STYLE%} ..."
-  PATH    " %{$reset$faint%}in%{$reset$HL_LAYOUT_STYLE%} ..."
+  _PRE "${IS_SSH+ %{$reset$faint%\}ssh}" # shows " ssh" if this is an SSH session
+  USER ' ...'
+  HOST " %{$reset$faint%}at%{$reset$HL_LAYOUT_STYLE%} ..."
+  VENV " %{$reset$faint%}with%{$reset$HL_LAYOUT_STYLE%} ..."
+  PATH " %{$reset$faint%}in%{$reset$HL_LAYOUT_STYLE%} ..."
   _SPACER ''
-  BRANCH  " %{$reset$faint%}on%{$reset$HL_LAYOUT_STYLE%} ..."
-  STATUS  ' ...'
-  _POST   ''
+  BRANCH " %{$reset$faint%}on%{$reset$HL_LAYOUT_STYLE%} ..."
+  STATUS ' ...'
+  _POST ''
 )
 HL_LAYOUT_FIRST=(
-  HOST    ' ...'
-  VENV    ' ...'
-  PATH    ' ...'
+  HOST ' ...'
+  VENV ' ...'
+  PATH ' ...'
   _SPACER ' '
-  BRANCH  ' ...'
+  BRANCH ' ...'
 )
 HL_CONTENT_TEMPLATE=(
-  USER   "%{$bold$red%} ..."
-  HOST   "%{$bold$yellow%} ..."
-  VENV   "%{$bold$green%} ..."
-  PATH   "%{$bold$blue%} ..."
+  USER "%{$bold$red%} ..."
+  HOST "%{$bold$yellow%} ..."
+  VENV "%{$bold$green%} ..."
+  PATH "%{$bold$blue%} ..."
   BRANCH "%{$bold$cyan%} ..."
   STATUS "%{$bold$magenta%}..."
 )

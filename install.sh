@@ -21,51 +21,51 @@ echo ""
 
 if ask_yes_no "Would you like to continue with the installation?"; then
 
-    bash "./scripts/backup.sh"
-    bash "./scripts/setup-dependencies.sh"
-    bash "./scripts/setup-oh-my-zsh.sh"
+  bash "./scripts/backup.sh"
+  bash "./scripts/setup-dependencies.sh"
+  bash "./scripts/setup-oh-my-zsh.sh"
 
-    # -------------------------------------------------------------
-    # Clone and Deploy Hyprland Dotfiles (Configuration folders)
-    # -------------------------------------------------------------
-    log_step "Deploying Hyprland configuration files..."
+  # -------------------------------------------------------------
+  # Clone and Deploy Hyprland Dotfiles (Configuration folders)
+  # -------------------------------------------------------------
+  log_step "Deploying Hyprland configuration files..."
 
-    DOTFILES_DIR="./config"
+  DOTFILES_DIR="./config"
 
-    if [ ! -d "$DOTFILES_DIR" ]; then
-        log_error "Configuration directory $DOTFILES_DIR not found!"
-        exit 1
-    fi
+  if [ ! -d "$DOTFILES_DIR" ]; then
+    log_error "Configuration directory $DOTFILES_DIR not found!"
+    exit 1
+  fi
 
-    mkdir -p "$HOME/.config"
+  mkdir -p "$HOME/.config"
 
-    # Copy configuration files into ~/.config/ without deleting source files
-    cp -rf "$DOTFILES_DIR"/* "$HOME/.config/"
+  # Copy configuration files into ~/.config/ without deleting source files
+  cp -rf "$DOTFILES_DIR"/* "$HOME/.config/"
 
-    # Symlink .zshrc from ~/.config/zsh/.zshrc to $HOME/.zshrc
-    if [ -f "$HOME/.config/zsh/.zshrc" ]; then
-        log_info "Linking .zshrc to home directory..."
-        ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
-    fi
+  # Symlink .zshrc from ~/.config/zsh/.zshrc to $HOME/.zshrc
+  if [ -f "$HOME/.config/zsh/.zshrc" ]; then
+    log_info "Linking .zshrc to home directory..."
+    ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
+  fi
 
-    # Reload Hyprland configuration if running
-    if command -v hyprctl &>/dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
-        hyprctl reload
-    fi
+  # Reload Hyprland configuration if running
+  if command -v hyprctl &> /dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+    hyprctl reload
+  fi
 
-    log_success "Dot files have been successfully deployed."
+  log_success "Dot files have been successfully deployed."
 
-    bash "./scripts/setup-lazyvim.sh"
-    bash "./scripts/setup-theme-sw1tcher.sh"
+  bash "./scripts/setup-lazyvim.sh"
+  bash "./scripts/setup-theme-sw1tcher.sh"
 
-    # -------------------------------------------------------------
-    # Success Screen
-    # -------------------------------------------------------------
-    echo ""
-    echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
-    echo -e "  ${GREEN}🎉 Well done 💪 You now have a great Hyprland setup!${NC}"
-    echo -e "  🤔 Having trouble?${NC} Run the troubleshooting script to fix issues:"
-    echo -e "     ➔ ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
-    echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
-    echo ""
+  # -------------------------------------------------------------
+  # Success Screen
+  # -------------------------------------------------------------
+  echo ""
+  echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
+  echo -e "  ${GREEN}🎉 Well done 💪 You now have a great Hyprland setup!${NC}"
+  echo -e "  🤔 Having trouble?${NC} Run the troubleshooting script to fix issues:"
+  echo -e "     ➔ ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
+  echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
+  echo ""
 fi
