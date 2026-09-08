@@ -344,84 +344,26 @@ UiPopup {
             Layout.fillWidth: true
             spacing: 8
 
-            Rectangle {
+            UiButton {
                 Layout.fillWidth: true
-                height: 34
-                radius: 8
-                color: nmMouse.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgBase
-                border.width: 1
-                border.color: ThemeColor.borderBase
-
-                RowLayout {
-                    anchors.centerIn: parent
-                    spacing: 6
-
-                    Text {
-                        text: "󰛳"
-                        color: ThemeColor.accentPrimary
-                        font.pixelSize: ThemeFont.sm
-                    }
-
-                    Text {
-                        text: "Network settings"
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.xs
-                    }
-
+                contentText: "󰛳 Network settings"
+                hasBorder: true
+                pixelSize: ThemeFont.xs
+                onClicked: {
+                    Hyprland.dispatch("hl.dsp.exec_cmd(\"nm-connection-editor\")");
+                    root.toggle();
                 }
-
-                MouseArea {
-                    id: nmMouse
-
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        Hyprland.dispatch("hl.dsp.exec_cmd(\"nm-connection-editor\")");
-                        root.toggle();
-                    }
-                }
-
             }
 
-            Rectangle {
+            UiButton {
                 Layout.fillWidth: true
-                height: 34
-                radius: 8
-                color: blueMouse.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgBase
-                border.width: 1
-                border.color: ThemeColor.borderBase
-
-                RowLayout {
-                    anchors.centerIn: parent
-                    spacing: 6
-
-                    Text {
-                        text: "󰂰"
-                        color: ThemeColor.accentSecondary
-                        font.pixelSize: ThemeFont.sm
-                    }
-
-                    Text {
-                        text: "Bluetooth settings"
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.xs
-                    }
-
+                contentText: "󰂰 Bluetooth settings"
+                hasBorder: true
+                pixelSize: ThemeFont.xs
+                onClicked: {
+                    Hyprland.dispatch("hl.dsp.exec_cmd(\"blueman-manager\")");
+                    root.toggle();
                 }
-
-                MouseArea {
-                    id: blueMouse
-
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        Hyprland.dispatch("hl.dsp.exec_cmd(\"blueman-manager\")");
-                        root.toggle();
-                    }
-                }
-
             }
 
         }

@@ -120,21 +120,21 @@ UiPopup {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.previous()
-                    textButton: "󰼨"
+                    contentText: "󰼨"
                 }
 
                 UiButton {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.togglePlaying()
-                    textButton: (MediaService && MediaService.isPlaying) ? "󰏤" : "󰐊"
+                    contentText: (MediaService && MediaService.isPlaying) ? "󰏤" : "󰐊"
                 }
 
                 UiButton {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.next()
-                    textButton: "󰼧"
+                    contentText: "󰼧"
                 }
 
             }

@@ -249,50 +249,15 @@ UiPopup {
             Layout.bottomMargin: 2
         }
 
-        RowLayout {
+        UiButton {
             Layout.fillWidth: true
-            spacing: 8
-
-            Rectangle {
-                Layout.fillWidth: true
-                height: 34
-                radius: 8
-                color: audioSettingMouseArea.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgBase
-                border.width: 1
-                border.color: ThemeColor.borderBase
-
-                RowLayout {
-                    anchors.centerIn: parent
-                    spacing: 6
-
-                    Text {
-                        text: ""
-                        color: ThemeColor.accentPrimary
-                        font.pixelSize: ThemeFont.sm
-                    }
-
-                    Text {
-                        text: "Audio settings"
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.xs
-                    }
-
-                }
-
-                MouseArea {
-                    id: audioSettingMouseArea
-
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        Hyprland.dispatch("hl.dsp.exec_cmd(\"pavucontrol\")");
-                        root.toggle();
-                    }
-                }
-
+            contentText: " Audio settings"
+            hasBorder: true
+            pixelSize: ThemeFont.sm
+            onClicked: {
+                Hyprland.dispatch("hl.dsp.exec_cmd(\"pavucontrol\")");
+                root.toggle();
             }
-
         }
 
     }

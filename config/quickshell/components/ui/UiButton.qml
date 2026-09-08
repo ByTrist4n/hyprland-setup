@@ -5,14 +5,18 @@ import QtQuick.Controls
 Button {
     id: root
 
-    property string textButton: ""
+    property string contentText: ""
     property color activeColor: ThemeColor.fgPrimary
     property color disabledColor: ThemeColor.fgMuted
     property real pixelSize: ThemeFont.lg
     property color hoverBgColor: ThemeColor.bgSurfaceActive
     property color defaultBgColor: "transparent"
+    property bool hasBorder: false
 
     flat: true
+    padding: 8
+    leftPadding: 12
+    rightPadding: 12
 
     HoverHandler {
         cursorShape: Qt.PointingHandCursor
@@ -23,6 +27,8 @@ Button {
         implicitHeight: 32
         color: root.hovered ? root.hoverBgColor : root.defaultBgColor
         radius: 6
+        border.width: root.hasBorder ? 1 : null
+        border.color: ThemeColor.borderBase
 
         Behavior on color {
             ColorAnimation {
@@ -34,7 +40,7 @@ Button {
     }
 
     contentItem: Text {
-        text: root.textButton
+        text: root.contentText
         font.family: "JetBrainsMono Nerd Font"
         font.pixelSize: root.pixelSize
         color: root.enabled ? root.activeColor : root.disabledColor
