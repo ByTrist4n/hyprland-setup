@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -129,25 +130,11 @@ PanelWindow {
 
                     }
 
-                    Item {
-                        implicitWidth: 28
-                        implicitHeight: 28
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: "󰅖"
-                            color: ThemeColor.fgMuted
-                            font.pixelSize: ThemeFont.md
+                    UiButton {
+                        contentText: ThemeIcon.cross
+                        onClicked: {
+                            root.toggle();
                         }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                root.isOpened = false;
-                            }
-                        }
-
                     }
 
                 }

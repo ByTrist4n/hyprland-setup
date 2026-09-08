@@ -6,6 +6,8 @@ import QtQuick.Layouts
 import Quickshell.Hyprland
 
 UiPopup {
+    id: root
+
     minWidth: 300
 
     ColumnLayout {
@@ -22,17 +24,11 @@ UiPopup {
                 Layout.fillWidth: true
             }
 
-            Text {
-                text: "󰅖"
-                color: ThemeColor.fgMuted
-                font.pixelSize: ThemeFont.md
-
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: isOpened = false
+            UiButton {
+                contentText: ThemeIcon.cross
+                onClicked: {
+                    root.toggle();
                 }
-
             }
 
         }

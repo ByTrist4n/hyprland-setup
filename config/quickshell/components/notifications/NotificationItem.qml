@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Widgets
@@ -110,30 +111,11 @@ Item {
 
                 }
 
-                Rectangle {
-                    Layout.preferredWidth: 28
-                    Layout.preferredHeight: 28
-                    Layout.alignment: Qt.AlignTop
-                    radius: 8
-                    color: deleteMouse.containsMouse ? ThemeColor.bgSurfaceActive : "transparent"
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: "×"
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.lg
+                UiButton {
+                    contentText: ThemeIcon.cross
+                    onClicked: {
+                        root.removeRequested(root.notification.id);
                     }
-
-                    MouseArea {
-                        id: deleteMouse
-
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onClicked: {
-                            root.removeRequested(root.notification.id);
-                        }
-                    }
-
                 }
 
             }

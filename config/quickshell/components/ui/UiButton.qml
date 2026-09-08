@@ -14,17 +14,17 @@ Button {
     property bool hasBorder: false
 
     flat: true
-    padding: 8
-    leftPadding: 12
-    rightPadding: 12
+    padding: 4
+    leftPadding: 8
+    rightPadding: 8
 
     HoverHandler {
         cursorShape: Qt.PointingHandCursor
     }
 
     background: Rectangle {
-        implicitWidth: 32
-        implicitHeight: 32
+        implicitWidth: 12
+        implicitHeight: 12
         color: root.hovered ? root.hoverBgColor : root.defaultBgColor
         radius: 6
         border.width: root.hasBorder ? 1 : null

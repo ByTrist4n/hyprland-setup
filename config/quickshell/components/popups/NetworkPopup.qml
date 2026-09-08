@@ -43,30 +43,11 @@ UiPopup {
                 Layout.fillWidth: true
             }
 
-            Rectangle {
-                width: 30
-                height: 30
-                radius: 8
-                color: closeMouse.containsMouse ? ThemeColor.bgSurfaceActive : "transparent"
-
-                Text {
-                    anchors.centerIn: parent
-                    text: "×"
-                    color: ThemeColor.fgMuted
-                    font.pixelSize: ThemeFont.lg
+            UiButton {
+                contentText: ThemeIcon.cross
+                onClicked: {
+                    root.toggle();
                 }
-
-                MouseArea {
-                    id: closeMouse
-
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        root.toggle();
-                    }
-                }
-
             }
 
         }
