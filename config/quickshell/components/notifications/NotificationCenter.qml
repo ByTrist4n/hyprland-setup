@@ -104,12 +104,14 @@ PanelWindow {
                                 color: ThemeColor.fgPrimary
                                 font.pixelSize: ThemeFont.sm
                                 font.bold: true
+                                Layout.alignment: Qt.AlignBottom
                             }
 
                             Text {
                                 text: "󰃢"
                                 color: ThemeColor.fgPrimary
                                 font.pixelSize: ThemeFont.lg
+                                Layout.alignment: Qt.AlignBottom
                             }
 
                         }
@@ -179,12 +181,13 @@ PanelWindow {
                 Layout.preferredHeight: Math.min(contentHeight, 640)
                 visible: manager.notifications.length > 0
                 clip: true
-                spacing: 8
+                spacing: 4
                 model: manager.notifications
 
                 delegate: NotificationItem {
                     required property var modelData
 
+                    hasBorderRadius: false
                     width: notificationList.width
                     notification: modelData
                     onRemoveRequested: (id) => {
