@@ -7,7 +7,6 @@ QtObject {
     readonly property string calendar: "󰃭"
     readonly property string music: "󰝚"
     readonly property string musicOff: "󰝛"
-    readonly property string network: "󰛳"
     readonly property string wifi: "󰖩"
     readonly property string wifiAlert: "󱚵"
     readonly property string bluetooth: "󰂯"

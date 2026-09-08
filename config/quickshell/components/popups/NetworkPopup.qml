@@ -327,9 +327,9 @@ UiPopup {
 
             UiButton {
                 Layout.fillWidth: true
-                contentText: ThemeIcon.network + " Network settings"
+                contentText: "Network settings"
                 hasBorder: true
-                pixelSize: ThemeFont.xs
+                pixelSize: ThemeFont.sm
                 onClicked: {
                     Hyprland.dispatch("hl.dsp.exec_cmd(\"nm-connection-editor\")");
                     root.toggle();
@@ -338,9 +338,9 @@ UiPopup {
 
             UiButton {
                 Layout.fillWidth: true
-                contentText: ThemeIcon.bluetooth + " Bluetooth settings"
+                contentText: "Bluetooth settings"
                 hasBorder: true
-                pixelSize: ThemeFont.xs
+                pixelSize: ThemeFont.sm
                 onClicked: {
                     Hyprland.dispatch("hl.dsp.exec_cmd(\"blueman-manager\")");
                     root.toggle();
