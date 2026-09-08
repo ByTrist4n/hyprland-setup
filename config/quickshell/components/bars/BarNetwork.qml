@@ -21,13 +21,13 @@ Rectangle {
         spacing: 8
 
         Text {
-            text: networkPopup.wifiDevice && networkPopup.wifiDevice.connected ? "󰖩" : "󱚵"
+            text: networkPopup.wifiDevice && networkPopup.wifiDevice.connected ? ThemeIcon.wifi : ThemeIcon.wifiAlert
             color: ThemeColor.accentPrimary
             font.pixelSize: ThemeFont.lg
         }
 
         Text {
-            text: networkPopup.bluetoothAdapter && networkPopup.bluetoothAdapter.enabled ? "󰂯" : "󰂲"
+            text: networkPopup.bluetoothAdapter && networkPopup.bluetoothAdapter.enabled ? ThemeIcon.bluetooth : ThemeIcon.bluetoothOff
             color: networkPopup.bluetoothAdapter && networkPopup.bluetoothAdapter.enabled ? ThemeColor.accentPrimary : ThemeColor.fgMuted
             font.pixelSize: ThemeFont.lg
         }

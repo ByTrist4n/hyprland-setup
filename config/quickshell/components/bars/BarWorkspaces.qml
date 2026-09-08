@@ -17,7 +17,7 @@ Rectangle {
             return "";
 
         if (appId.includes("youtube_music") || appId.includes("youtube-music"))
-            return "󰝚";
+            return ThemeIcon.music;
 
         if (appId.includes("code") || appId.includes("codium"))
             return "";

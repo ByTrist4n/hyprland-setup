@@ -108,7 +108,7 @@ PanelWindow {
                             }
 
                             Text {
-                                text: "󰃢"
+                                text: ThemeIcon.clean
                                 color: ThemeColor.fgPrimary
                                 font.pixelSize: ThemeFont.lg
                                 Layout.alignment: Qt.AlignBottom

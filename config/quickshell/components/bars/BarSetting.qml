@@ -25,7 +25,7 @@ Rectangle {
         Text {
             id: settingIcon
 
-            text: ""
+            text: ThemeIcon.setting
             color: ThemeColor.accentPrimary
             font.pixelSize: ThemeFont.lg
         }

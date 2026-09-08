@@ -24,16 +24,16 @@ Rectangle {
         Text {
             text: {
                 if (AudioService.muted)
-                    return "󰝟";
+                    return ThemeIcon.volumeOff;
 
                 const volume = AudioService.volume;
                 if (volume <= 0)
-                    return "󰕿";
+                    return ThemeIcon.volumeLow;
 
                 if (volume < 0.5)
-                    return "󰖀";
+                    return ThemeIcon.volumeMedium;
 
-                return "󰕾";
+                return ThemeIcon.volume;
             }
             color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
             font.pixelSize: ThemeFont.lg

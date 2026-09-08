@@ -117,7 +117,7 @@ UiPopup {
                     spacing: 10
 
                     Text {
-                        text: modelData.connected ? "󰖩" : "󱚵"
+                        text: modelData.connected ? ThemeIcon.wifi : ThemeIcon.wifiOff
                         color: modelData.connected ? ThemeColor.accentPrimary : ThemeColor.fgMuted
                         font.pixelSize: ThemeFont.lg
                     }
@@ -132,7 +132,7 @@ UiPopup {
 
                     Text {
                         visible: modelData.connected
-                        text: "✓"
+                        text: ThemeIcon.check
                         color: ThemeColor.success
                         font.pixelSize: ThemeFont.sm
                         font.bold: true
@@ -140,7 +140,7 @@ UiPopup {
 
                     Text {
                         visible: modelData.stateChanging
-                        text: "…"
+                        text: "Loading…"
                         color: ThemeColor.accentPrimary
                         font.pixelSize: ThemeFont.md
                     }
@@ -272,7 +272,7 @@ UiPopup {
                     spacing: 10
 
                     Text {
-                        text: "󰂱"
+                        text: ThemeIcon.bluetoothConnect
                         color: modelData.connected ? ThemeColor.accentSecondary : ThemeColor.fgMuted
                         font.pixelSize: ThemeFont.lg
                     }
@@ -293,7 +293,7 @@ UiPopup {
 
                     Text {
                         visible: !isBusy && !modelData.connecting
-                        text: modelData.connected ? "✓" : "›"
+                        text: modelData.connected ? ThemeIcon.check : ThemeColor.chevronRight
                         color: modelData.connected ? ThemeColor.success : ThemeColor.fgMuted
                         font.pixelSize: ThemeFont.md
                         font.bold: true
@@ -346,7 +346,7 @@ UiPopup {
 
             UiButton {
                 Layout.fillWidth: true
-                contentText: "󰛳 Network settings"
+                contentText: ThemeIcon.network + " Network settings"
                 hasBorder: true
                 pixelSize: ThemeFont.xs
                 onClicked: {
@@ -357,7 +357,7 @@ UiPopup {
 
             UiButton {
                 Layout.fillWidth: true
-                contentText: "󰂰 Bluetooth settings"
+                contentText: ThemeIcon.bluetooth + " Bluetooth settings"
                 hasBorder: true
                 pixelSize: ThemeFont.xs
                 onClicked: {

@@ -53,7 +53,7 @@ Item {
 
     function playerIcon(player) {
         if (!player)
-            return "󰝚";
+            return ThemeIcon.music;
 
         const id = player.identity ? player.identity.toLowerCase() : "";
         if (id.includes("spotify"))
@@ -71,7 +71,7 @@ Item {
         if (id.includes("youtube-music"))
             return "󰗃";
 
-        return "󰝚";
+        return ThemeIcon.music;
     }
 
     function enforceSinglePlayback(current) {

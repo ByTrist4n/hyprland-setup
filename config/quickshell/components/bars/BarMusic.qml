@@ -27,7 +27,7 @@ Rectangle {
             spacing: 6
 
             Text {
-                text: MediaService.isPlaying ? "󰝚" : "󰝛"
+                text: MediaService.isPlaying ? ThemeIcon.music : ThemeIcon.musicOff
                 color: ThemeColor.fgPrimary
                 font.pixelSize: ThemeFont.sm
                 // Prevent width collapse during icon switch

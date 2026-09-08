@@ -19,7 +19,7 @@ Rectangle {
     Text {
         anchors.centerIn: parent
         // TODO: Do not disturb mode
-        text: false ? "󰪑" : "󰂜"
+        text: false ? ThemeIcon.notificationOff : ThemeIcon.notification
         color: notificationManager.notifications.length > 0 ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
         font.pixelSize: ThemeFont.lg
 

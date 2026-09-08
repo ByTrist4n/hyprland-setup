@@ -46,7 +46,7 @@ UiPopup {
 
             Text {
                 anchors.centerIn: parent
-                text: ""
+                text: ThemeIcon.music
                 font.pixelSize: ThemeFont.lg
                 color: ThemeColor.fgPrimary
                 visible: null == MediaService
@@ -120,21 +120,21 @@ UiPopup {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.previous()
-                    contentText: "󰼨"
+                    contentText: ThemeIcon.skipPrevious
                 }
 
                 UiButton {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.togglePlaying()
-                    contentText: (MediaService && MediaService.isPlaying) ? "󰏤" : "󰐊"
+                    contentText: (MediaService && MediaService.isPlaying) ? ThemeIcon.pause : ThemeIcon.play
                 }
 
                 UiButton {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.next()
-                    contentText: "󰼧"
+                    contentText: ThemeIcon.skipNext
                 }
 
             }

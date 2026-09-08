@@ -60,7 +60,7 @@ UiPopup {
                 }
 
                 Text {
-                    text: AudioService.muted ? "󰝟" : "󰕾"
+                    text: AudioService.muted ? ThemeIcon.volumeOff : ThemeIcon.volume
                     color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
                     font.pixelSize: ThemeFont.lg
 
@@ -166,7 +166,7 @@ UiPopup {
                 }
 
                 Text {
-                    text: AudioService.micMuted ? "󰍭" : "󰍬"
+                    text: AudioService.micMuted ? ThemeIcon.micOff : ThemeIcon.mic
                     color: AudioService.micMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
                     font.pixelSize: ThemeFont.lg
 
@@ -251,7 +251,7 @@ UiPopup {
 
         UiButton {
             Layout.fillWidth: true
-            contentText: " Audio settings"
+            contentText: ThemeIcon.volume + " Audio settings"
             hasBorder: true
             pixelSize: ThemeFont.sm
             onClicked: {

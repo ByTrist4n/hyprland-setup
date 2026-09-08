@@ -1,0 +1,31 @@
+import QtQuick
+pragma Singleton
+
+QtObject {
+    readonly property string clean: "󰃢"
+    readonly property string cross: "󰅖"
+    readonly property string calendar: "󰃭"
+    readonly property string music: "󰝚"
+    readonly property string musicOff: "󰝛"
+    readonly property string network: "󰛳"
+    readonly property string wifi: "󰖩"
+    readonly property string wifiAlert: "󱚵"
+    readonly property string bluetooth: "󰂯"
+    readonly property string bluetoothConnect: "󰂱"
+    readonly property string bluetoothOff: "󰂲"
+    readonly property string notification: "󰂜"
+    readonly property string notificationOff: "󰪑"
+    readonly property string setting: ""
+    readonly property string volumeLow: "󰕿"
+    readonly property string volumeMedium: "󰖀"
+    readonly property string volume: "󰕾"
+    readonly property string volumeOff: "󰝟"
+    readonly property string mic: "󰍬"
+    readonly property string micOff: "󰍭"
+    readonly property string skipPrevious: "󰼨"
+    readonly property string skipNext: "󰼧"
+    readonly property string pause: "󰏤"
+    readonly property string play: "󰐊"
+    readonly property string check: "✓"
+    readonly property string chevronRight: ""
+}
