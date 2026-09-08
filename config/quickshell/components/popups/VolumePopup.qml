@@ -3,6 +3,7 @@ import "../../theme"
 import "../ui"
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Hyprland
 
 UiPopup {
     minWidth: 300
@@ -233,6 +234,60 @@ UiPopup {
                         const step = 0.02;
                         AudioService.setMicVolume(AudioService.micVolume + (wheel.angleDelta.y > 0 ? step : -step));
                         wheel.accepted = true;
+                    }
+                }
+
+            }
+
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            height: 1
+            color: ThemeColor.borderBase
+            Layout.topMargin: 2
+            Layout.bottomMargin: 2
+        }
+
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 8
+
+            Rectangle {
+                Layout.fillWidth: true
+                height: 34
+                radius: 8
+                color: audioSettingMouseArea.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgBase
+                border.width: 1
+                border.color: ThemeColor.borderBase
+
+                RowLayout {
+                    anchors.centerIn: parent
+                    spacing: 6
+
+                    Text {
+                        text: ""
+                        color: ThemeColor.accentPrimary
+                        font.pixelSize: ThemeFont.sm
+                    }
+
+                    Text {
+                        text: "Audio settings"
+                        color: ThemeColor.fgPrimary
+                        font.pixelSize: ThemeFont.xs
+                    }
+
+                }
+
+                MouseArea {
+                    id: audioSettingMouseArea
+
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        Hyprland.dispatch("hl.dsp.exec_cmd(\"pavucontrol\")");
+                        root.toggle();
                     }
                 }
 
