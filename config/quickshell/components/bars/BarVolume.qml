@@ -1,3 +1,4 @@
+import "../../services"
 import "../../theme"
 import QtQuick
 import QtQuick.Layouts
@@ -22,10 +23,10 @@ Rectangle {
 
         Text {
             text: {
-                if (root.volumePopup.audioMuted)
+                if (AudioService.muted)
                     return "󰝟";
 
-                const volume = root.volumePopup.audioVolume;
+                const volume = AudioService.volume;
                 if (volume <= 0)
                     return "󰕿";
 
@@ -34,23 +35,23 @@ Rectangle {
 
                 return "󰕾";
             }
-            color: root.volumePopup.audioMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
             font.pixelSize: ThemeFont.lg
         }
 
         Text {
-            text: root.volumePopup.audioMuted ? "Mute" : Math.round(root.volumePopup.audioVolume * 100) + "%"
-            color: root.volumePopup.audioMuted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
+            text: AudioService.muted ? "Mute" : Math.round(AudioService.volume * 100) + "%"
+            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
             font.pixelSize: ThemeFont.sm
             font.bold: true
         }
 
         Text {
             text: "| 󰍭  Mute"
-            color: root.volumePopup.audioMuted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
+            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
             font.pixelSize: ThemeFont.sm
             font.bold: true
-            visible: root.volumePopup.micMuted
+            visible: AudioService.micMuted
         }
 
     }
@@ -64,13 +65,9 @@ Rectangle {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: (mouse) => {
             if (mouse.button == Qt.RightButton)
-                root.volumePopup.toggleNodeMute(volumePopup.sink);
+                AudioService.toggleMute();
             else
-                root.volumePopup.isOpened = !root.volumePopup.isOpened;
-        }
-        onWheel: (wheel) => {
-            const delta = wheel.angleDelta.y > 0 ? 0.05 : -0.05;
-            root.volumePopup.setNodeVolume(volumePopup.sink, root.volumePopup.audioVolume + delta);
+                volumePopup.toggle();
         }
     }
 

@@ -155,6 +155,8 @@ ShellRoot {
 
                 barHeight: root.popupBarHeight
                 isPrimaryScreen: root.isPrimaryScreen
+                widgetX: barVolume.x
+                widgetWidth: barVolume.width
             }
 
             NetworkPopup {

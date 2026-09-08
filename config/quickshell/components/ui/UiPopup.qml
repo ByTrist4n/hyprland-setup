@@ -8,8 +8,9 @@ PanelWindow {
 
     required property real barHeight
     required property bool isPrimaryScreen
-    required property real widgetX
-    required property real widgetWidth
+    property string popupPosition: "top-right"
+    property real widgetX: 0
+    property real widgetWidth: 0
     property real minWidth: 100
     property real minHeight: 100
     property bool isOpened: false
@@ -48,7 +49,21 @@ PanelWindow {
         border.color: ThemeColor.borderBase
         border.width: 1
         radius: 8
-        x: Math.max(16, root.widgetX + (root.widgetWidth / 2) - (width / 2))
+        x: {
+            if (0 < root.widgetX && 0 < root.widgetWidth) {
+                return Math.max(16, root.widgetX + (root.widgetWidth / 2) - (width / 2));
+            } else {
+                switch (root.popupPosition) {
+                case "top-left":
+                    return 16;
+                case "top-center":
+                    return (parent.width / 2) - (width / 2);
+                case "top-right":
+                default:
+                    return parent.width - width - 16;
+                }
+            }
+        }
         y: root.barHeight
         z: 1
 
