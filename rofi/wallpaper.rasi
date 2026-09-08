@@ -1,0 +1,54 @@
+@import "config"
+
+window {
+    width:             1100px;
+}
+
+mainbox {
+    orientation:       horizontal;
+    background-color:  transparent;
+    children:          [ "left-box", "right-box" ];
+}
+
+left-box {
+    orientation:       vertical;
+    spacing:           15px;
+    children:          [ "inputbar", "listview" ];
+}
+
+right-box {
+    orientation:       vertical;
+    children:          [ "icon-current-entry", "textbox-current-entry" ];  
+}
+ 
+entry {
+    placeholder:       "Select wallpaper...";
+}
+
+listview {
+    columns:           3;
+    lines:             3;
+    flow:              horizontal;
+}
+
+element {
+    orientation:       vertical;
+}
+
+element-icon {
+    size: 8em;
+    horizontal-align:  0.5;
+    vertical-align:    0.5;
+    padding:           0px;
+    margin:            0px;
+    background-color:  transparent;
+}
+
+/* The preview widget box on the right */
+icon-current-entry {
+    expand:            true;
+    size:              450px;
+    horizontal-align:  0.5;
+    vertical-align:    0.5;
+}
+
