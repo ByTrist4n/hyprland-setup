@@ -14,41 +14,37 @@ Singleton {
     readonly property bool micMuted: (source && source.audio) ? Boolean(source.audio.muted) : false
 
     function setVolume(newVolume) {
-        if (!sink || !sink.audio)
-            return ;
+        if (sink && sink.audio)
+            sink.audio.volume = Math.max(0, Math.min(1, Number(newVolume)));
 
-        sink.audio.volume = Math.max(0, Math.min(1, Number(newVolume)));
     }
 
     function setMicVolume(newVolume) {
-        if (!source || !source.audio)
-            return ;
+        if (source && source.audio)
+            source.audio.volume = Math.max(0, Math.min(1, Number(newVolume)));
 
-        source.audio.volume = Math.max(0, Math.min(1, Number(newVolume)));
     }
 
     function toggleMute() {
-        if (!sink || !sink.audio)
-            return ;
+        if (sink && sink.audio)
+            sink.audio.muted = !sink.audio.muted;
 
-        sink.audio.muted = !sink.audio.muted;
     }
 
     function toggleMicMute() {
-        if (!source || !source.audio)
-            return ;
+        if (source && source.audio)
+            source.audio.muted = !source.audio.muted;
 
-        source.audio.muted = !source.audio.muted;
     }
 
-    // Track nodes safely only when they are ready and fully bound
+    // Force node tracking to register audio property change listeners
     PwObjectTracker {
         objects: {
             let list = [];
-            if (root.sink && root.sink.bound && root.sink.audio !== null)
+            if (root.sink)
                 list.push(root.sink);
 
-            if (root.source && root.source.bound && root.source.audio !== null)
+            if (root.source)
                 list.push(root.source);
 
             return list;
