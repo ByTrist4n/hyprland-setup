@@ -161,7 +161,7 @@ Rectangle {
                                     required property var modelData
 
                                     text: root.getWindowIcon(modelData)
-                                    color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgOnAccent
+                                    color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
                                     font.pixelSize: ThemeFont.md
                                 }
 
