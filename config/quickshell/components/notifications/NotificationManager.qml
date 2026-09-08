@@ -9,25 +9,15 @@ Item {
     property int nextId: 0
 
     function removePopup(id) {
-        let list = root.popupNotifications.slice();
-        for (let i = 0; i < list.length; ++i) {
-            if (list[i].id === id) {
-                list.splice(i, 1);
-                break;
-            }
-        }
-        root.popupNotifications = list;
+        root.popupNotifications = root.popupNotifications.filter(function(item) {
+            return item.id !== id;
+        });
     }
 
     function removeNotification(id) {
-        let list = root.notifications.slice();
-        for (let i = 0; i < list.length; ++i) {
-            if (list[i].id === id) {
-                list.splice(i, 1);
-                break;
-            }
-        }
-        root.notifications = list;
+        root.notifications = root.notifications.filter(function(item) {
+            return item.id !== id;
+        });
         root.removePopup(id);
     }
 
@@ -36,24 +26,23 @@ Item {
             return ;
 
         const index = Number(actionIndex);
-        if (index < 0 || index >= item._notification.actions.length)
+        const actions = item._notification.actions;
+        if (isNaN(index) || index < 0 || !actions || index >= actions.length)
             return ;
 
-        const action = item._notification.actions[index];
-        if (!action)
-            return ;
+        const action = actions[index];
+        if (action && typeof action.invoke === "function")
+            action.invoke();
 
-        action.invoke();
         root.removeNotification(item.id);
     }
 
     function clearAll() {
-        const list = root.notifications.slice();
-        for (let i = 0; i < list.length; ++i) {
-            if (list[i] && list[i]._notification)
-                list[i]._notification.dismiss();
+        root.notifications.forEach(function(item) {
+            if (item && item._notification && typeof item._notification.dismiss === "function")
+                item._notification.dismiss();
 
-        }
+        });
         root.notifications = [];
         root.popupNotifications = [];
     }
@@ -64,31 +53,27 @@ Item {
                 return ;
 
             notification.tracked = true;
-            const actions = [];
-            for (let i = 0; i < notification.actions.length; ++i) {
-                const action = notification.actions[i];
+            const actions = (notification.actions || []).map(function(action, i) {
                 if (!action)
-                    continue;
+                    return null;
 
-                actions.push({
+                return {
                     "index": i,
                     "text": action.text || ("Action " + (i + 1))
-                });
-            }
+                };
+            }).filter(Boolean);
             const item = {
                 "id": root.nextId++,
                 "appName": notification.appName || "",
+                "appIcon": notification.image || "",
                 "summary": notification.summary || "",
                 "body": notification.body || "",
                 "actions": actions,
                 "_notification": notification
             };
-            let history = root.notifications.slice();
-            history.unshift(item);
-            root.notifications = history;
-            let popups = root.popupNotifications.slice();
-            popups.push(item);
-            root.popupNotifications = popups;
+            // Prepend to history, append to popups without spread operator
+            root.notifications = [item].concat(root.notifications);
+            root.popupNotifications = root.popupNotifications.concat([item]);
         }
 
         target: root.server

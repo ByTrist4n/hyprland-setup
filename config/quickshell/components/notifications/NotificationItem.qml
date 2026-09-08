@@ -1,11 +1,13 @@
 import "../../theme"
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Widgets
 
 Item {
     id: root
 
     required property var notification
+    property bool hasBorderRadius: true
 
     signal removeRequested(int id)
     signal actionRequested(int id, string actionId)
@@ -14,8 +16,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: 12
-        color: ThemeColor.bgBase
+        radius: root.hasBorderRadius ? 8 : 0
+        color: ThemeColor.bgSurface
         border.width: 1
         border.color: ThemeColor.borderBase
 
@@ -39,19 +41,35 @@ Item {
                 Layout.fillWidth: true
                 spacing: 12
 
-                Rectangle {
+                // Icon container with automatic Fallback
+                Item {
                     Layout.preferredWidth: 38
                     Layout.preferredHeight: 38
                     Layout.alignment: Qt.AlignTop
-                    radius: 10
-                    color: ThemeColor.fgPrimary
 
-                    Text {
-                        anchors.centerIn: parent
-                        text: root.notification.appName ? root.notification.appName.charAt(0).toUpperCase() : "!"
-                        color: ThemeColor.fgOnAccent
-                        font.pixelSize: ThemeFont.md
-                        font.bold: true
+                    IconImage {
+                        id: iconImage
+
+                        anchors.fill: parent
+                        source: root.notification.appIcon || ""
+                        visible: status === Image.Ready
+                    }
+
+                    // Fallback
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: 10
+                        color: ThemeColor.fgPrimary
+                        visible: !iconImage.visible || iconImage.status === Image.Error
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: root.notification.appName ? root.notification.appName.charAt(0).toUpperCase() : "!"
+                            color: ThemeColor.fgOnAccent
+                            font.pixelSize: ThemeFont.md
+                            font.bold: true
+                        }
+
                     }
 
                 }
