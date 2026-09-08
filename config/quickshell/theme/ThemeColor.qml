@@ -1,33 +1,50 @@
 import QtQuick
+import Quickshell
+import Quickshell.Io
 pragma Singleton
 
 QtObject {
+    id: root
+
+    property FileView colorsFile
+    property var walColors: null
+    property var walSpecial: null
     // --- 1. SURFACES & BACKGROUNDS ---
-    // Main bar background
-    readonly property color bgBase: "#11111b"
-    // Pills & cards background
-    readonly property color bgSurface: "#181825"
-    // Hover & selected state background
-    readonly property color bgSurfaceHover: "#313244"
-    readonly property color bgSurfaceActive: "#45475a"
+    readonly property color bgBase: getColor(walSpecial ? walSpecial.background : null, "#11111b")
+    readonly property color bgSurface: getColor(walColors ? walColors.color0 : null, "#181825")
+    readonly property color bgSurfaceHover: getColor(walColors ? walColors.color8 : null, "#313244")
+    readonly property color bgSurfaceActive: getColor(walColors ? walColors.color8 : null, "#45475a")
     // --- 2. BORDERS ---
-    // Standard border color
-    readonly property color borderBase: "#313244"
-    readonly property color borderActive: "#89b4fa"
+    readonly property color borderBase: getColor(walColors ? walColors.color8 : null, "#313244")
+    readonly property color borderActive: getColor(walColors ? walColors.color4 : null, "#89b4fa")
     // --- 3. TEXT & ICONS ---
-    // Primary text & icon color
-    readonly property color fgPrimary: "#cdd6f4"
-    // Secondary / inactive text color
-    readonly property color fgMuted: "#a6adc8"
-    readonly property color fgOnAccent: "#11111b"
+    readonly property color fgPrimary: getColor(walSpecial ? walSpecial.foreground : null, "#cdd6f4")
+    readonly property color fgMuted: getColor(walColors ? walColors.color7 : null, "#a6adc8")
+    readonly property color fgOnAccent: getColor(walSpecial ? walSpecial.background : null, "#11111b")
     // --- 4. ACCENTS & STATES ---
-    // Primary accent color
-    readonly property color accentPrimary: "#89b4fa"
-    // Secondary accent color
-    readonly property color accentSecondary: "#cba6f7"
-    // Critical alerts & notifications
-    readonly property color urgent: "#f38ba8"
-    // Success & connected state
-    readonly property color success: "#a6e3a1"
-    readonly property color warning: "#f9e2af"
+    readonly property color accentPrimary: getColor(walColors ? walColors.color4 : null, "#89b4fa")
+    readonly property color accentSecondary: getColor(walColors ? walColors.color5 : null, "#cba6f7")
+    readonly property color urgent: getColor(walColors ? walColors.color1 : null, "#f38ba8")
+    readonly property color success: getColor(walColors ? walColors.color2 : null, "#a6e3a1")
+    readonly property color warning: getColor(walColors ? walColors.color3 : null, "#f9e2af")
+
+    function getColor(walProp, fallback) {
+        return walProp ? walProp : fallback;
+    }
+
+    colorsFile: FileView {
+        path: Quickshell.env("HOME") + "/.cache/wal/colors.json"
+        onLoaded: {
+            try {
+                const parsed = JSON.parse(text());
+                if (parsed && parsed.colors && parsed.special) {
+                    root.walColors = parsed.colors;
+                    root.walSpecial = parsed.special;
+                }
+            } catch (e) {
+                console.log("Failed to parse Pywal JSON:", e);
+            }
+        }
+    }
+
 }
