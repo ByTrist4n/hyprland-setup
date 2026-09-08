@@ -12,16 +12,8 @@ Rectangle {
     implicitWidth: 36
     implicitHeight: 36
     radius: 8
-    color: {
-        if (notificationMouseArea.pressed)
-            return ThemeColor.bgSurfaceHover;
-
-        if (notificationMouseArea.containsMouse)
-            return ThemeColor.bgSurface;
-
-        return "transparent";
-    }
-    border.width: notificationMouseArea.containsMouse ? 1 : 0
+    color: notificationMouseArea.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgSurface
+    border.width: 1
     border.color: ThemeColor.borderBase
 
     Text {
