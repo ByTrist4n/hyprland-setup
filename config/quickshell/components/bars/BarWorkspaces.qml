@@ -13,7 +13,6 @@ Rectangle {
             return "";
 
         let appId = client.wayland.appId.toLowerCase();
-        // Match rules2
         if (appId.includes("firefox") || appId.includes("zen"))
             return "";
 
@@ -49,6 +48,12 @@ Rectangle {
 
         if (appId.includes("superproductivity"))
             return "";
+
+        if (appId.includes("thunderbird"))
+            return "";
+
+        if (appId.includes("mail"))
+            return "󰶊";
 
         return "";
     }
@@ -124,9 +129,10 @@ Rectangle {
                     }
 
                     implicitWidth: wsContentLayout.implicitWidth + 12
-                    implicitHeight: 22
+                    implicitHeight: 24
                     radius: 4
-                    color: isActive ? ThemeColor.bgSurfaceActive : "transparent"
+                    topRightRadius: 8
+                    color: wsDelegate.isActive ? Qt.alpha(ThemeColor.bgSurfaceActive, 0.5) : "transparent"
 
                     RowLayout {
                         id: wsContentLayout
@@ -137,9 +143,9 @@ Rectangle {
                         Text {
                             text: wsDelegate.wsInfo.name
                             color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
-                            font.pixelSize: ThemeFont.sm
+                            font.pixelSize: ThemeFont.xs
                             font.bold: wsDelegate.isActive
-                            Layout.alignment: Qt.AlignVCenter
+                            Layout.alignment: Qt.AlignBottom
                         }
 
                         RowLayout {
@@ -155,7 +161,7 @@ Rectangle {
                                     required property var modelData
 
                                     text: root.getWindowIcon(modelData)
-                                    color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
+                                    color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgOnAccent
                                     font.pixelSize: ThemeFont.md
                                 }
 

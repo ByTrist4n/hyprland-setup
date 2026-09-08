@@ -20,13 +20,13 @@ QtObject {
     // --- 3. TEXT & ICONS ---
     readonly property color fgPrimary: getColor(walSpecial ? walSpecial.foreground : null, "#cdd6f4")
     readonly property color fgMuted: getColor(walColors ? walColors.color7 : null, "#a6adc8")
-    readonly property color fgOnAccent: getColor(walSpecial ? walSpecial.background : null, "#11111b")
+    readonly property color fgOnAccent: getColor(walSpecial ? walColors.color10 : null, "#11111b")
     // --- 4. ACCENTS & STATES ---
     readonly property color accentPrimary: getColor(walColors ? walColors.color4 : null, "#89b4fa")
     readonly property color accentSecondary: getColor(walColors ? walColors.color5 : null, "#cba6f7")
-    readonly property color urgent: getColor(walColors ? walColors.color1 : null, "#f38ba8")
-    readonly property color success: getColor(walColors ? walColors.color2 : null, "#a6e3a1")
-    readonly property color warning: getColor(walColors ? walColors.color3 : null, "#f9e2af")
+    readonly property color urgent: "#f38ba8"
+    readonly property color success: "#a6e3a1"
+    readonly property color warning: "#f9e2af"
 
     function getColor(walProp, fallback) {
         return walProp ? walProp : fallback;
