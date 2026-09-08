@@ -1,0 +1,27 @@
+{
+  "name": "hyprland-setup",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky",
+    "format": "prettier --write . && stylua ."
+  },
+  "devDependencies": {
+    "@johnnymorganz/stylua-bin": "^2.5.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.9.6",
+    "prettier-plugin-sh": "^0.19.0"
+  },
+  "lint-staged": {
+    "*.{sh,json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.lua": [
+      "stylua --indent-type Spaces --indent-width 2"
+    ],
+    "*.qml": [
+      "qmlformat -i"
+    ]
+  }
+}
