@@ -41,6 +41,8 @@ log_step "Installing core system packages via Pacman..."
   rofi \
   sddm \
   slurp \
+  grim \
+  satty \
   ttf-jetbrains-mono-nerd \
   wf-recorder \
   wl-clipboard \
@@ -68,7 +70,6 @@ log_success "Core AUR packages installed!"
 log_step "Extra applications"
 echo ""
 echo -e "${BLUE}Optional extra applications list:${NC}"
-echo -e "  • ${YELLOW}flameshot${NC}         - Advanced screenshot tool"
 echo -e "  • ${YELLOW}libreoffice-still${NC} - Office suite"
 echo -e "  • ${YELLOW}yazi${NC}              - Terminal file manager"
 echo -e "  • ${YELLOW}logiops${NC}           - Logitech MX app"
@@ -79,7 +80,6 @@ echo ""
 if ask_yes_no "Would you like to install these extra applications?"; then
   log_info "Installing extra Pacman applications..."
   (sudo pacman -S --needed --noconfirm \
-    flameshot \
     libreoffice-still \
     yazi > /dev/null 2>&1) &
   spin $!

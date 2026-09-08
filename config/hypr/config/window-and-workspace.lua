@@ -39,17 +39,25 @@ hl.window_rule({
 -- })
 -- overlayLayerRule:set_enabled(false)
 
--- Hyprland-run windowrule
+-- Hyprland Run
 hl.window_rule({
   name = "move-hyprland-run",
   match = { class = "hyprland-run" },
-
   move = "20 monitor_h-120",
   float = true,
 })
 
+-- Dolphin
 hl.window_rule({
   match = { class = "org.kde.dolphin" },
   float = true,
   size = { 1000, 1000 },
+})
+
+-- Satty
+hl.window_rule({
+  match = { class = "com.gabm.satty" },
+  float = true,
+  center = true,
+  size = { 1200, 1000 },
 })

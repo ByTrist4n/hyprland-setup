@@ -2,7 +2,7 @@
 -- https://wiki.hypr.land/Configuring/Start/
 
 require("config/keybinds")
-require("config/window-workspace-rules")
+require("config/window-and-workspace")
 require("config/autostart")
 require("config/monitors")
 require("config/environment-variables")
