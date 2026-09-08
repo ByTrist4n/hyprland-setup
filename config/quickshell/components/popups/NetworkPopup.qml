@@ -47,7 +47,7 @@ UiPopup {
                 width: 30
                 height: 30
                 radius: 8
-                color: closeMouse.containsMouse ? ThemeColor.bgSurfaceHover : "transparent"
+                color: closeMouse.containsMouse ? ThemeColor.bgSurfaceActive : "transparent"
 
                 Text {
                     anchors.centerIn: parent
@@ -108,7 +108,7 @@ UiPopup {
                 width: wifiList.width
                 height: visible ? 46 : 0
                 radius: 8
-                color: modelData.connected ? ThemeColor.bgSurfaceActive : wifiMouse.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgBase
+                color: modelData.connected ? ThemeColor.bgSurfaceActive : ThemeColor.bgBase
 
                 RowLayout {
                     anchors.fill: parent
@@ -192,7 +192,7 @@ UiPopup {
                 width: 42
                 height: 24
                 radius: 12
-                color: root.bluetoothAdapter && root.bluetoothAdapter.enabled ? ThemeColor.accentSecondary : ThemeColor.bgSurfaceHover
+                color: root.bluetoothAdapter && root.bluetoothAdapter.enabled ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurfaceDisabled
                 border.width: 1
                 border.color: ThemeColor.borderBase
 
@@ -255,7 +255,7 @@ UiPopup {
                 width: bluetoothList.width
                 height: visible ? 46 : 0
                 radius: 8
-                color: modelData.connected ? ThemeColor.bgSurfaceActive : bluetoothMouse.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgBase
+                color: modelData.connected ? ThemeColor.bgSurfaceActive : bluetoothMouse.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgBase
 
                 Connections {
                     function onConnectedChanged() {

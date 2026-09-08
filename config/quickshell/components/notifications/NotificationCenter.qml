@@ -90,7 +90,7 @@ PanelWindow {
                         implicitWidth: clearRow.implicitWidth + 12
                         implicitHeight: 28
                         radius: 8
-                        color: clearMouseArea.containsMouse ? ThemeColor.bgSurfaceHover : "transparent"
+                        color: clearMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : "transparent"
                         visible: manager.notifications.length > 0
 
                         RowLayout {

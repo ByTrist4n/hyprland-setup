@@ -10,7 +10,7 @@ Rectangle {
     implicitWidth: networkRow.implicitWidth + 24
     implicitHeight: networkRow.implicitHeight + 16
     radius: 10
-    color: networkMouseArea.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgSurface
+    color: networkMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
     border.width: 1
     border.color: ThemeColor.borderBase
 
@@ -28,7 +28,7 @@ Rectangle {
 
         Text {
             text: networkPopup.bluetoothAdapter && networkPopup.bluetoothAdapter.enabled ? "󰂯" : "󰂲"
-            color: networkPopup.bluetoothAdapter && networkPopup.bluetoothAdapter.enabled ? ThemeColor.accentSecondary : ThemeColor.fgMuted
+            color: networkPopup.bluetoothAdapter && networkPopup.bluetoothAdapter.enabled ? ThemeColor.accentPrimary : ThemeColor.fgMuted
             font.pixelSize: ThemeFont.lg
         }
 

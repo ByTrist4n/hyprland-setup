@@ -115,7 +115,7 @@ Item {
                     Layout.preferredHeight: 28
                     Layout.alignment: Qt.AlignTop
                     radius: 8
-                    color: deleteMouse.containsMouse ? ThemeColor.bgSurfaceHover : "transparent"
+                    color: deleteMouse.containsMouse ? ThemeColor.bgSurfaceActive : "transparent"
 
                     Text {
                         anchors.centerIn: parent
@@ -153,7 +153,7 @@ Item {
                         Layout.preferredHeight: 30
                         Layout.fillWidth: true
                         radius: 8
-                        color: actionMouse.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgSurface
+                        color: actionMouse.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
 
                         Text {
                             anchors.centerIn: parent

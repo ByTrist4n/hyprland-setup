@@ -12,7 +12,7 @@ Rectangle {
 
     implicitWidth: musicRow.implicitWidth + 16
     implicitHeight: musicRow.implicitHeight + 16
-    color: musicMouseArea.containsMouse ? ThemeColor.bgSurfaceHover : ThemeColor.bgSurface
+    color: musicMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
     radius: 8
     border.color: ThemeColor.borderBase
     border.width: 1
