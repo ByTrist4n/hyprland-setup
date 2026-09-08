@@ -9,53 +9,53 @@ Rectangle {
     id: root
 
     function getWindowIcon(client) {
-        if (!client)
-            return "";
+        if (!client || !client.wayland || !client.wayland.appId)
+            return ThemeIcon.defaultIcon;
 
         let appId = client.wayland.appId.toLowerCase();
         if (appId.includes("firefox") || appId.includes("zen"))
-            return "";
+            return ThemeIcon.browser;
 
         if (appId.includes("youtube_music") || appId.includes("youtube-music"))
             return ThemeIcon.music;
 
         if (appId.includes("code") || appId.includes("codium"))
-            return "";
+            return ThemeIcon.code;
 
         if (appId.includes("kitty"))
-            return "󰆍";
+            return ThemeIcon.terminal;
 
         if (appId.includes("thunar") || appId.includes("dolphin"))
-            return "";
+            return ThemeIcon.folder;
 
         if (appId.includes("discord"))
-            return "";
+            return ThemeIcon.discord;
 
         if (appId.includes("vlc"))
-            return "󰕼";
+            return ThemeIcon.media;
 
         if (appId.includes("nwg-look") || appId.includes("qt5ct") || appId.includes("qt6ct"))
-            return "󰒓";
+            return ThemeIcon.settingsAlt;
 
         if (appId.includes("blueman-manager"))
-            return "";
+            return ThemeIcon.bluetoothManager;
 
         if (appId.includes("pavucontrol"))
-            return "󱕂";
+            return ThemeIcon.audioControl;
 
         if (appId.includes("nm-connection-editor"))
-            return "󰐻";
+            return ThemeIcon.networkManager;
 
         if (appId.includes("superproductivity"))
-            return "";
+            return ThemeIcon.productivity;
 
         if (appId.includes("thunderbird"))
-            return "";
+            return ThemeIcon.thunderbird;
 
         if (appId.includes("mail"))
-            return "󰶊";
+            return ThemeIcon.mail;
 
-        return "";
+        return ThemeIcon.defaultIcon;
     }
 
     implicitWidth: wsRow.implicitWidth + 16

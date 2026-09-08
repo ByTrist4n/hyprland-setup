@@ -2,6 +2,7 @@ import QtQuick
 pragma Singleton
 
 QtObject {
+    // Basic System Icons
     readonly property string clean: "󰃢"
     readonly property string cross: "󰅖"
     readonly property string calendar: "󰃭"
@@ -27,4 +28,19 @@ QtObject {
     readonly property string play: "󰐊"
     readonly property string check: "✓"
     readonly property string chevronRight: ""
+    // App Icons
+    readonly property string defaultIcon: ""
+    readonly property string browser: ""
+    readonly property string code: ""
+    readonly property string terminal: "󰆍"
+    readonly property string folder: ""
+    readonly property string discord: ""
+    readonly property string media: "󰕼"
+    readonly property string settingsAlt: "󰒓"
+    readonly property string bluetoothManager: ""
+    readonly property string audioControl: "󱕂"
+    readonly property string networkManager: "󰐻"
+    readonly property string productivity: ""
+    readonly property string thunderbird: ""
+    readonly property string mail: "󰶊"
 }
