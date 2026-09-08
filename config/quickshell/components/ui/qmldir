@@ -1,4 +1,0 @@
-module components.ui
-
-UiButton 1.0 UiButton.qml
-UiPopup 1.0 UiPopup.qml

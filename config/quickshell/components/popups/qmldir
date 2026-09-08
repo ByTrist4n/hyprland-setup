@@ -1,6 +1,0 @@
-module components.popups
-
-CalendarPopup 1.0 CalendarPopup.qml
-MusicPopup 1.0 MusicPopup.qml
-NetworkPopup 1.0 NetworkPopup.qml
-VolumePopup 1.0 VolumePopup.qml
