@@ -4,6 +4,7 @@
 # =============================================================
 set -e
 source "./utils.sh"
+
 if ask_yes_no "Would you like to install SDDM Hyprland Setup Theme?"; then
   log_step "Configuring SDDM Hyprland Setup Theme..."
 
@@ -17,8 +18,12 @@ if ask_yes_no "Would you like to install SDDM Hyprland Setup Theme?"; then
     # Copy files from dotfiles to SDDM system folder
     sudo cp -rf "$LOCAL_SDDM_THEME"/* "$SDDM_THEME_DIR/"
 
-    # Symlink colors.qml from user cache to system SDDM theme
+    # Symlink Colors.qml from user cache to system SDDM theme
     sudo ln -sf "$HOME/.cache/wal/Colors.qml" "$SDDM_THEME_DIR/Colors.qml"
+
+    # Ensure system read/execute permissions for SDDM greeter
+    sudo find "$SDDM_THEME_DIR" -type d -exec chmod 755 {} +
+    sudo find "$SDDM_THEME_DIR" -type f -exec chmod 644 {} +
 
     # Set as active SDDM theme
     sudo mkdir -p /etc/sddm.conf.d
