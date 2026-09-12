@@ -61,9 +61,7 @@ HL_CLOCK_MODE='on'
 HL_CLOCK_TEMPLATE="%{$faint%} ... %{$reset$HL_LAYOUT_STYLE%}"
 HL_ERR_MODE='on'
 
-# --- User configuration ---
-
-# -- Aliases --
+# --- Aliases ---
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 # Standard grid view with icons
