@@ -20,6 +20,7 @@ if ask_yes_no "Would you like to install SDDM Hyprland Setup Theme?"; then
 
     # Symlink Colors.qml from user cache to system SDDM theme
     sudo ln -sf "$HOME/.cache/wal/Colors.qml" "$SDDM_THEME_DIR/Colors.qml"
+    sudo ln -sf "$HOME/.cache/wal/wal_wallpaper.jpg" "$SDDM_THEME_DIR/assets/background.jpg"
 
     # Ensure system read/execute permissions for SDDM greeter
     sudo find "$SDDM_THEME_DIR" -type d -exec chmod 755 {} +
