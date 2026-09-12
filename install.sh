@@ -24,6 +24,7 @@ if ask_yes_no "Would you like to continue with the installation?"; then
   bash "./scripts/backup.sh"
   bash "./scripts/setup-dependencies.sh"
   bash "./scripts/setup-oh-my-zsh.sh"
+  bash "./scripts/setup-sddm.sh"
 
   # -------------------------------------------------------------
   # Clone and Deploy Hyprland Dotfiles (Configuration folders)

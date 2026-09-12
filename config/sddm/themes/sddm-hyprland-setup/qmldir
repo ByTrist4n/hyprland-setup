@@ -1,0 +1,2 @@
+module sddm.theme.pywal
+singleton ThemeColors 1.0 ThemeColors.qml

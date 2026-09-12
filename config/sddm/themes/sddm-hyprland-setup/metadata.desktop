@@ -1,0 +1,10 @@
+[SddmGreeterTheme]
+Name=sddm-hyprland-setup
+Description=SDDM theme with dynamic pywal palette integration
+Author=ByTrist4n
+Version=1.1
+License=GPLv3
+Type=sddm-theme
+
+[theme-settings]
+background=assets/background.jpg

@@ -38,8 +38,8 @@ export -f log_success
 log_info() { echo -e "  ${BLUE}➜${NC} $1"; }
 export -f log_info
 
-log_warn() { echo -e "  ${RED}⚠️ WARNING:${NC} $1"; }
-export -f log_warn
+log_warning() { echo -e "  ${RED}⚠️ WARNING:${NC} $1"; }
+export -f log_warning
 
 # Ask Question [Y/n]
 ask_yes_no() {

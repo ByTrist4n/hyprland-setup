@@ -1,0 +1,1 @@
+/home/tristan/.cache/wal/Colors.qml
