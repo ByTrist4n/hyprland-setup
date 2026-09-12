@@ -19,8 +19,18 @@ hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(globalVariables.menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 -- hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("flameshot gui"))
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date +'%Y%m%d-%H%M%S').png"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | wl-copy && notify-send -i camera-symbolic 'Screenshot' 'Text copied to the clipboard'"))
+hl.bind(
+  mainMod .. " + S",
+  hl.dsp.exec_cmd(
+    "grim -g \"$(slurp)\" - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date +'%Y%m%d-%H%M%S').png"
+  )
+)
+hl.bind(
+  mainMod .. " + SHIFT + S",
+  hl.dsp.exec_cmd(
+    "grim -g \"$(slurp)\" - | wl-copy && notify-send -i camera-symbolic 'Screenshot' 'Text copied to the clipboard'"
+  )
+)
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("loginctl lock-session && sleep 2 && systemctl suspend"))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("sh ~/.config/theme-sw1tcher/theme-sw1tcher.sh"))
