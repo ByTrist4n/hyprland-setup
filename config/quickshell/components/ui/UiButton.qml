@@ -6,10 +6,10 @@ Button {
     id: root
 
     property string contentText: ""
-    property color activeColor: ThemeColor.fgPrimary
-    property color disabledColor: ThemeColor.fgMuted
-    property real pixelSize: ThemeFont.lg
-    property color hoverBgColor: ThemeColor.bgSurfaceActive
+    property color activeColor: ThemeColors.fgPrimary
+    property color disabledColor: ThemeColors.fgMuted
+    property real pixelSize: ThemeFonts.lg
+    property color hoverBgColor: ThemeColors.bgSurfaceActive
     property color defaultBgColor: "transparent"
     property bool hasBorder: false
 
@@ -28,7 +28,7 @@ Button {
         color: root.hovered ? root.hoverBgColor : root.defaultBgColor
         radius: 6
         border.width: root.hasBorder ? 1 : null
-        border.color: ThemeColor.borderBase
+        border.color: ThemeColors.borderBase
 
         Behavior on color {
             ColorAnimation {

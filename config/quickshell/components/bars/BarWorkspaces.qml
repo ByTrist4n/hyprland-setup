@@ -10,59 +10,59 @@ Rectangle {
 
     function getWindowIcon(client) {
         if (!client || !client.wayland || !client.wayland.appId)
-            return ThemeIcon.defaultIcon;
+            return ThemeIcons.defaultIcon;
 
         let appId = client.wayland.appId.toLowerCase();
         if (appId.includes("firefox") || appId.includes("zen"))
-            return ThemeIcon.browser;
+            return ThemeIcons.browser;
 
         if (appId.includes("youtube_music") || appId.includes("youtube-music"))
-            return ThemeIcon.music;
+            return ThemeIcons.music;
 
         if (appId.includes("code") || appId.includes("codium"))
-            return ThemeIcon.code;
+            return ThemeIcons.code;
 
         if (appId.includes("kitty"))
-            return ThemeIcon.terminal;
+            return ThemeIcons.terminal;
 
         if (appId.includes("thunar") || appId.includes("dolphin"))
-            return ThemeIcon.folder;
+            return ThemeIcons.folder;
 
         if (appId.includes("discord"))
-            return ThemeIcon.discord;
+            return ThemeIcons.discord;
 
         if (appId.includes("vlc"))
-            return ThemeIcon.media;
+            return ThemeIcons.media;
 
         if (appId.includes("nwg-look") || appId.includes("qt5ct") || appId.includes("qt6ct"))
-            return ThemeIcon.settingsAlt;
+            return ThemeIcons.settingsAlt;
 
         if (appId.includes("blueman-manager"))
-            return ThemeIcon.bluetoothManager;
+            return ThemeIcons.bluetoothManager;
 
         if (appId.includes("pavucontrol"))
-            return ThemeIcon.audioControl;
+            return ThemeIcons.audioControl;
 
         if (appId.includes("nm-connection-editor"))
-            return ThemeIcon.networkManager;
+            return ThemeIcons.networkManager;
 
         if (appId.includes("superproductivity"))
-            return ThemeIcon.productivity;
+            return ThemeIcons.productivity;
 
         if (appId.includes("thunderbird"))
-            return ThemeIcon.thunderbird;
+            return ThemeIcons.thunderbird;
 
         if (appId.includes("mail"))
-            return ThemeIcon.mail;
+            return ThemeIcons.mail;
 
-        return ThemeIcon.defaultIcon;
+        return ThemeIcons.defaultIcon;
     }
 
     implicitWidth: wsRow.implicitWidth + 16
     implicitHeight: wsRow.implicitHeight + 16
-    color: ThemeColor.bgSurface
+    color: ThemeColors.bgSurface
     radius: 8
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
     border.width: 1
 
     RowLayout {
@@ -132,7 +132,7 @@ Rectangle {
                     implicitHeight: 24
                     radius: 4
                     topRightRadius: 8
-                    color: wsDelegate.isActive ? Qt.alpha(ThemeColor.bgSurfaceActive, 0.5) : "transparent"
+                    color: wsDelegate.isActive ? Qt.alpha(ThemeColors.bgSurfaceActive, 0.5) : "transparent"
 
                     RowLayout {
                         id: wsContentLayout
@@ -142,8 +142,8 @@ Rectangle {
 
                         Text {
                             text: wsDelegate.wsInfo.name
-                            color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
-                            font.pixelSize: ThemeFont.xs
+                            color: wsDelegate.isActive ? ThemeColors.accentPrimary : ThemeColors.fgPrimary
+                            font.pixelSize: ThemeFonts.xs
                             font.bold: wsDelegate.isActive
                             Layout.alignment: Qt.AlignBottom
                         }
@@ -161,8 +161,8 @@ Rectangle {
                                     required property var modelData
 
                                     text: root.getWindowIcon(modelData)
-                                    color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
-                                    font.pixelSize: ThemeFont.md
+                                    color: wsDelegate.isActive ? ThemeColors.accentPrimary : ThemeColors.fgPrimary
+                                    font.pixelSize: ThemeFonts.md
                                 }
 
                             }

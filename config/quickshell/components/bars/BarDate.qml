@@ -12,9 +12,9 @@ Rectangle {
     anchors.centerIn: parent
     implicitWidth: clockLayout.implicitWidth + 16
     implicitHeight: clockLayout.implicitHeight + 16
-    color: clockMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+    color: clockMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
     radius: 8
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
     border.width: 1
 
     RowLayout {
@@ -25,16 +25,16 @@ Rectangle {
 
         Text {
             text: "󰃭"
-            color: ThemeColor.accentPrimary
-            font.pixelSize: ThemeFont.lg
+            color: ThemeColors.accentPrimary
+            font.pixelSize: ThemeFonts.lg
         }
 
         Text {
             id: clockText
 
             text: clockTimer.timeString
-            color: ThemeColor.fgPrimary
-            font.pixelSize: ThemeFont.sm
+            color: ThemeColors.fgPrimary
+            font.pixelSize: ThemeFonts.sm
             font.bold: true
         }
 

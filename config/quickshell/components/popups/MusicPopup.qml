@@ -23,7 +23,7 @@ UiPopup {
             Layout.preferredWidth: 76
             Layout.preferredHeight: 76
             radius: 8
-            color: ThemeColor.bgSurfaceActive
+            color: ThemeColors.bgSurfaceActive
 
             Image {
                 anchors.fill: parent
@@ -46,9 +46,9 @@ UiPopup {
 
             Text {
                 anchors.centerIn: parent
-                text: ThemeIcon.music
-                font.pixelSize: ThemeFont.lg
-                color: ThemeColor.fgPrimary
+                text: ThemeIcons.music
+                font.pixelSize: ThemeFonts.lg
+                color: ThemeColors.fgPrimary
                 visible: null == MediaService
             }
 
@@ -61,8 +61,8 @@ UiPopup {
             Text {
                 Layout.fillWidth: true
                 text: MediaService && MediaService.trackTitle ? MediaService.trackTitle : "No media playing"
-                color: ThemeColor.fgPrimary
-                font.pixelSize: ThemeFont.sm
+                color: ThemeColors.fgPrimary
+                font.pixelSize: ThemeFonts.sm
                 font.bold: true
                 elide: Text.ElideRight
             }
@@ -70,8 +70,8 @@ UiPopup {
             Text {
                 Layout.fillWidth: true
                 text: MediaService && MediaService.trackArtist ? MediaService.trackArtist : "Unknown artist"
-                color: ThemeColor.fgPrimary
-                font.pixelSize: ThemeFont.xs
+                color: ThemeColors.fgPrimary
+                font.pixelSize: ThemeFonts.xs
                 elide: Text.ElideRight
             }
 
@@ -89,15 +89,15 @@ UiPopup {
                         width: 24
                         height: 24
                         radius: 4
-                        color: MediaService.activePlayer === modelData ? ThemeColor.bgSurfaceActive : "transparent"
-                        border.color: MediaService.activePlayer === modelData ? ThemeColor.borderBase : "transparent"
+                        color: MediaService.activePlayer === modelData ? ThemeColors.bgSurfaceActive : "transparent"
+                        border.color: MediaService.activePlayer === modelData ? ThemeColors.borderBase : "transparent"
                         border.width: 1
 
                         Text {
                             anchors.centerIn: parent
                             text: MediaService.playerIcon(modelData)
-                            font.pixelSize: ThemeFont.xs
-                            color: ThemeColor.fgPrimary
+                            font.pixelSize: ThemeFonts.xs
+                            color: ThemeColors.fgPrimary
                         }
 
                         MouseArea {
@@ -120,21 +120,21 @@ UiPopup {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.previous()
-                    contentText: ThemeIcon.skipPrevious
+                    contentText: ThemeIcons.skipPrevious
                 }
 
                 UiButton {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.togglePlaying()
-                    contentText: (MediaService && MediaService.isPlaying) ? ThemeIcon.pause : ThemeIcon.play
+                    contentText: (MediaService && MediaService.isPlaying) ? ThemeIcons.pause : ThemeIcons.play
                 }
 
                 UiButton {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.next()
-                    contentText: ThemeIcon.skipNext
+                    contentText: ThemeIcons.skipNext
                 }
 
             }

@@ -18,14 +18,14 @@ UiPopup {
         RowLayout {
             Text {
                 text: "Audio Controls"
-                color: ThemeColor.fgPrimary
-                font.pixelSize: ThemeFont.lg
+                color: ThemeColors.fgPrimary
+                font.pixelSize: ThemeFonts.lg
                 font.bold: true
                 Layout.fillWidth: true
             }
 
             UiButton {
-                contentText: ThemeIcon.cross
+                contentText: ThemeIcons.cross
                 onClicked: {
                     root.toggle();
                 }
@@ -42,23 +42,23 @@ UiPopup {
 
                 Text {
                     text: "Volume"
-                    color: ThemeColor.fgMuted
-                    font.pixelSize: ThemeFont.sm
+                    color: ThemeColors.fgMuted
+                    font.pixelSize: ThemeFonts.sm
                     font.bold: true
                     Layout.fillWidth: true
                 }
 
                 Text {
                     text: AudioService.muted ? "Mute" : Math.round(AudioService.volume * 100) + "%"
-                    color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
-                    font.pixelSize: ThemeFont.md
+                    color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
+                    font.pixelSize: ThemeFonts.md
                     font.bold: true
                 }
 
                 Text {
-                    text: AudioService.muted ? ThemeIcon.volumeOff : ThemeIcon.volume
-                    color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
-                    font.pixelSize: ThemeFont.lg
+                    text: AudioService.muted ? ThemeIcons.volumeOff : ThemeIcons.volume
+                    color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
+                    font.pixelSize: ThemeFonts.lg
 
                     MouseArea {
                         anchors.fill: parent
@@ -84,7 +84,7 @@ UiPopup {
                     height: 8
                     anchors.verticalCenter: parent.verticalCenter
                     radius: height / 2
-                    color: ThemeColor.bgSurface
+                    color: ThemeColors.bgSurface
                 }
 
                 Rectangle {
@@ -93,7 +93,7 @@ UiPopup {
                     width: track.width * AudioService.volume
                     height: track.height
                     radius: height / 2
-                    color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                    color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
                 }
 
                 Rectangle {
@@ -102,9 +102,9 @@ UiPopup {
                     radius: 9
                     anchors.verticalCenter: track.verticalCenter
                     x: Math.max(0, Math.min(slider.width - width, AudioService.volume * slider.width - width / 2))
-                    color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                    color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
                     border.width: 2
-                    border.color: ThemeColor.bgBase
+                    border.color: ThemeColors.bgBase
                 }
 
                 MouseArea {
@@ -134,7 +134,7 @@ UiPopup {
         Rectangle {
             Layout.fillWidth: true
             implicitHeight: 1
-            color: ThemeColor.borderBase
+            color: ThemeColors.borderBase
             opacity: 0.5
         }
 
@@ -148,23 +148,23 @@ UiPopup {
 
                 Text {
                     text: "Microphone"
-                    color: ThemeColor.fgMuted
-                    font.pixelSize: ThemeFont.sm
+                    color: ThemeColors.fgMuted
+                    font.pixelSize: ThemeFonts.sm
                     font.bold: true
                     Layout.fillWidth: true
                 }
 
                 Text {
                     text: AudioService.micMuted ? "Mute" : Math.round(AudioService.micVolume * 100) + "%"
-                    color: AudioService.micMuted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
-                    font.pixelSize: ThemeFont.md
+                    color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
+                    font.pixelSize: ThemeFonts.md
                     font.bold: true
                 }
 
                 Text {
-                    text: AudioService.micMuted ? ThemeIcon.micOff : ThemeIcon.mic
-                    color: AudioService.micMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
-                    font.pixelSize: ThemeFont.lg
+                    text: AudioService.micMuted ? ThemeIcons.micOff : ThemeIcons.mic
+                    color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
+                    font.pixelSize: ThemeFonts.lg
 
                     MouseArea {
                         anchors.fill: parent
@@ -190,7 +190,7 @@ UiPopup {
                     height: 8
                     anchors.verticalCenter: parent.verticalCenter
                     radius: height / 2
-                    color: ThemeColor.bgSurface
+                    color: ThemeColors.bgSurface
                 }
 
                 Rectangle {
@@ -199,7 +199,7 @@ UiPopup {
                     width: micTrack.width * AudioService.micVolume
                     height: micTrack.height
                     radius: height / 2
-                    color: AudioService.micMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                    color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
                 }
 
                 Rectangle {
@@ -208,9 +208,9 @@ UiPopup {
                     radius: 9
                     anchors.verticalCenter: micTrack.verticalCenter
                     x: Math.max(0, Math.min(micSlider.width - width, AudioService.micVolume * micSlider.width - width / 2))
-                    color: AudioService.micMuted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
+                    color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
                     border.width: 2
-                    border.color: ThemeColor.bgBase
+                    border.color: ThemeColors.bgBase
                 }
 
                 MouseArea {
@@ -240,16 +240,16 @@ UiPopup {
         Rectangle {
             Layout.fillWidth: true
             height: 1
-            color: ThemeColor.borderBase
+            color: ThemeColors.borderBase
             Layout.topMargin: 2
             Layout.bottomMargin: 2
         }
 
         UiButton {
             Layout.fillWidth: true
-            contentText: ThemeIcon.volume + " Audio settings"
+            contentText: ThemeIcons.volume + " Audio settings"
             hasBorder: true
-            pixelSize: ThemeFont.sm
+            pixelSize: ThemeFonts.sm
             onClicked: {
                 Hyprland.dispatch("hl.dsp.exec_cmd(\"pavucontrol\")");
                 root.toggle();

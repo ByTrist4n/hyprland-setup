@@ -15,7 +15,7 @@ UiPopup {
         Text {
             Layout.alignment: Qt.AlignHCenter
             text: Qt.formatDateTime(new Date(), "MMMM yyyy")
-            color: ThemeColor.fgPrimary
+            color: ThemeColors.fgPrimary
             font.bold: true
         }
 
@@ -44,12 +44,12 @@ UiPopup {
                     width: 24
                     height: 24
                     radius: 4
-                    color: modelData === new Date().getDate() ? ThemeColor.urgent : "transparent"
+                    color: modelData === new Date().getDate() ? ThemeColors.urgent : "transparent"
 
                     Text {
                         anchors.centerIn: parent
                         text: modelData
-                        color: modelData === new Date().getDate() ? ThemeColor.fgOnAccent : ThemeColor.fgPrimary
+                        color: modelData === new Date().getDate() ? ThemeColors.fgOnAccent : ThemeColors.fgPrimary
                         font.bold: modelData === new Date().getDate()
                     }
 

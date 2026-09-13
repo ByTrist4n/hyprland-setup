@@ -12,9 +12,9 @@ Rectangle {
 
     implicitWidth: musicRow.implicitWidth + 16
     implicitHeight: musicRow.implicitHeight + 16
-    color: musicMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+    color: musicMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
     radius: 8
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
     border.width: 1
 
     RowLayout {
@@ -27,9 +27,9 @@ Rectangle {
             spacing: 6
 
             Text {
-                text: MediaService.isPlaying ? ThemeIcon.music : ThemeIcon.musicOff
-                color: ThemeColor.fgPrimary
-                font.pixelSize: ThemeFont.sm
+                text: MediaService.isPlaying ? ThemeIcons.music : ThemeIcons.musicOff
+                color: ThemeColors.fgPrimary
+                font.pixelSize: ThemeFonts.sm
                 // Prevent width collapse during icon switch
                 Layout.preferredWidth: 16
                 horizontalAlignment: Text.AlignHCenter
@@ -38,8 +38,8 @@ Rectangle {
             Text {
                 text: MediaService.trackTitle
                 Layout.maximumWidth: 200
-                color: ThemeColor.fgPrimary
-                font.pixelSize: ThemeFont.sm
+                color: ThemeColors.fgPrimary
+                font.pixelSize: ThemeFonts.sm
                 font.bold: true
                 elide: Text.ElideRight
             }
@@ -47,8 +47,8 @@ Rectangle {
             Text {
                 text: "- " + MediaService.trackArtist
                 Layout.maximumWidth: 150
-                color: ThemeColor.fgMuted
-                font.pixelSize: ThemeFont.xs
+                color: ThemeColors.fgMuted
+                font.pixelSize: ThemeFonts.xs
                 elide: Text.ElideRight
             }
 

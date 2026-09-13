@@ -12,16 +12,16 @@ Rectangle {
     implicitWidth: 36
     implicitHeight: 36
     radius: 8
-    color: notificationMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+    color: notificationMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
     border.width: 1
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
 
     Text {
         anchors.centerIn: parent
         // TODO: Do not disturb mode
-        text: false ? ThemeIcon.notificationOff : ThemeIcon.notification
-        color: notificationManager.notifications.length > 0 ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
-        font.pixelSize: ThemeFont.lg
+        text: false ? ThemeIcons.notificationOff : ThemeIcons.notification
+        color: notificationManager.notifications.length > 0 ? ThemeColors.accentPrimary : ThemeColors.fgPrimary
+        font.pixelSize: ThemeFonts.lg
 
         Behavior on color {
             ColorAnimation {
@@ -37,7 +37,7 @@ Rectangle {
         width: notificationManager.notifications.length > 9 ? 18 : 16
         height: width
         radius: width / 2
-        color: ThemeColor.accentPrimary
+        color: ThemeColors.accentPrimary
 
         anchors {
             top: parent.top
@@ -49,8 +49,8 @@ Rectangle {
         Text {
             anchors.centerIn: parent
             text: notificationManager.notifications.length > 99 ? "99+" : notificationManager.notifications.length
-            color: ThemeColor.bgBase
-            font.pixelSize: ThemeFont.xs
+            color: ThemeColors.bgBase
+            font.pixelSize: ThemeFonts.xs
             font.bold: true
         }
 

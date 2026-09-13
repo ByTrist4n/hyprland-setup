@@ -37,14 +37,14 @@ UiPopup {
 
             Text {
                 text: "Network"
-                color: ThemeColor.fgPrimary
-                font.pixelSize: ThemeFont.lg
+                color: ThemeColors.fgPrimary
+                font.pixelSize: ThemeFonts.lg
                 font.bold: true
                 Layout.fillWidth: true
             }
 
             UiButton {
-                contentText: ThemeIcon.cross
+                contentText: ThemeIcons.cross
                 onClicked: {
                     root.toggle();
                 }
@@ -55,21 +55,21 @@ UiPopup {
         Rectangle {
             Layout.fillWidth: true
             height: 1
-            color: ThemeColor.borderBase
+            color: ThemeColors.borderBase
         }
 
         Text {
             text: "Wi-Fi"
-            color: ThemeColor.accentPrimary
-            font.pixelSize: ThemeFont.sm
+            color: ThemeColors.accentPrimary
+            font.pixelSize: ThemeFonts.sm
             font.bold: true
         }
 
         Text {
             visible: root.wifiDevice === null
             text: "No Wi-Fi adapter"
-            color: ThemeColor.fgMuted
-            font.pixelSize: ThemeFont.xs
+            color: ThemeColors.fgMuted
+            font.pixelSize: ThemeFonts.xs
         }
 
         ListView {
@@ -89,7 +89,7 @@ UiPopup {
                 width: wifiList.width
                 height: visible ? 46 : 0
                 radius: 8
-                color: modelData.connected ? ThemeColor.bgSurfaceActive : ThemeColor.bgBase
+                color: modelData.connected ? ThemeColors.bgSurfaceActive : ThemeColors.bgBase
 
                 RowLayout {
                     anchors.fill: parent
@@ -98,32 +98,32 @@ UiPopup {
                     spacing: 10
 
                     Text {
-                        text: modelData.connected ? ThemeIcon.wifi : ThemeIcon.wifiOff
-                        color: modelData.connected ? ThemeColor.accentPrimary : ThemeColor.fgMuted
-                        font.pixelSize: ThemeFont.lg
+                        text: modelData.connected ? ThemeIcons.wifi : ThemeIcons.wifiOff
+                        color: modelData.connected ? ThemeColors.accentPrimary : ThemeColors.fgMuted
+                        font.pixelSize: ThemeFonts.lg
                     }
 
                     Text {
                         text: modelData.name
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.sm
+                        color: ThemeColors.fgPrimary
+                        font.pixelSize: ThemeFonts.sm
                         elide: Text.ElideRight
                         Layout.fillWidth: true
                     }
 
                     Text {
                         visible: modelData.connected
-                        text: ThemeIcon.check
-                        color: ThemeColor.success
-                        font.pixelSize: ThemeFont.sm
+                        text: ThemeIcons.check
+                        color: ThemeColors.success
+                        font.pixelSize: ThemeFonts.sm
                         font.bold: true
                     }
 
                     Text {
                         visible: modelData.stateChanging
                         text: "Loading…"
-                        color: ThemeColor.accentPrimary
-                        font.pixelSize: ThemeFont.md
+                        color: ThemeColors.accentPrimary
+                        font.pixelSize: ThemeFonts.md
                     }
 
                 }
@@ -151,7 +151,7 @@ UiPopup {
         Rectangle {
             Layout.fillWidth: true
             height: 1
-            color: ThemeColor.borderBase
+            color: ThemeColors.borderBase
             Layout.topMargin: 2
             Layout.bottomMargin: 2
         }
@@ -161,8 +161,8 @@ UiPopup {
 
             Text {
                 text: "Bluetooth"
-                color: ThemeColor.accentSecondary
-                font.pixelSize: ThemeFont.sm
+                color: ThemeColors.accentSecondary
+                font.pixelSize: ThemeFonts.sm
                 font.bold: true
                 Layout.fillWidth: true
             }
@@ -173,9 +173,9 @@ UiPopup {
                 width: 42
                 height: 24
                 radius: 12
-                color: root.bluetoothAdapter && root.bluetoothAdapter.enabled ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurfaceDisabled
+                color: root.bluetoothAdapter && root.bluetoothAdapter.enabled ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurfaceDisabled
                 border.width: 1
-                border.color: ThemeColor.borderBase
+                border.color: ThemeColors.borderBase
 
                 Rectangle {
                     width: 18
@@ -183,7 +183,7 @@ UiPopup {
                     radius: 8
                     anchors.verticalCenter: parent.verticalCenter
                     x: root.bluetoothAdapter && root.bluetoothAdapter.enabled ? parent.width - width - 3 : 3
-                    color: ThemeColor.fgPrimary
+                    color: ThemeColors.fgPrimary
 
                     Behavior on x {
                         NumberAnimation {
@@ -236,7 +236,7 @@ UiPopup {
                 width: bluetoothList.width
                 height: visible ? 46 : 0
                 radius: 8
-                color: modelData.connected ? ThemeColor.bgSurfaceActive : bluetoothMouse.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgBase
+                color: modelData.connected ? ThemeColors.bgSurfaceActive : bluetoothMouse.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgBase
 
                 Connections {
                     function onConnectedChanged() {
@@ -253,30 +253,30 @@ UiPopup {
                     spacing: 10
 
                     Text {
-                        text: ThemeIcon.bluetoothConnect
-                        color: modelData.connected ? ThemeColor.accentSecondary : ThemeColor.fgMuted
-                        font.pixelSize: ThemeFont.lg
+                        text: ThemeIcons.bluetoothConnect
+                        color: modelData.connected ? ThemeColors.accentSecondary : ThemeColors.fgMuted
+                        font.pixelSize: ThemeFonts.lg
                     }
 
                     Text {
                         text: modelData.name || "Unknown device"
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.sm
+                        color: ThemeColors.fgPrimary
+                        font.pixelSize: ThemeFonts.sm
                         elide: Text.ElideRight
                         Layout.fillWidth: true
                     }
 
                     Text {
                         text: isBusy || modelData.connecting ? "Loading…" : ""
-                        color: ThemeColor.accentSecondary
-                        font.pixelSize: ThemeFont.md
+                        color: ThemeColors.accentSecondary
+                        font.pixelSize: ThemeFonts.md
                     }
 
                     Text {
                         visible: !isBusy && !modelData.connecting
-                        text: modelData.connected ? ThemeIcon.check : ThemeColor.chevronRight
-                        color: modelData.connected ? ThemeColor.success : ThemeColor.fgMuted
-                        font.pixelSize: ThemeFont.md
+                        text: modelData.connected ? ThemeIcons.check : ThemeColors.chevronRight
+                        color: modelData.connected ? ThemeColors.success : ThemeColors.fgMuted
+                        font.pixelSize: ThemeFonts.md
                         font.bold: true
                     }
 
@@ -308,15 +308,15 @@ UiPopup {
         Text {
             visible: root.bluetoothAdapter !== null && root.bluetoothAdapter.enabled && bluetoothList.count === 0
             text: "No paired devices"
-            color: ThemeColor.fgMuted
-            font.pixelSize: ThemeFont.xs
+            color: ThemeColors.fgMuted
+            font.pixelSize: ThemeFonts.xs
             Layout.leftMargin: 4
         }
 
         Rectangle {
             Layout.fillWidth: true
             height: 1
-            color: ThemeColor.borderBase
+            color: ThemeColors.borderBase
             Layout.topMargin: 2
             Layout.bottomMargin: 2
         }
@@ -329,7 +329,7 @@ UiPopup {
                 Layout.fillWidth: true
                 contentText: "Network settings"
                 hasBorder: true
-                pixelSize: ThemeFont.sm
+                pixelSize: ThemeFonts.sm
                 onClicked: {
                     Hyprland.dispatch("hl.dsp.exec_cmd(\"nm-connection-editor\")");
                     root.toggle();
@@ -340,7 +340,7 @@ UiPopup {
                 Layout.fillWidth: true
                 contentText: "Bluetooth settings"
                 hasBorder: true
-                pixelSize: ThemeFont.sm
+                pixelSize: ThemeFonts.sm
                 onClicked: {
                     Hyprland.dispatch("hl.dsp.exec_cmd(\"blueman-manager\")");
                     root.toggle();

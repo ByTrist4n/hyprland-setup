@@ -18,9 +18,9 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: root.hasBorderRadius ? 8 : 0
-        color: ThemeColor.bgSurface
+        color: ThemeColors.bgSurface
         border.width: 1
-        border.color: ThemeColor.borderBase
+        border.color: ThemeColors.borderBase
 
         ColumnLayout {
             id: content
@@ -60,14 +60,14 @@ Item {
                     Rectangle {
                         anchors.fill: parent
                         radius: 10
-                        color: ThemeColor.fgPrimary
+                        color: ThemeColors.fgPrimary
                         visible: !iconImage.visible || iconImage.status === Image.Error
 
                         Text {
                             anchors.centerIn: parent
                             text: root.notification.appName ? root.notification.appName.charAt(0).toUpperCase() : "!"
-                            color: ThemeColor.fgOnAccent
-                            font.pixelSize: ThemeFont.md
+                            color: ThemeColors.fgOnAccent
+                            font.pixelSize: ThemeFonts.md
                             font.bold: true
                         }
 
@@ -82,8 +82,8 @@ Item {
                     Text {
                         Layout.fillWidth: true
                         text: root.notification.summary || "Notification"
-                        color: ThemeColor.accentPrimary
-                        font.pixelSize: ThemeFont.sm
+                        color: ThemeColors.accentPrimary
+                        font.pixelSize: ThemeFonts.sm
                         font.bold: true
                         maximumLineCount: 2
                         wrapMode: Text.Wrap
@@ -93,8 +93,8 @@ Item {
                     Text {
                         Layout.fillWidth: true
                         text: root.notification.body || ""
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.sm
+                        color: ThemeColors.fgPrimary
+                        font.pixelSize: ThemeFonts.sm
                         wrapMode: Text.Wrap
                         maximumLineCount: 4
                         elide: Text.ElideRight
@@ -103,8 +103,8 @@ Item {
                     Text {
                         Layout.fillWidth: true
                         text: root.notification.appName || ""
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.xs
+                        color: ThemeColors.fgPrimary
+                        font.pixelSize: ThemeFonts.xs
                         maximumLineCount: 1
                         elide: Text.ElideRight
                     }
@@ -112,7 +112,7 @@ Item {
                 }
 
                 UiButton {
-                    contentText: ThemeIcon.cross
+                    contentText: ThemeIcons.cross
                     onClicked: {
                         root.removeRequested(root.notification.id);
                     }
@@ -135,13 +135,13 @@ Item {
                         Layout.preferredHeight: 30
                         Layout.fillWidth: true
                         radius: 8
-                        color: actionMouse.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+                        color: actionMouse.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
 
                         Text {
                             anchors.centerIn: parent
                             text: modelData.text || modelData.label || modelData.id || "Action"
-                            color: ThemeColor.fgPrimary
-                            font.pixelSize: ThemeFont.xs
+                            color: ThemeColors.fgPrimary
+                            font.pixelSize: ThemeFonts.xs
                             elide: Text.ElideRight
                         }
 

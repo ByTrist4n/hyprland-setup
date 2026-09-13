@@ -11,9 +11,9 @@ Rectangle {
 
     implicitWidth: settingRow.implicitWidth + 24
     implicitHeight: settingRow.implicitHeight + 16
-    color: settingMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+    color: settingMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
     radius: 8
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
     border.width: 1
 
     RowLayout {
@@ -25,9 +25,9 @@ Rectangle {
         Text {
             id: settingIcon
 
-            text: ThemeIcon.setting
-            color: ThemeColor.accentPrimary
-            font.pixelSize: ThemeFont.lg
+            text: ThemeIcons.setting
+            color: ThemeColors.accentPrimary
+            font.pixelSize: ThemeFonts.lg
         }
 
     }

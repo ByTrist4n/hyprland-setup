@@ -45,8 +45,8 @@ PanelWindow {
 
         implicitWidth: Math.max(root.minWidth, innerItem.implicitWidth + 24)
         implicitHeight: Math.max(root.minHeight, innerItem.implicitHeight + 24)
-        color: ThemeColor.bgBase
-        border.color: ThemeColor.borderBase
+        color: ThemeColors.bgBase
+        border.color: ThemeColors.borderBase
         border.width: 1
         radius: 8
         x: {

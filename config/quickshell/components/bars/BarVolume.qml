@@ -11,9 +11,9 @@ Rectangle {
     implicitWidth: volumeRow.implicitWidth + 24
     implicitHeight: volumeRow.implicitHeight + 16
     radius: 10
-    color: volumeMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+    color: volumeMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
     border.width: 1
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
 
     RowLayout {
         id: volumeRow
@@ -24,32 +24,32 @@ Rectangle {
         Text {
             text: {
                 if (AudioService.muted)
-                    return ThemeIcon.volumeOff;
+                    return ThemeIcons.volumeOff;
 
                 const volume = AudioService.volume;
                 if (volume <= 0)
-                    return ThemeIcon.volumeLow;
+                    return ThemeIcons.volumeLow;
 
                 if (volume < 0.5)
-                    return ThemeIcon.volumeMedium;
+                    return ThemeIcons.volumeMedium;
 
-                return ThemeIcon.volume;
+                return ThemeIcons.volume;
             }
-            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
-            font.pixelSize: ThemeFont.lg
+            color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
+            font.pixelSize: ThemeFonts.lg
         }
 
         Text {
             text: AudioService.muted ? "Mute" : Math.round(AudioService.volume * 100) + "%"
-            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
-            font.pixelSize: ThemeFont.sm
+            color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
+            font.pixelSize: ThemeFonts.sm
             font.bold: true
         }
 
         Text {
             text: "| 󰍭  Mute"
-            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
-            font.pixelSize: ThemeFont.sm
+            color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
+            font.pixelSize: ThemeFonts.sm
             font.bold: true
             visible: AudioService.micMuted
         }

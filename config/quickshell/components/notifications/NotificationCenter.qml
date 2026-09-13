@@ -47,9 +47,9 @@ PanelWindow {
         width: 380
         height: Math.min(centerColumn.implicitHeight + 28, 700)
         radius: 12
-        color: ThemeColor.bgBase
+        color: ThemeColors.bgBase
         border.width: 1
-        border.color: ThemeColor.borderBase
+        border.color: ThemeColors.borderBase
 
         anchors {
             top: parent.top
@@ -82,8 +82,8 @@ PanelWindow {
                     Text {
                         Layout.fillWidth: true
                         text: "Notifications"
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.lg
+                        color: ThemeColors.fgPrimary
+                        font.pixelSize: ThemeFonts.lg
                         font.bold: true
                     }
 
@@ -91,7 +91,7 @@ PanelWindow {
                         implicitWidth: clearRow.implicitWidth + 12
                         implicitHeight: 28
                         radius: 8
-                        color: clearMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : "transparent"
+                        color: clearMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : "transparent"
                         visible: manager.notifications.length > 0
 
                         RowLayout {
@@ -102,16 +102,16 @@ PanelWindow {
 
                             Text {
                                 text: manager.notifications.length
-                                color: ThemeColor.fgPrimary
-                                font.pixelSize: ThemeFont.sm
+                                color: ThemeColors.fgPrimary
+                                font.pixelSize: ThemeFonts.sm
                                 font.bold: true
                                 Layout.alignment: Qt.AlignBottom
                             }
 
                             Text {
-                                text: ThemeIcon.clean
-                                color: ThemeColor.fgPrimary
-                                font.pixelSize: ThemeFont.lg
+                                text: ThemeIcons.clean
+                                color: ThemeColors.fgPrimary
+                                font.pixelSize: ThemeFonts.lg
                                 Layout.alignment: Qt.AlignBottom
                             }
 
@@ -131,7 +131,7 @@ PanelWindow {
                     }
 
                     UiButton {
-                        contentText: ThemeIcon.cross
+                        contentText: ThemeIcons.cross
                         onClicked: {
                             root.toggle();
                         }
@@ -144,7 +144,7 @@ PanelWindow {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 1
-                color: ThemeColor.borderBase
+                color: ThemeColors.borderBase
             }
 
             Item {
@@ -155,8 +155,8 @@ PanelWindow {
                 Text {
                     anchors.centerIn: parent
                     text: "No notification"
-                    color: ThemeColor.fgMuted
-                    font.pixelSize: ThemeFont.sm
+                    color: ThemeColors.fgMuted
+                    font.pixelSize: ThemeFonts.sm
                 }
 
             }

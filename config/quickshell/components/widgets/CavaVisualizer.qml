@@ -55,7 +55,7 @@ Item {
                 anchors.bottom: parent.bottom
                 // Reactive height calculation
                 height: Math.max(3, ((root.barValues[index] || 0) / 100) * parent.height)
-                color: ThemeColor.accentPrimary
+                color: ThemeColors.accentPrimary
                 radius: 2
 
                 Behavior on height {
