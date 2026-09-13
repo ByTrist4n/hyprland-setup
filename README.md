@@ -165,7 +165,7 @@ sh install.sh
 | 🎨 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Fish-shell like syntax highlighting for Zsh                   |
 | 📰 ["headline" an Oh My Zsh Theme](https://github.com/moarram/headline)            | Clean and minimal theme for Oh My Zsh                         |
 | 💤 [LazyVim](https://github.com/LazyVim/starter)                                   | Neovim setup powered by lazy.nvim for fast configuration      |
-| 🎭 [Theme Sw1tcher](https://github.com/ByTrist4n/theme-sw1tcher)                   | Integration tool for dynamic system color palettes and themes |
+| 🎭 [Pywal Theme Switcher](https://github.com/ByTrist4n/pywal-theme-switcher)       | Integration tool for dynamic system color palettes and themes |
 
 <br>
 
@@ -184,8 +184,8 @@ Report them to us in the [discussions section](https://github.com/ByTrist4n/hypr
 - [x] Information Bar
 - [x] App Launcher
 - [x] Notifications center
-- [ ] Switch from "Waybar" to "Quickshell"
+- [x] Switch from "Waybar" to "Quickshell"
 - [ ] Add Quickshell tools/widgets
 - [ ] Libraries offering a wide range of themes, with a variety of designs and colours
-- [ ] Save the the current `.config` file before installation
-- [ ] Improved installation process, with the option of full or partial installation.
+- [x] Save the the current `.config` file before installation
+- [x] Improved installation process, with the option of full or partial installation.

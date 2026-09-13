@@ -1,15 +1,15 @@
 #!/bin/bash
 # =============================================================
-#  Theme Sw1tcher Installation (Dynamic Colors Integration)
+#  Pywal Theme Switcher Installation (Dynamic Colors Integration)
 # =============================================================
 
 set -e
 source "./utils.sh"
 
-if ask_yes_no "Would you like to set up Theme Sw1tcher (https://github.com/ByTrist4n/theme-sw1tcher)?"; then
-  log_step "Setting up Theme Sw1tcher..."
+if ask_yes_no "Would you like to set up \"Pywal Theme Switcher\" (https://github.com/ByTrist4n/pywal-theme-switcher)?"; then
+  log_step "Setting up Pywal Theme Switcher..."
 
-  REPO_URL="https://github.com/ByTrist4n/theme-sw1tcher.git"
+  REPO_URL="https://github.com/ByTrist4n/pywal-theme-switcher.git"
   THEME_SWITCHER_DIR="$(mktemp -d)"
 
   (
@@ -24,9 +24,9 @@ if ask_yes_no "Would you like to set up Theme Sw1tcher (https://github.com/ByTri
 
   # Check exit status of the subshell process
   if [ $? -eq 0 ]; then
-    log_success "Theme Sw1tcher has been successfully configured."
+    log_success "Pywal Theme Switcher has been successfully configured."
   else
-    log_error "Failed to install Theme Sw1tcher."
+    log_error "Failed to install Pywal Theme Switcher."
   fi
 
   rm -rf "$THEME_SWITCHER_DIR"

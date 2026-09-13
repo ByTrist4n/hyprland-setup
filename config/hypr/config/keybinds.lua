@@ -33,7 +33,7 @@ hl.bind(
 )
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("loginctl lock-session && sleep 2 && systemctl suspend"))
-hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("sh ~/.config/theme-sw1tcher/theme-sw1tcher.sh"))
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("sh ~/.config/pywal-theme-switcher/pywal-theme-switcher.sh"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("rofimoji -a copy"))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("sh ~/.config/video-capture.sh"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))

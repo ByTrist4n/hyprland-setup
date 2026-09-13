@@ -57,7 +57,7 @@ if ask_yes_no "Would you like to continue with the installation?"; then
   log_success "Dot files have been successfully deployed."
 
   bash "./scripts/setup-lazyvim.sh"
-  bash "./scripts/setup-theme-sw1tcher.sh"
+  bash "./scripts/setup-pywal-theme-switcher.sh"
 
   # -------------------------------------------------------------
   # Success Screen
