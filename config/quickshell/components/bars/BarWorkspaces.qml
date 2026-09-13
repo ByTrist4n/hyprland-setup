@@ -66,124 +66,141 @@ Rectangle {
     border.width: 1
 
     RowLayout {
-        anchors.fill: parent
-        anchors.leftMargin: 8
-        anchors.rightMargin: 8
-        spacing: 8
+        id: wsRow
 
-        RowLayout {
-            id: wsRow
+        anchors.centerIn: parent
+        spacing: 4
 
-            spacing: 4
+        Repeater {
+            model: {
+                let list = [{
+                    "id": 1,
+                    "name": "1"
+                }, {
+                    "id": 2,
+                    "name": "2"
+                }, {
+                    "id": 3,
+                    "name": "3"
+                }, {
+                    "id": 4,
+                    "name": "4"
+                }, {
+                    "id": 5,
+                    "name": "5"
+                }];
+                if (Hyprland.workspaces) {
+                    for (let i = 0; i < Hyprland.workspaces.values.length; i++) {
+                        let ws = Hyprland.workspaces.values[i];
+                        if (ws.id > 5 || ws.id < 1)
+                            list.push({
+                            "id": ws.id,
+                            "name": ws.name
+                        });
 
-            Repeater {
-                model: {
-                    let list = [{
-                        "id": 1,
-                        "name": "1"
-                    }, {
-                        "id": 2,
-                        "name": "2"
-                    }, {
-                        "id": 3,
-                        "name": "3"
-                    }, {
-                        "id": 4,
-                        "name": "4"
-                    }, {
-                        "id": 5,
-                        "name": "5"
-                    }];
-                    if (Hyprland.workspaces) {
-                        for (let i = 0; i < Hyprland.workspaces.values.length; i++) {
-                            let ws = Hyprland.workspaces.values[i];
-                            if (ws.id > 5 || ws.id < 1)
-                                list.push({
-                                "id": ws.id,
-                                "name": ws.name
-                            });
+                    }
+                }
+                return list;
+            }
+
+            delegate: Item {
+                id: wsDelegate
+
+                required property var modelData
+                property var wsInfo: modelData
+                property bool isActive: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id === wsInfo.id : false
+                // Filter toplevels for windows belonging to this workspace
+                property var workspaceClients: {
+                    let clients = [];
+                    if (Hyprland.toplevels) {
+                        for (let i = 0; i < Hyprland.toplevels.values.length; i++) {
+                            let top = Hyprland.toplevels.values[i];
+                            if (top.workspace && top.workspace.id === wsInfo.id)
+                                clients.push(top);
 
                         }
                     }
-                    return list;
+                    return clients;
                 }
 
-                delegate: Rectangle {
-                    id: wsDelegate
+                implicitWidth: wsContentLayout.implicitWidth + 12
+                implicitHeight: 24
 
-                    required property var modelData
-                    property var wsInfo: modelData
-                    property bool isActive: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id === wsInfo.id : false
-                    // Filter toplevels for windows belonging to this workspace
-                    property var workspaceClients: {
-                        let clients = [];
-                        if (Hyprland.toplevels) {
-                            for (let i = 0; i < Hyprland.toplevels.values.length; i++) {
-                                let top = Hyprland.toplevels.values[i];
-                                if (top.workspace && top.workspace.id === wsInfo.id)
-                                    clients.push(top);
+                Rectangle {
+                    anchors.fill: parent
+                    radius: 6
+                    color: wsDelegate.isActive ? Qt.alpha(ThemeColors.accentPrimary, 0.15) : (wsMouse.containsMouse ? Qt.alpha(ThemeColors.fgPrimary, 0.08) : "transparent")
 
-                            }
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 120
                         }
-                        return clients;
+
                     }
 
-                    implicitWidth: wsContentLayout.implicitWidth + 12
-                    implicitHeight: 24
-                    radius: 4
-                    topRightRadius: 8
-                    color: wsDelegate.isActive ? Qt.alpha(ThemeColors.bgSurfaceActive, 0.5) : "transparent"
+                }
+
+                Rectangle {
+                    width: parent.width * 0.6
+                    height: 2
+                    radius: 1
+                    color: ThemeColors.accentPrimary
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: wsDelegate.isActive
+                }
+
+                RowLayout {
+                    id: wsContentLayout
+
+                    anchors.centerIn: parent
+                    spacing: 4
+
+                    Text {
+                        text: wsDelegate.wsInfo.name
+                        color: wsDelegate.isActive ? ThemeColors.accentPrimary : Qt.alpha(ThemeColors.fgPrimary, 0.6)
+                        font.pixelSize: ThemeFonts.xs
+                        font.bold: wsDelegate.isActive
+                        Layout.alignment: Qt.AlignVCenter
+                    }
 
                     RowLayout {
-                        id: wsContentLayout
-
-                        anchors.centerIn: parent
                         spacing: 3
+                        visible: wsDelegate.workspaceClients.length > 0
+                        Layout.alignment: Qt.AlignVCenter
 
-                        Text {
-                            text: wsDelegate.wsInfo.name
-                            color: wsDelegate.isActive ? ThemeColors.accentPrimary : ThemeColors.fgPrimary
-                            font.pixelSize: ThemeFonts.xs
-                            font.bold: wsDelegate.isActive
-                            Layout.alignment: Qt.AlignBottom
-                        }
+                        Repeater {
+                            model: wsDelegate.workspaceClients
 
-                        RowLayout {
-                            spacing: 2
-                            visible: wsDelegate.workspaceClients.length > 0
-                            Layout.alignment: Qt.AlignBottom
-                            Layout.bottomMargin: 2
+                            delegate: Text {
+                                required property var modelData
 
-                            Repeater {
-                                model: wsDelegate.workspaceClients
-
-                                delegate: Text {
-                                    required property var modelData
-
-                                    text: root.getWindowIcon(modelData)
-                                    color: wsDelegate.isActive ? ThemeColors.accentPrimary : ThemeColors.fgPrimary
-                                    font.pixelSize: ThemeFonts.md
-                                }
-
+                                text: root.getWindowIcon(modelData)
+                                color: wsDelegate.isActive ? ThemeColors.accentPrimary : Qt.alpha(ThemeColors.fgPrimary, 0.5)
+                                font.pixelSize: ThemeFonts.sm
+                                Layout.alignment: Qt.AlignVCenter
                             }
 
                         }
 
                     }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: (event) => {
-                            if (wsDelegate.wsInfo.id > 0) {
-                                Hyprland.dispatch(`hl.dsp.focus({ workspace = "${wsDelegate.wsInfo.id}" })`);
-                            } else {
-                                let cleanSpecialName = wsDelegate.wsInfo.name.replace("special:", "");
-                                Hyprland.dispatch(`hl.dsp.workspace.toggle_special("${cleanSpecialName}")`);
-                            }
+                }
+
+                MouseArea {
+                    id: wsMouse
+
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: (event) => {
+                        if (wsDelegate.wsInfo.id > 0) {
+                            Hyprland.dispatch(`hl.dsp.focus({ workspace = "${wsDelegate.wsInfo.id}" })`);
+                        } else {
+                            let cleanSpecialName = wsDelegate.wsInfo.name.replace("special:", "");
+                            Hyprland.dispatch(`hl.dsp.workspace.toggle_special("${cleanSpecialName}")`);
                         }
                     }
-
                 }
 
             }
