@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Effects
 import QtQuick.Window
 
 Item {
@@ -18,8 +19,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Qt.rgba(ThemeColors.bgSurfaceDisabled.r, ThemeColors.bgSurfaceDisabled.g, ThemeColors.bgSurfaceDisabled.b, 0.55)
-        border.color: Qt.rgba(ThemeColors.accentPrimary.r, ThemeColors.accentPrimary.g, ThemeColors.accentPrimary.b, 0.22)
+        color: Qt.alpha(ThemeColors.bgSurfaceDisabled, 0.55)
+        border.color: Qt.alpha(ThemeColors.accentPrimary, 0.22)
         border.width: 1
         radius: 12
 
@@ -39,7 +40,91 @@ Item {
 
         width: parent.width
         anchors.centerIn: parent
-        spacing: 0
+        spacing: 8
+
+        Item {
+            id: avatarContainer
+
+            width: 72
+            height: 72
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            // Fallback avatar background when image is missing or loading
+            Rectangle {
+                anchors.fill: parent
+                radius: width / 2
+                color: Qt.alpha(ThemeColors.bgBase, 0.8)
+                border.color: Qt.alpha(ThemeColors.accentPrimary, 0.3)
+                border.width: 1
+
+                Text {
+                    anchors.centerIn: parent
+                    text: (userInput.text.length > 0 ? userInput.text.charAt(0).toUpperCase() : "?")
+                    font.pixelSize: 28
+                    font.bold: true
+                    color: ThemeColors.accentPrimary
+                }
+
+            }
+
+            // Circular Avatar Container
+            Item {
+                anchors.fill: parent
+                visible: avatarImage.status === Image.Ready
+
+                Image {
+                    id: avatarImage
+
+                    anchors.fill: parent
+                    source: userModel.data(userModel.index(userModel.lastIndex, 0), 260) || ""
+                    fillMode: Image.PreserveAspectCrop
+                    asynchronous: true
+                    smooth: true
+                    antialiasing: true
+                    visible: false
+                }
+
+                // Smooth Circle Masking via MultiEffect
+                MultiEffect {
+                    anchors.fill: parent
+                    source: avatarImage
+                    maskEnabled: true
+                    maskThresholdMin: 0.5
+                    maskSpreadAtMin: 1
+
+                    maskSource: ShaderEffectSource {
+                        smooth: true
+
+                        sourceItem: Rectangle {
+                            width: avatarContainer.width
+                            height: avatarContainer.height
+                            radius: width / 2
+                            color: "black"
+                            antialiasing: true
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // Accent border on top
+            Rectangle {
+                anchors.fill: parent
+                radius: width / 2
+                color: "transparent"
+                border.color: ThemeColors.accentPrimary
+                border.width: 3
+                antialiasing: true
+            }
+
+        }
+
+        Item {
+            height: 8
+            width: 1
+        }
 
         // Login field
         Rectangle {
@@ -47,8 +132,8 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             height: 44
             radius: 8
-            color: Qt.rgba(ThemeColors.bgBase.r, ThemeColors.bgBase.g, ThemeColors.bgBase.b, 0.5)
-            border.color: Qt.rgba(ThemeColors.accentPrimary.r, ThemeColors.accentPrimary.g, ThemeColors.accentPrimary.b, 0.35)
+            color: Qt.alpha(ThemeColors.bgBase, 0.5)
+            border.color: Qt.alpha(ThemeColors.accentPrimary, 0.35)
             border.width: 1
 
             TextInput {
@@ -68,17 +153,12 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "username"
                     font: parent.font
-                    color: Qt.rgba(ThemeColors.fgMuted.r, ThemeColors.fgMuted.g, ThemeColors.fgMuted.b, 0.45)
+                    color: Qt.alpha(ThemeColors.fgMuted, 0.45)
                     visible: parent.text === "" && !parent.activeFocus
                 }
 
             }
 
-        }
-
-        Item {
-            height: 10
-            width: 1
         }
 
         // Password field
@@ -87,8 +167,8 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             height: 44
             radius: 8
-            color: Qt.rgba(ThemeColors.bgBase.r, ThemeColors.bgBase.g, ThemeColors.bgBase.b, 0.5)
-            border.color: pwdInput.activeFocus ? Qt.rgba(ThemeColors.accentPrimary.r, ThemeColors.accentPrimary.g, ThemeColors.accentPrimary.b, 0.9) : Qt.rgba(ThemeColors.accentPrimary.r, ThemeColors.accentPrimary.g, ThemeColors.accentPrimary.b, 0.35)
+            color: Qt.alpha(ThemeColors.bgBase, 0.5)
+            border.color: pwdInput.activeFocus ? Qt.alpha(ThemeColors.accentPrimary, 0.9) : Qt.alpha(ThemeColors.accentPrimary, 0.35)
             border.width: pwdInput.activeFocus ? 2 : 1
 
             Row {
@@ -97,17 +177,10 @@ Item {
                 anchors.rightMargin: 14
                 spacing: 8
 
-                Text {
-                    text: ""
-                    font.pixelSize: 16
-                    color: Qt.rgba(ThemeColors.accentPrimary.r, ThemeColors.accentPrimary.g, ThemeColors.accentPrimary.b, 0.7)
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-
                 TextInput {
                     id: pwdInput
 
-                    width: parent.width - 30
+                    width: parent.width
                     height: parent.height
                     echoMode: TextInput.Password
                     font.pixelSize: 14
@@ -121,7 +194,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         text: "password"
                         font: parent.font
-                        color: Qt.rgba(ThemeColors.fgMuted.r, ThemeColors.fgMuted.g, ThemeColors.fgMuted.b, 0.45)
+                        color: Qt.alpha(ThemeColors.fgMuted, 0.45)
                         visible: parent.text === "" && !parent.activeFocus
                     }
 
@@ -139,7 +212,7 @@ Item {
         }
 
         Item {
-            height: 10
+            height: 8
             width: 1
         }
 
@@ -166,7 +239,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             height: 44
             radius: 8
-            color: btnMouse.containsMouse ? Qt.rgba(ThemeColors.accentPrimary.r, ThemeColors.accentPrimary.g, ThemeColors.accentPrimary.b, 0.85) : Qt.rgba(ThemeColors.accentPrimary.r, ThemeColors.accentPrimary.g, ThemeColors.accentPrimary.b, 0.65)
+            color: btnMouse.containsMouse ? Qt.alpha(ThemeColors.accentPrimary, 0.85) : Qt.alpha(ThemeColors.accentPrimary, 0.65)
 
             Text {
                 anchors.centerIn: parent
