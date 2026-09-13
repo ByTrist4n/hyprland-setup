@@ -43,14 +43,6 @@ Rectangle {
 
     }
 
-    // Weather (top-right)
-    WeatherWidget {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.margins: 48
-        city: config.weatherCity
-    }
-
     // Clock + Date (left)
     ClockWidget {
         anchors.left: parent.left
