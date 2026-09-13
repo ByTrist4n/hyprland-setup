@@ -42,7 +42,7 @@ ShellRoot {
 
                 anchors.fill: parent
                 implicitHeight: barRow.implicitHeight + 16
-                color: ThemeColor.bgBase
+                color: Qt.rgba(ThemeColor.bgBase.r, ThemeColor.bgBase.g, ThemeColor.bgBase.b, 0.9)
                 radius: 16
                 border.width: 1
                 border.color: ThemeColor.borderBase
