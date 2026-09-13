@@ -1,6 +1,6 @@
-import QtQuick 2.15
-import QtQuick.Window 2.15
-import SddmComponents 2.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
 
 Rectangle {
     id: root

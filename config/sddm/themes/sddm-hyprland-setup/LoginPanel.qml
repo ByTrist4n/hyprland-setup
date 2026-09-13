@@ -1,5 +1,6 @@
-import QtQuick 2.15
-import SddmComponents 2.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
 
 Item {
     id: root
@@ -195,6 +196,7 @@ Item {
     }
 
     Connections {
+        // Handle login failure signal from SDDM
         function onLoginFailed() {
             errorMsg.text = "incorrect credentials";
             pwdInput.text = "";

@@ -1,2 +1,4 @@
 module sddm.theme.pywal
 singleton ThemeColors 1.0 ThemeColors.qml
+LoginPanel 1.0 LoginPanel.qml
+ClockWidget 1.0 ClockWidget.qml
