@@ -24,7 +24,7 @@ Item {
             width: timeText.contentWidth
             height: 2
             radius: 1
-            color: Qt.rgba(ThemeColors.fgMuted.r, ThemeColors.fgMuted.g, ThemeColors.fgMuted.b, 0.25)
+            color: Qt.alpha(ThemeColors.fgMuted, 0.25)
 
             Rectangle {
                 id: secBar
