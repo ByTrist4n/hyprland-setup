@@ -18,17 +18,18 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(globalVariables.menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
--- hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("flameshot gui"))
+-- Save screenshot via Satty, exit automatically, and notify with preview image
 hl.bind(
   mainMod .. " + S",
   hl.dsp.exec_cmd(
-    "grim -g \"$(slurp)\" - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date +'%Y%m%d-%H%M%S').png"
+    'sh -c \'f="$HOME/Pictures/Screenshots/satty-$(date +%Y%m%d-%H%M%S).png"; grim -g "$(slurp)" "$f" && satty --filename "$f" --output-filename "$f" --early-exit --copy-command "wl-copy" --disable-notifications && notify-send -i "$f" "Screenshot saved" "Image saved to Screenshots directory"\''
   )
 )
+-- Screenshot area, direct screenshot to clipboard with preview notification (no Satty)
 hl.bind(
   mainMod .. " + SHIFT + S",
   hl.dsp.exec_cmd(
-    "grim -g \"$(slurp)\" - | wl-copy && notify-send -i camera-symbolic 'Screenshot' 'Text copied to the clipboard'"
+    'sh -c \'tmp="/tmp/satty_preview_$(date +%s).png"; grim -g "$(slurp)" "$tmp" && satty --filename "$tmp" --early-exit --copy-command "wl-copy" --disable-notifications && notify-send -i "$tmp" "Screenshot copied" "Image copied to clipboard" && rm -f "$tmp"\''
   )
 )
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
