@@ -58,6 +58,7 @@ Item {
                 border.width: 1
 
                 Text {
+                    font.family: config.Font
                     anchors.centerIn: parent
                     text: (userInput.text.length > 0 ? userInput.text.charAt(0).toUpperCase() : "?")
                     font.pixelSize: 28
@@ -144,6 +145,7 @@ Item {
                 anchors.rightMargin: 14
                 text: userModel.data(userModel.index(userModel.lastIndex, 0), 257) || ""
                 font.pixelSize: 14
+                font.family: config.Fonts
                 color: ThemeColors.fgPrimary
                 verticalAlignment: TextInput.AlignVCenter
                 Keys.onReturnPressed: pwdInput.forceActiveFocus()
@@ -183,6 +185,7 @@ Item {
                     width: parent.width
                     height: parent.height
                     echoMode: TextInput.Password
+                    font.family: config.Font
                     font.pixelSize: 14
                     color: ThemeColors.fgPrimary
                     verticalAlignment: TextInput.AlignVCenter
@@ -220,6 +223,7 @@ Item {
         Text {
             id: errorMsg
 
+            font.family: config.Font
             width: parent.width
             text: ""
             color: ThemeColors.urgent
@@ -243,6 +247,7 @@ Item {
 
             Text {
                 anchors.centerIn: parent
+                font.family: config.Font
                 text: "login"
                 font.pixelSize: 14
                 color: ThemeColors.fgOnAccent
