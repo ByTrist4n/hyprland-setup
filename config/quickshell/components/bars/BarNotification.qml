@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -16,7 +17,7 @@ Rectangle {
     border.width: 1
     border.color: ThemeColors.borderBase
 
-    Text {
+    UiText {
         anchors.centerIn: parent
         // TODO: Do not disturb mode
         text: false ? ThemeIcons.notificationOff : ThemeIcons.notification
@@ -46,7 +47,7 @@ Rectangle {
             rightMargin: -2
         }
 
-        Text {
+        UiText {
             anchors.centerIn: parent
             text: notificationManager.notifications.length > 99 ? "99+" : notificationManager.notifications.length
             color: ThemeColors.bgBase

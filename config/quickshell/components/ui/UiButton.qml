@@ -39,9 +39,8 @@ Button {
 
     }
 
-    contentItem: Text {
+    contentItem: UiText {
         text: root.contentText
-        font.family: "JetBrainsMono Nerd Font"
         font.pixelSize: root.pixelSize
         color: root.enabled ? root.activeColor : root.disabledColor
         horizontalAlignment: Text.AlignHCenter

@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -22,7 +23,7 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 16
 
-        Text {
+        UiText {
             id: settingIcon
 
             text: ThemeIcons.setting

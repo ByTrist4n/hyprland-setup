@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Layouts
 
@@ -20,13 +21,13 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 8
 
-        Text {
+        UiText {
             text: networkPopup.wifiDevice && networkPopup.wifiDevice.connected ? ThemeIcons.wifi : ThemeIcons.wifiAlert
             color: ThemeColors.accentPrimary
             font.pixelSize: ThemeFonts.lg
         }
 
-        Text {
+        UiText {
             text: networkPopup.bluetoothAdapter && networkPopup.bluetoothAdapter.enabled ? ThemeIcons.bluetooth : ThemeIcons.bluetoothOff
             color: networkPopup.bluetoothAdapter && networkPopup.bluetoothAdapter.enabled ? ThemeColors.accentPrimary : ThemeColors.fgMuted
             font.pixelSize: ThemeFonts.lg

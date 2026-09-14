@@ -80,7 +80,7 @@ Item {
                         color: ThemeColors.fgPrimary
                         visible: !iconImage.visible || iconImage.status === Image.Error
 
-                        Text {
+                        UiText {
                             anchors.centerIn: parent
                             text: root.notification.appName ? root.notification.appName.charAt(0).toUpperCase() : "!"
                             color: ThemeColors.fgOnAccent
@@ -96,7 +96,7 @@ Item {
                     Layout.fillWidth: true
                     spacing: 4
 
-                    Text {
+                    UiText {
                         Layout.fillWidth: true
                         text: root.notification.summary || "Notification"
                         color: ThemeColors.accentPrimary
@@ -107,7 +107,7 @@ Item {
                         elide: Text.ElideRight
                     }
 
-                    Text {
+                    UiText {
                         Layout.fillWidth: true
                         text: root.notification.body || ""
                         color: ThemeColors.fgPrimary
@@ -117,7 +117,7 @@ Item {
                         elide: Text.ElideRight
                     }
 
-                    Text {
+                    UiText {
                         Layout.fillWidth: true
                         text: root.notification.appName || ""
                         color: ThemeColors.fgPrimary
@@ -154,7 +154,7 @@ Item {
                         radius: 8
                         color: actionMouse.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
 
-                        Text {
+                        UiText {
                             anchors.centerIn: parent
                             text: modelData.text || modelData.label || modelData.id || "Action"
                             color: ThemeColors.fgPrimary

@@ -79,7 +79,7 @@ PanelWindow {
                     anchors.rightMargin: 12
                     spacing: 8
 
-                    Text {
+                    UiText {
                         Layout.fillWidth: true
                         text: "Notifications"
                         color: ThemeColors.fgPrimary
@@ -100,7 +100,7 @@ PanelWindow {
                             anchors.centerIn: parent
                             spacing: 6
 
-                            Text {
+                            UiText {
                                 text: manager.notifications.length
                                 color: ThemeColors.fgPrimary
                                 font.pixelSize: ThemeFonts.sm
@@ -108,7 +108,7 @@ PanelWindow {
                                 Layout.alignment: Qt.AlignBottom
                             }
 
-                            Text {
+                            UiText {
                                 text: ThemeIcons.clean
                                 color: ThemeColors.fgPrimary
                                 font.pixelSize: ThemeFonts.lg
@@ -152,7 +152,7 @@ PanelWindow {
                 Layout.preferredHeight: 120
                 visible: manager.notifications.length === 0
 
-                Text {
+                UiText {
                     anchors.centerIn: parent
                     text: "No notification"
                     color: ThemeColors.fgMuted

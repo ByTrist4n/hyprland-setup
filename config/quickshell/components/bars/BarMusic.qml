@@ -1,5 +1,6 @@
 import "../../services"
 import "../../theme"
+import "../ui"
 import "../widgets"
 import QtQuick
 import QtQuick.Controls
@@ -26,7 +27,7 @@ Rectangle {
         RowLayout {
             spacing: 6
 
-            Text {
+            UiText {
                 text: MediaService.isPlaying ? ThemeIcons.music : ThemeIcons.musicOff
                 color: ThemeColors.fgPrimary
                 font.pixelSize: ThemeFonts.sm
@@ -35,7 +36,7 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
             }
 
-            Text {
+            UiText {
                 text: MediaService.trackTitle
                 Layout.maximumWidth: 200
                 color: ThemeColors.fgPrimary
@@ -44,7 +45,7 @@ Rectangle {
                 elide: Text.ElideRight
             }
 
-            Text {
+            UiText {
                 text: "- " + MediaService.trackArtist
                 Layout.maximumWidth: 150
                 color: ThemeColors.fgMuted

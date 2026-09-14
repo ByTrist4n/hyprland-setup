@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -156,7 +157,7 @@ Rectangle {
                     anchors.centerIn: parent
                     spacing: 4
 
-                    Text {
+                    UiText {
                         text: wsDelegate.wsInfo.name
                         color: wsDelegate.isActive ? ThemeColors.accentPrimary : Qt.alpha(ThemeColors.fgPrimary, 0.6)
                         font.pixelSize: ThemeFonts.xs
@@ -172,7 +173,7 @@ Rectangle {
                         Repeater {
                             model: wsDelegate.workspaceClients
 
-                            delegate: Text {
+                            delegate: UiText {
                                 required property var modelData
 
                                 text: root.getWindowIcon(modelData)

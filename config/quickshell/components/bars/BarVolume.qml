@@ -1,5 +1,6 @@
 import "../../services"
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Layouts
 
@@ -21,7 +22,7 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 6
 
-        Text {
+        UiText {
             text: {
                 if (AudioService.muted)
                     return ThemeIcons.volumeOff;
@@ -39,14 +40,14 @@ Rectangle {
             font.pixelSize: ThemeFonts.lg
         }
 
-        Text {
+        UiText {
             text: AudioService.muted ? "Mute" : Math.round(AudioService.volume * 100) + "%"
             color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
             font.pixelSize: ThemeFonts.sm
             font.bold: true
         }
 
-        Text {
+        UiText {
             text: "| 󰍭  Mute"
             color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
             font.pixelSize: ThemeFonts.sm

@@ -44,7 +44,7 @@ UiPopup {
 
             }
 
-            Text {
+            UiText {
                 anchors.centerIn: parent
                 text: ThemeIcons.music
                 font.pixelSize: ThemeFonts.lg
@@ -58,7 +58,7 @@ UiPopup {
             Layout.fillWidth: true
             spacing: 4
 
-            Text {
+            UiText {
                 Layout.fillWidth: true
                 text: MediaService && MediaService.trackTitle ? MediaService.trackTitle : "No media playing"
                 color: ThemeColors.fgPrimary
@@ -67,7 +67,7 @@ UiPopup {
                 elide: Text.ElideRight
             }
 
-            Text {
+            UiText {
                 Layout.fillWidth: true
                 text: MediaService && MediaService.trackArtist ? MediaService.trackArtist : "Unknown artist"
                 color: ThemeColors.fgPrimary
@@ -93,7 +93,7 @@ UiPopup {
                         border.color: MediaService.activePlayer === modelData ? ThemeColors.borderBase : "transparent"
                         border.width: 1
 
-                        Text {
+                        UiText {
                             anchors.centerIn: parent
                             text: MediaService.playerIcon(modelData)
                             font.pixelSize: ThemeFonts.xs

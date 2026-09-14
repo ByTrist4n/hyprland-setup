@@ -16,7 +16,7 @@ UiPopup {
         spacing: 16
 
         RowLayout {
-            Text {
+            UiText {
                 text: "Audio Controls"
                 color: ThemeColors.fgPrimary
                 font.pixelSize: ThemeFonts.lg
@@ -40,7 +40,7 @@ UiPopup {
             RowLayout {
                 Layout.fillWidth: true
 
-                Text {
+                UiText {
                     text: "Volume"
                     color: ThemeColors.fgMuted
                     font.pixelSize: ThemeFonts.sm
@@ -48,14 +48,14 @@ UiPopup {
                     Layout.fillWidth: true
                 }
 
-                Text {
+                UiText {
                     text: AudioService.muted ? "Mute" : Math.round(AudioService.volume * 100) + "%"
                     color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
                     font.pixelSize: ThemeFonts.md
                     font.bold: true
                 }
 
-                Text {
+                UiText {
                     text: AudioService.muted ? ThemeIcons.volumeOff : ThemeIcons.volume
                     color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
                     font.pixelSize: ThemeFonts.lg
@@ -146,7 +146,7 @@ UiPopup {
             RowLayout {
                 Layout.fillWidth: true
 
-                Text {
+                UiText {
                     text: "Microphone"
                     color: ThemeColors.fgMuted
                     font.pixelSize: ThemeFonts.sm
@@ -154,14 +154,14 @@ UiPopup {
                     Layout.fillWidth: true
                 }
 
-                Text {
+                UiText {
                     text: AudioService.micMuted ? "Mute" : Math.round(AudioService.micVolume * 100) + "%"
                     color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
                     font.pixelSize: ThemeFonts.md
                     font.bold: true
                 }
 
-                Text {
+                UiText {
                     text: AudioService.micMuted ? ThemeIcons.micOff : ThemeIcons.mic
                     color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
                     font.pixelSize: ThemeFonts.lg

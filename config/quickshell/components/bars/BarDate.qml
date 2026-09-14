@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import "../widgets"
 import QtQuick
 import QtQuick.Controls
@@ -23,13 +24,13 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 6
 
-        Text {
+        UiText {
             text: "󰃭"
             color: ThemeColors.accentPrimary
             font.pixelSize: ThemeFonts.lg
         }
 
-        Text {
+        UiText {
             id: clockText
 
             text: clockTimer.timeString

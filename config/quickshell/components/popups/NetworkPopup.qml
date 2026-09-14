@@ -35,7 +35,7 @@ UiPopup {
         RowLayout {
             Layout.fillWidth: true
 
-            Text {
+            UiText {
                 text: "Network"
                 color: ThemeColors.fgPrimary
                 font.pixelSize: ThemeFonts.lg
@@ -58,14 +58,14 @@ UiPopup {
             color: ThemeColors.borderBase
         }
 
-        Text {
+        UiText {
             text: "Wi-Fi"
             color: ThemeColors.accentPrimary
             font.pixelSize: ThemeFonts.sm
             font.bold: true
         }
 
-        Text {
+        UiText {
             visible: root.wifiDevice === null
             text: "No Wi-Fi adapter"
             color: ThemeColors.fgMuted
@@ -97,13 +97,13 @@ UiPopup {
                     anchors.rightMargin: 10
                     spacing: 10
 
-                    Text {
+                    UiText {
                         text: modelData.connected ? ThemeIcons.wifi : ThemeIcons.wifiOff
                         color: modelData.connected ? ThemeColors.accentPrimary : ThemeColors.fgMuted
                         font.pixelSize: ThemeFonts.lg
                     }
 
-                    Text {
+                    UiText {
                         text: modelData.name
                         color: ThemeColors.fgPrimary
                         font.pixelSize: ThemeFonts.sm
@@ -111,7 +111,7 @@ UiPopup {
                         Layout.fillWidth: true
                     }
 
-                    Text {
+                    UiText {
                         visible: modelData.connected
                         text: ThemeIcons.check
                         color: ThemeColors.success
@@ -119,7 +119,7 @@ UiPopup {
                         font.bold: true
                     }
 
-                    Text {
+                    UiText {
                         visible: modelData.stateChanging
                         text: "Loading…"
                         color: ThemeColors.accentPrimary
@@ -159,7 +159,7 @@ UiPopup {
         RowLayout {
             Layout.fillWidth: true
 
-            Text {
+            UiText {
                 text: "Bluetooth"
                 color: ThemeColors.accentSecondary
                 font.pixelSize: ThemeFonts.sm
@@ -252,13 +252,13 @@ UiPopup {
                     anchors.rightMargin: 10
                     spacing: 10
 
-                    Text {
+                    UiText {
                         text: ThemeIcons.bluetoothConnect
                         color: modelData.connected ? ThemeColors.accentSecondary : ThemeColors.fgMuted
                         font.pixelSize: ThemeFonts.lg
                     }
 
-                    Text {
+                    UiText {
                         text: modelData.name || "Unknown device"
                         color: ThemeColors.fgPrimary
                         font.pixelSize: ThemeFonts.sm
@@ -266,13 +266,13 @@ UiPopup {
                         Layout.fillWidth: true
                     }
 
-                    Text {
+                    UiText {
                         text: isBusy || modelData.connecting ? "Loading…" : ""
                         color: ThemeColors.accentSecondary
                         font.pixelSize: ThemeFonts.md
                     }
 
-                    Text {
+                    UiText {
                         visible: !isBusy && !modelData.connecting
                         text: modelData.connected ? ThemeIcons.check : ThemeColors.chevronRight
                         color: modelData.connected ? ThemeColors.success : ThemeColors.fgMuted
@@ -305,7 +305,7 @@ UiPopup {
 
         }
 
-        Text {
+        UiText {
             visible: root.bluetoothAdapter !== null && root.bluetoothAdapter.enabled && bluetoothList.count === 0
             text: "No paired devices"
             color: ThemeColors.fgMuted
