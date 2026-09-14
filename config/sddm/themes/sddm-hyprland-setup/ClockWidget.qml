@@ -17,8 +17,10 @@ Item {
 
             font.family: config.Font
             font.pixelSize: 96
-            font.weight: Font.Light
+            font.bold: true
             color: ThemeColors.fgPrimary
+            textFormat: Text.RichText
+            renderType: Text.NativeRendering
         }
 
         Rectangle {
@@ -42,15 +44,15 @@ Item {
             width: 1
         }
 
-        // date
+        // Date
         Text {
             id: dateText
 
             font.family: config.Font
             font.pixelSize: 18
-            font.letterSpacing: 1
             color: ThemeColors.fgMuted
             opacity: 0.85
+            renderType: Text.NativeRendering
         }
 
     }
@@ -62,8 +64,10 @@ Item {
         triggeredOnStart: true
         onTriggered: {
             var now = new Date();
-            timeText.text = Qt.formatTime(now, "HH:mm");
-            dateText.text = Qt.formatDate(now, "dddd MMMM d, yyyy");
+            var hours = Qt.formatTime(now, "HH");
+            var minutes = Qt.formatTime(now, "mm");
+            timeText.text = "<font color='" + ThemeColors.accentPrimary + "'>" + hours + "</font>:" + minutes;
+            dateText.text = now.toLocaleDateString(Qt.locale("en_US"), "dddd, MMMM d, yyyy");
             secBar.width = timeText.contentWidth * (now.getSeconds() / 60);
         }
     }
