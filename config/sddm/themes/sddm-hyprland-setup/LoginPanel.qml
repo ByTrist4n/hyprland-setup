@@ -187,6 +187,7 @@ Item {
                     echoMode: TextInput.Password
                     font.family: config.Font
                     font.pixelSize: 14
+                    font.letterSpacing: 3
                     color: ThemeColors.fgPrimary
                     verticalAlignment: TextInput.AlignVCenter
                     Keys.onReturnPressed: doLogin()
