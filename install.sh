@@ -42,7 +42,7 @@ echo ""
 if ask_yes_no "Right, let's go!"; then
 
   bash "./scripts/backup.sh"
-  bash "./scripts/setup-dependencies.sh"
+  bash "./scripts/setup-packages.sh"
   bash "./scripts/setup-oh-my-zsh.sh"
   bash "./scripts/setup-sddm.sh"
 
