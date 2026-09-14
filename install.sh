@@ -2,33 +2,51 @@
 set -e
 source "./utils.sh"
 
-echo "                         _                 _   __      _               "
-echo "  /\\  /\\_   _ _ __  _ __| | __ _ _ __   __| | / _\\ ___| |_ _   _ _ __  "
-echo " / /_/ / | | | '_ \\| '__| |/ _\` | '_ \\ / _\` | \\ \\ / _ \\ __| | | | '_ \\ "
-echo "/ __  /| |_| | |_) | |  | | (_| | | | | (_| | _\\ \\  __/ |_| |_| | |_) |"
-echo "\\/ /_/  \\__, | .__/|_|  |_|\\__,_|_| |_|\\__,_| \\__/\\___|\\__|\\__,_| .__/ "
-echo "        |___/|_|                                                |_|    "
-echo -e "   ${BOLD}✨ Installation Script for the Hyprland of your Dreams ${NC}• ${BLUE}By '\e]8;;https://github.com/ByTrist4n/\e\\ByTrist4n\e]8;;\e\\'${NC}"
-echo -e "────────────────────────────────────────────────────────────────────────"
+PROFIL_URL="https://github.com/ByTrist4n"
+REPO_URL="$PROFIL_URL/hyprland-setup"
+
+clear
+
+echo -e "${MAGENTA}──────────────────────────────────────────────────────────────────────${NC}"
+echo -e "${CYAN}"
+echo "  ██╗  ██╗██╗   ██╗██████╗ ██████╗ ██╗      █████╗ ███╗   ██╗██████╗  "
+echo "  ██║  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗██║     ██╔══██╗████╗  ██║██╔══██╗ "
+echo "  ███████║ ╚████╔╝ ██████╔╝██████╔╝██║     ███████║██╔██╗ ██║██║  ██║ "
+echo "  ██╔══██║  ╚██╔╝  ██╔═══╝ ██╔══██╗██║     ██╔══██║██║╚██╗██║██║  ██║ "
+echo "  ██║  ██║   ██║   ██║     ██║  ██║███████╗██║  ██║██║ ╚████║██████╔╝ "
+echo "  ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝  "
+echo -e "${NC}"
+echo -e "                         ${MAGENTA}S E T U P${NC}"
 echo ""
-echo -e "┌──────┤ WARNING ├─────────────────────────────────────────────────────┐"
-echo -e "│ Before beginning the installation, please back up your system.       │"
-echo -e "│ For your information, the script backs up \"~/.config/\" and \".zshrc\". │"
-echo -e "│                                                                      │"
-echo -e "│ You use this programme entirely at your own risk.                    │"
-echo -e "└──────────────────────────────────────────────────────────────────────┘"
+echo -e "${MAGENTA}──────────────────────────────────────────────────────────────────────${NC}"
+echo ""
+type_text 0.03 "" "  ✨ Installation Script for the Hyprland of your Dreams • By "
+print_link "${PROFIL_URL}" "ByTrist4n" "${BLUE}${BOLD}"
+echo ""
+echo ""
+echo -e "  ${CYAN}📦 Repository:${NC} $(
+  print_link "${REPO_URL}" "${REPO_URL}" "${BLUE}${BOLD}"
+)"
+echo ""
+echo -e "  ${YELLOW}⭐ If you like it, drop a star! It helps a lot :)${NC}"
 echo ""
 
-if ask_yes_no "Would you like to continue with the installation?"; then
+echo -e "${YELLOW}┌──────┤ WARNING ├─────────────────────────────────────────────────────┐${NC}"
+echo -e "${YELLOW}│${NC} Before beginning the installation, please back up your system.       ${YELLOW}│${NC}"
+echo -e "${YELLOW}│${NC} For your information, the script backs up \"~/.config/\" and \".zshrc\". ${YELLOW}│${NC}"
+echo -e "${YELLOW}│${NC}                                                                      ${YELLOW}│${NC}"
+echo -e "${YELLOW}│${NC} You use this programme entirely at your own risk.                    ${YELLOW}│${NC}"
+echo -e "${YELLOW}└──────────────────────────────────────────────────────────────────────┘${NC}"
+echo ""
+
+if ask_yes_no "Right, let's go!"; then
 
   bash "./scripts/backup.sh"
   bash "./scripts/setup-dependencies.sh"
   bash "./scripts/setup-oh-my-zsh.sh"
   bash "./scripts/setup-sddm.sh"
 
-  # -------------------------------------------------------------
-  # Clone and Deploy Hyprland Dotfiles (Configuration folders)
-  # -------------------------------------------------------------
+  # Deploy dotfiles
   log_step "Deploying Hyprland configuration files..."
 
   DOTFILES_DIR="./config"
@@ -43,30 +61,29 @@ if ask_yes_no "Would you like to continue with the installation?"; then
   # Copy configuration files into ~/.config/ without deleting source files
   cp -rf "$DOTFILES_DIR"/* "$HOME/.config/"
 
-  # Symlink .zshrc from ~/.config/zsh/.zshrc to $HOME/.zshrc
+  # Symlink .zshrc
   if [ -f "$HOME/.config/zsh/.zshrc" ]; then
     log_info "Linking .zshrc to home directory..."
     ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
   fi
 
-  # Reload Hyprland configuration if running
-  if command -v hyprctl &> /dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
-    hyprctl reload
-  fi
+  # Reload Hyprland if active
+  command -v hyprctl &> /dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ] && hyprctl reload
 
   log_success "Dot files have been successfully deployed."
 
   bash "./scripts/setup-lazyvim.sh"
   bash "./scripts/setup-pywal-theme-switcher.sh"
 
-  # -------------------------------------------------------------
-  # Success Screen
-  # -------------------------------------------------------------
+  # Success screen
   echo ""
   echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
   echo -e "  ${GREEN}🎉 Well done 💪 You now have a great Hyprland setup!${NC}"
-  echo -e "  🤔 Having trouble?${NC} Run the troubleshooting script to fix issues:"
+  echo ""
+  echo -e "  🤔 Having trouble? Run the troubleshooting script to fix issues:"
   echo -e "     ➔ ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
+  echo -e "     ➔ $(print_link "${REPO_URL}/issues" "Are you having any problems?" "${BLUE}${BOLD}")"
+  echo ""
   echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
   echo ""
 fi
