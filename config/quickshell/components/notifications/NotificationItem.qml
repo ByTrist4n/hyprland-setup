@@ -48,11 +48,28 @@ Item {
                     Layout.preferredHeight: 38
                     Layout.alignment: Qt.AlignTop
 
-                    IconImage {
+                    Image {
                         id: iconImage
 
                         anchors.fill: parent
-                        source: root.notification.appIcon || ""
+                        fillMode: Image.PreserveAspectFit
+                        asynchronous: true
+                        source: {
+                            var rawSource = root.notification.appIcon || root.notification.image || "";
+                            if (!rawSource || rawSource === "")
+                                return "";
+
+                            // Absolute file paths
+                            if (rawSource.startsWith("/"))
+                                return "file://" + rawSource;
+
+                            // Formatted URLs
+                            if (rawSource.startsWith("file://") || rawSource.startsWith("image://"))
+                                return rawSource;
+
+                            // Freedesktop icon theme lookup
+                            return "image://icon/" + rawSource;
+                        }
                         visible: status === Image.Ready
                     }
 
