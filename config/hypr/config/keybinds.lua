@@ -19,15 +19,15 @@ hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(globalVariables.menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 -- Screenshot area saved to disk
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("sh ~/.config/hyprland-setup/screenshot.sh save"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("sh ~/.config/hyprland-setup/scripts/screenshot.sh save"))
 
 -- Screenshot area copied to clipboard with preview
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("sh ~/.config/hyprland-setup/screenshot.sh clipboard"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("sh ~/.config/hyprland-setup/scripts/screenshot.sh clipboard"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("loginctl lock-session && sleep 2 && systemctl suspend"))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("sh ~/.config/pywal-theme-switcher/pywal-theme-switcher.sh"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("rofimoji -a copy"))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("sh ~/.config/hyprland-setup/video-capture.sh"))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("sh ~/.config/hyprland-setup/scripts/video-capture.sh"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 

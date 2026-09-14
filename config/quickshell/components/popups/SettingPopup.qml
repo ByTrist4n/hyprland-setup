@@ -91,7 +91,7 @@ UiPopup {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     root.toggle();
-                    Hyprland.dispatch("hl.dsp.exec_cmd(\"sh ~/.config/hyprland-setup/video-capture.sh\")");
+                    Hyprland.dispatch("hl.dsp.exec_cmd(\"sh ~/.config/hyprland-setup/scripts/video-capture.sh\")");
                 }
             }
 
@@ -135,7 +135,7 @@ UiPopup {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     root.toggle();
-                    Hyprland.dispatch("hl.dsp.exec_cmd(\"sh ~/.config/hyprland-setup/screenshot.sh save\")");
+                    Hyprland.dispatch("hl.dsp.exec_cmd(\"sh ~/.config/hyprland-setup/scripts/screenshot.sh save\")");
                 }
             }
 
