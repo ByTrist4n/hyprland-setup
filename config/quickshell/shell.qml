@@ -85,7 +85,10 @@ ShellRoot {
                     }
 
                     BarSetting {
+                        id: barSetting
+
                         Layout.leftMargin: 8
+                        settingPopup: settingPopup
                     }
 
                 }
@@ -124,6 +127,15 @@ ShellRoot {
                 isPrimaryScreen: root.isPrimaryScreen
                 widgetX: barDate.x + barContainer.x + root.margins.left
                 widgetWidth: barDate.width
+            }
+
+            SettingPopup {
+                id: settingPopup
+
+                barHeight: root.popupBarHeight
+                isPrimaryScreen: root.isPrimaryScreen
+                widgetX: barSetting.x + barContainer.x + root.margins.left
+                widgetWidth: barSetting.width
             }
 
             NotificationServer {

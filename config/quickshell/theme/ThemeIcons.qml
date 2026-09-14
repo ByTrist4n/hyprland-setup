@@ -28,6 +28,9 @@ QtObject {
     readonly property string play: "󰐊"
     readonly property string check: "✓"
     readonly property string chevronRight: ""
+    readonly property string power: "⏻"
+    readonly property string video: "󰕧"
+    readonly property string monitorScreen: "󰹑"
     // App Icons
     readonly property string defaultIcon: ""
     readonly property string browser: ""

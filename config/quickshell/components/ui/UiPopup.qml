@@ -50,19 +50,25 @@ PanelWindow {
         border.width: 1
         radius: 8
         x: {
+            let calculatedX = 16;
             if (0 < root.widgetX && 0 < root.widgetWidth) {
-                return Math.max(16, root.widgetX + (root.widgetWidth / 2) - (width / 2));
+                calculatedX = root.widgetX + (root.widgetWidth / 2) - (width / 2);
             } else {
                 switch (root.popupPosition) {
                 case "top-left":
-                    return 16;
+                    calculatedX = 16;
+                    break;
                 case "top-center":
-                    return (parent.width / 2) - (width / 2);
+                    calculatedX = (parent.width / 2) - (width / 2);
+                    break;
                 case "top-right":
                 default:
-                    return parent.width - width - 16;
+                    calculatedX = parent.width - width - 16;
+                    break;
                 }
             }
+            // Clamp position to keep popup inside screen boundaries
+            return Math.max(16, Math.min(calculatedX, parent.width - width - 16));
         }
         y: root.barHeight
         z: 1

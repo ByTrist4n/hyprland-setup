@@ -10,6 +10,8 @@ import Quickshell.Io
 Rectangle {
     id: root
 
+    property var settingPopup: null
+
     implicitWidth: settingRow.implicitWidth + 24
     implicitHeight: settingRow.implicitHeight + 16
     color: settingMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
@@ -40,7 +42,9 @@ Rectangle {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         onClicked: {
-            Hyprland.dispatch("hl.dsp.exec_cmd(\"wlogout\")");
+            if (settingPopup)
+                settingPopup.toggle();
+
         }
     }
 
