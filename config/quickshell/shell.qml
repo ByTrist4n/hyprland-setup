@@ -68,6 +68,10 @@ ShellRoot {
                         Layout.fillWidth: true
                     }
 
+                    BarRecord {
+                        id: barRecord
+                    }
+
                     BarVolume {
                         id: barVolume
 
