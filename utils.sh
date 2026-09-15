@@ -2,7 +2,6 @@
 # =============================================================
 #  Utils Functions
 # =============================================================
-set -e
 
 # Color variables
 RED='\033[0;31m'
@@ -63,6 +62,12 @@ log_success() {
   echo ""
 }
 export -f log_success
+
+log_error() {
+  echo -e "  ${RED}❌${NC} $1"
+  echo ""
+}
+export -f log_error
 
 log_info() { echo -e "  ${BLUE}➜${NC} $1"; }
 export -f log_info
