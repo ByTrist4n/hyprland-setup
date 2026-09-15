@@ -3,15 +3,17 @@
 #  Backup entire ~/.config directory and shell files
 # =============================================================
 set -e
+
 source "./utils.sh"
 
 log_step "Creating a full backup of existing ~/.config and shell files..."
 
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
-# Backup the whole  ~/.config directory if it exists and is not empty
+# Backup the whole ~/.config directory if it exists and is not empty
 if [ -d "$HOME/.config" ] && [ "$(ls -A "$HOME/.config")" ]; then
-  cp -rf "$HOME/.config" "$HOME/.config.bak_$TIMESTAMP"
+  cp -rf "$HOME/.config" "$HOME/.config.bak_$TIMESTAMP" &
+  spin $!
   log_info "Entire \"~/.config\" backed up to \"~/.config.bak_$TIMESTAMP\""
 fi
 
@@ -21,5 +23,4 @@ if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
   log_info "Existing .zshrc backed up to .zshrc.bak_$TIMESTAMP"
 fi
 
-spin $!
-log_success "Your current configuration have been saved!"
+log_success "Your current configuration has been saved!"
