@@ -1,4 +1,11 @@
 #!/bin/bash
+# =============================================================
+# A simplified, automated configuration script that allows you to create a polished,
+# functional Hyprland environment with a single command.
+# Repository: https://github.com/ByTrist4n/hyprland-setup
+# Author: ByTrist4n (https://github.com/ByTrist4n)
+# ==============================================================================
+
 set -e
 source "./utils.sh"
 
@@ -28,7 +35,7 @@ echo -e "  ${CYAN}📦 Repository:${NC} $(
   print_link "${REPO_URL}" "${REPO_URL}" "${BLUE}${BOLD}"
 )"
 echo ""
-echo -e "  ${YELLOW}⭐ If you like it, drop a star! It helps a lot :)${NC}"
+echo -e "  ${YELLOW}⭐ If you like it, drop a star! It helps a lot 🫰💖${NC}"
 echo ""
 
 echo -e "${YELLOW}┌──────┤ WARNING ├─────────────────────────────────────────────────────┐${NC}"
@@ -44,9 +51,7 @@ if ask_yes_no "Right, let's go!"; then
   bash "./scripts/backup.sh"
   bash "./scripts/setup-packages.sh"
   bash "./scripts/setup-oh-my-zsh.sh"
-  bash "./scripts/setup-sddm.sh"
 
-  # Deploy dotfiles
   log_step "Deploying Hyprland configuration files..."
 
   DOTFILES_DIR="./config"
@@ -66,6 +71,8 @@ if ask_yes_no "Right, let's go!"; then
     log_info "Linking .zshrc to home directory..."
     ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
   fi
+
+  bash "./scripts/setup-sddm.sh"
 
   # Reload Hyprland if active
   command -v hyprctl &> /dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ] && hyprctl reload

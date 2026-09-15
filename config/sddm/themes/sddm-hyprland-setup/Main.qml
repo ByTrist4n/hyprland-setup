@@ -61,7 +61,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.margins: 36
         text: sddm.hostName
-        font.family: config.Font
+        font.family: config.fontFamily
         font.pixelSize: 13
         color: ThemeColors.fgMuted
         opacity: 0.7

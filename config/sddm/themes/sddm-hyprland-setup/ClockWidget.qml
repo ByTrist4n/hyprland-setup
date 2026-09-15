@@ -15,7 +15,7 @@ Item {
         Text {
             id: timeText
 
-            font.family: config.Font
+            font.family: config.fontFamily
             font.pixelSize: 96
             font.bold: true
             color: ThemeColors.fgPrimary
@@ -48,7 +48,7 @@ Item {
         Text {
             id: dateText
 
-            font.family: config.Font
+            font.family: config.fontFamily
             font.pixelSize: 18
             color: ThemeColors.fgMuted
             opacity: 0.85
