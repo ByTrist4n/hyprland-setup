@@ -46,6 +46,18 @@ echo -e "${YELLOW}│${NC} You use this programme entirely at your own risk.    
 echo -e "${YELLOW}└──────────────────────────────────────────────────────────────────────┘${NC}"
 echo ""
 
+# Check if running on Arch Linux or arch-based distro
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+  if [[ "$ID" != "arch" && "$ID_LIKE" != *"arch"* ]]; then
+    log_error "This script is designed for Arch Linux and its derivatives only."
+    exit 1
+  fi
+else
+  log_error "This script is designed for Arch Linux and its derivatives only.\n     Cannot detect OS distribution (/etc/os-release missing)."
+  exit 1
+fi
+
 if ask_yes_no "Right, let's go!"; then
 
   bash "./scripts/backup.sh"
@@ -72,15 +84,18 @@ if ask_yes_no "Right, let's go!"; then
     ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
   fi
 
-  bash "./scripts/setup-sddm.sh"
-
-  # Reload Hyprland if active
-  command -v hyprctl &> /dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ] && hyprctl reload
-
   log_success "Dot files have been successfully deployed."
 
+  bash "./scripts/setup-sddm.sh"
   bash "./scripts/setup-lazyvim.sh"
   bash "./scripts/setup-pywal-theme-switcher.sh"
+
+  # Reload Hyprland at the very end when all components are installed
+  if pgrep -x "Hyprland" > /dev/null 2>&1; then
+    log_info "Reloading Hyprland configuration..."
+    hyprctl --batch "reload"
+    log_success "Hyprland configuration reloaded successfully."
+  fi
 
   # Success screen
   echo ""
