@@ -34,19 +34,17 @@
         <li><a href="#-optional-extra-applications">💡 Optional Extra Applications</a></li>
       </ul>
     </li>
-    <li><a href="#ideas--feedback">Ideas & Feedback 💡</a></li>
-    <li><a href="#bug-reports">Bug Reports 🐛</a></li>
+    <li><a href="#ideas--feedback-">Ideas & Feedback 💡</a></li>
+    <li><a href="#bug-reports-">Bug Reports 🐛</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
   </ol>
 </details>
-
-<br>
 
 # What is it?
 
 A simplified, automated configuration script that allows you to create a polished, functional Hyprland environment with a single command. Ideal for new Arch Linux / CachyOS installations or when you want to revamp your desktop workflow.
 
-> 🫰 Thank you for supporting the project with a star ⭐
+> ⭐ Thank you for supporting the project with a star 🫰💖
 
 ## Showcase
 
@@ -184,3 +182,4 @@ Encountered an issue? Open a ticket in the [Issues section](https://github.com/B
 - [x] Interactive installation menu with optional software selection
 - [ ] Expanded Quickshell widget library
 - [ ] Multi-style theme repository
+- [ ] And more...
