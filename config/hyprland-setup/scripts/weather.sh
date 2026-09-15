@@ -1,63 +1,82 @@
 #!/usr/bin/env bash
 # Usage: weather.sh [icon|temp|desc|wind|city]
-# Cache 10 min in /tmp/hyprlock-weather.json
-
-CACHE="/tmp/hyprlock-weather.json"
-CACHE_TIME=600
+WEATHER_CACHE="/tmp/hyprlock-weather.json"
+GEO_CACHE="/tmp/hyprlock-geo.json"
+CACHE_TIME=600      #10min
+CACHE_TIME_GEO=1800 # 30min
 
 code_to_icon() {
-  local c=$1
-  if [[ $c -eq 113 ]]; then
-    echo ""
-  elif [[ $c -eq 116 ]]; then
-    echo "󰖕"
-  elif [[ $c -eq 119 || $c -eq 122 ]]; then
-    echo "󰖐"
-  elif [[ $c -ge 176 && $c -le 185 ]]; then
-    echo "󰼳"
-  elif [[ $c -ge 200 && $c -le 201 ]]; then
-    echo "󰙾"
-  elif [[ $c -ge 293 && $c -le 353 ]]; then
-    echo "󰼳"
-  elif [[ $c -ge 354 && $c -le 395 ]]; then
-    echo "󰖖"
-  else
-    echo "🌡"
-  fi
+  case $1 in
+    0) echo "" ;;
+    1 | 2) echo "󰖕" ;;
+    3) echo "󰖐" ;;
+    45 | 48) echo "󰖑" ;;
+    51 | 53 | 55 | 56 | 57) echo "󰼳" ;;
+    61 | 63 | 65 | 66 | 67) echo "󰼳" ;;
+    71 | 73 | 75 | 77) echo "󰖘" ;;
+    80 | 81 | 82) echo "󰖖" ;;
+    95 | 96 | 99) echo "󰙾" ;;
+    *) echo "🌡" ;;
+  esac
 }
 
-# Check cache validity
-needs_refresh=true
-if [[ -f "$CACHE" ]]; then
-  file_mtime=$(stat -c %Y "$CACHE" 2> /dev/null || stat -f %m "$CACHE" 2> /dev/null || echo 0)
-  age=$(($(date +%s) - file_mtime))
-  [[ $age -lt $CACHE_TIME ]] && needs_refresh=false
+code_to_desc() {
+  case $1 in
+    0) echo "Clear sky" ;;
+    1 | 2) echo "Partly cloudy" ;;
+    3) echo "Overcast" ;;
+    45 | 48) echo "Foggy" ;;
+    51 | 53 | 55) echo "Drizzle" ;;
+    56 | 57) echo "Freezing drizzle" ;;
+    61 | 63 | 65) echo "Rain" ;;
+    66 | 67) echo "Freezing rain" ;;
+    71 | 73 | 75) echo "Snow" ;;
+    77) echo "Snow grains" ;;
+    80 | 81 | 82) echo "Rain showers" ;;
+    95) echo "Thunderstorm" ;;
+    96 | 99) echo "Thunderstorm w/ hail" ;;
+    *) echo "" ;;
+  esac
+}
+
+get_geo() {
+  if [[ ! -f "$GEO_CACHE" ]] \
+    || [[ $(($(date +%s) - $(stat -c %Y "$GEO_CACHE" 2> /dev/null || echo 0))) -ge $CACHE_TIME_GEO ]]; then
+    curl -sf --max-time 3 "https://ipinfo.io/json" -o "$GEO_CACHE" 2> /dev/null || true
+  fi
+
+  if [[ -f "$GEO_CACHE" ]]; then
+    LAT=$(jq -r '.loc | split(",")[0]' "$GEO_CACHE" 2> /dev/null)
+    LON=$(jq -r '.loc | split(",")[1]' "$GEO_CACHE" 2> /dev/null)
+    CITY_NAME=$(jq -r '.city' "$GEO_CACHE" 2> /dev/null)
+  fi
+
+  # Fallback
+  LAT=${LAT:-50.636597737559654}
+  LON=${LON:-3.0694622099588686}
+  CITY_NAME=${CITY_NAME:-Lille}
+}
+
+get_geo
+
+refresh_cache() {
+  curl -sf --max-time 5 \
+    "https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,weathercode,windspeed_10m&windspeed_unit=kmh" \
+    -o "$WEATHER_CACHE" 2> /dev/null || true
+}
+
+if [[ ! -f "$WEATHER_CACHE" ]]; then
+  refresh_cache
+elif [[ $(($(date +%s) - $(stat -c %Y "$WEATHER_CACHE" 2> /dev/null || echo 0))) -ge $CACHE_TIME ]]; then
+  refresh_cache &> /dev/null &
 fi
 
-# Fetch new weather data if cache expired
-if $needs_refresh; then
-  CITY=$(curl -sf --max-time 3 "https://ipinfo.io/city" 2> /dev/null || echo "")
-  URL="https://wttr.in/${CITY}?format=j1"
-  curl -sf --max-time 5 "$URL" -o "$CACHE" 2> /dev/null || true
-fi
-
-[[ ! -f "$CACHE" ]] && echo "--" && exit 0
+[[ ! -f "$WEATHER_CACHE" ]] && echo "--" && exit 0
 
 case "${1:-icon}" in
-  icon)
-    code=$(jq -r '.current_condition[0].weatherCode' "$CACHE" 2> /dev/null || echo "113")
-    code_to_icon "$code"
-    ;;
-  temp)
-    jq -r '.current_condition[0].temp_C + "°C"' "$CACHE" 2> /dev/null || echo "--°C"
-    ;;
-  desc)
-    jq -r '.current_condition[0].weatherDesc[0].value' "$CACHE" 2> /dev/null || echo ""
-    ;;
-  wind)
-    jq -r '" " + .current_condition[0].windspeedKmph + " km/h"' "$CACHE" 2> /dev/null || echo ""
-    ;;
-  city)
-    jq -r '.nearest_area[0].areaName[0].value' "$CACHE" 2> /dev/null || echo ""
-    ;;
+  icon) code_to_icon "$(jq -r '.current.weathercode' "$WEATHER_CACHE" 2> /dev/null)" ;;
+  temp) jq -r '.current.temperature_2m | tostring + "°C"' "$WEATHER_CACHE" 2> /dev/null || echo "--°C" ;;
+  desc) code_to_desc "$(jq -r '.current.weathercode' "$WEATHER_CACHE" 2> /dev/null)" ;;
+  wind) jq -r '.current.windspeed_10m | tostring + " km/h"' "$WEATHER_CACHE" 2> /dev/null || echo "" ;;
+  city) echo "$CITY_NAME" ;;
 esac
