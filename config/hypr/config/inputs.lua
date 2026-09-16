@@ -1,32 +1,37 @@
----------------
----- INPUT ----
----------------
+-- ===================================================
+--  INPUT
+-- ===================================================
 
 hl.config({
   input = {
+    -- Keyboard Layout Settings
     kb_layout = "us",
     kb_variant = "intl",
     kb_model = "",
-    kb_options = "",
+    kb_options = "caps:escape", -- map CapsLock to Escape
     kb_rules = "",
 
+    -- Mouse Focus Settings
     follow_mouse = 1,
+    sensitivity = 0, -- -1.0 to 1.0 (0 means no sensitivity modification)
 
-    sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
-
+    -- Touchpad Settings
     touchpad = {
-      natural_scroll = false,
+      natural_scroll = true,
+      scroll_factor = 1.0,
+      tap_to_click = true,
     },
   },
 })
 
+-- Touchpad Gestures Configuration
 hl.gesture({
   fingers = 3,
   direction = "horizontal",
   action = "workspace",
 })
 
--- Example per-device config
+-- Per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
 hl.device({
   name = "epic-mouse-v1",
