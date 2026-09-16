@@ -8,7 +8,7 @@ source "./utils.sh"
 options=("C Cedilla does not work" "SDDM/QT6, Need version" "Quit")
 xcompose="$HOME/.XCompose"
 
-echo -e "\n🤔 What do you want to fix?"
+echo -e "\n${ICON_THINK} What do you want to fix?"
 
 select opt in "${options[@]}"; do
   case $opt in

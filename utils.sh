@@ -58,14 +58,14 @@ log_step() {
 export -f log_step
 
 log_success() {
-  echo -e "  ${GREEN}✔${NC} $1"
+  echo -e "  ${GREEN}${ICON_OK}${NC} $1"
   echo ""
 }
 export -f log_success
 
 log_error() {
   echo ""
-  echo -e "  ${RED}❌${NC} $1"
+  echo -e "  ${RED}${ICON_CROSS}${NC} $1"
   echo ""
 }
 export -f log_error
@@ -73,7 +73,7 @@ export -f log_error
 log_info() { echo -e "  ${BLUE}➜${NC} $1"; }
 export -f log_info
 
-log_warning() { echo -e "  ${RED}⚠️ WARNING:${NC} $1"; }
+log_warning() { echo -e "  ${RED}${ICON_WARN}️ WARNING:${NC} $1"; }
 export -f log_warning
 
 # Ask Question [Y/n]
@@ -81,7 +81,7 @@ ask_yes_no() {
   while true; do
     read -p "$(
       echo ""
-      echo -e "🤔 $1 [Y/n] "
+      echo -e "${ICON_THINK} $1 [Y/n] "
     )" yn
     case $yn in
       "" | Yes | yes | Y | y) return 0 ;;
@@ -114,3 +114,37 @@ spin() {
   tput cnorm
 }
 export -f spin
+
+# Detect emoji font support and setup global icon variables
+setup_icons() {
+  if command -v fc-list > /dev/null 2>&1 && fc-list : family | grep -iq "emoji"; then
+    ICON_SPARKLE="✨"
+    ICON_STAR="⭐"
+    ICON_LOVE="🫰💖"
+    ICON_PACKAGE="📦"
+    ICON_SUCCESS="🎉"
+    ICON_FLEX="💪"
+    ICON_THINK="🤔"
+    ICON_ARROW="➔"
+    ICON_OK="✔"
+    ICON_WARN="⚠"
+    ICON_CROSS="❌"
+  else
+    ICON_SPARKLE="★"
+    ICON_STAR="★"
+    ICON_LOVE="♥"
+    ICON_PACKAGE="⬢"
+    ICON_SUCCESS="✔"
+    ICON_FLEX="◆"
+    ICON_THINK="?"
+    ICON_ARROW="➜"
+    ICON_OK="✔"
+    ICON_WARN="⚠"
+    ICON_CROSS="✗"
+  fi
+
+  export ICON_SPARKLE ICON_STAR ICON_LOVE ICON_PACKAGE ICON_SUCCESS \
+    ICON_FLEX ICON_THINK ICON_ARROW ICON_OK ICON_WARN ICON_CROSS
+}
+
+setup_icons
