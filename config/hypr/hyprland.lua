@@ -1,3 +1,9 @@
+-- =============================================================
+-- Hyprland Config
+-- Repository: https://github.com/ByTrist4n/hyprland-setup
+-- Author: ByTrist4n (https://github.com/ByTrist4n)
+-- =============================================================
+
 -- Refer to the wiki for more information.
 -- https://wiki.hypr.land/Configuring/Start/
 
