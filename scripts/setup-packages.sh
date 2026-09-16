@@ -5,68 +5,121 @@
 set -e
 source "./utils.sh"
 
+log_step "Request for sudo privileges to install the packages (Pacman, AUR)"
 sudo -v
 
 # Refresh mirrors and databases
 log_step "Updating Pacman database..."
-(sudo pacman -Sy --noconfirm > /dev/null 2>&1) &
-spin $!
+sudo pacman -Sy --noconfirm
 log_success "Pacman database updated!"
 
-# Core System & Essential Environment Packages (Strictly required for Hyprland Setup)
-log_step "Installing core system packages via Pacman..."
-(sudo pacman -S --needed --noconfirm \
-  archlinux-xdg-menu \
-  blueman \
-  brightnessctl \
-  cava \
-  cliphist \
-  dolphin \
-  fcitx5 \
-  fcitx5-configtool \
-  fcitx5-gtk \
-  fcitx5-qt \
-  hyprland \
-  hypridle \
-  hyprlock \
-  kitty \
-  kvantum \
-  nm-connection-editor \
-  nvim \
-  papirus-icon-theme \
-  pavucontrol \
-  qt5ct \
-  qt6ct \
-  quickshell \
-  rofi \
-  sddm \
-  slurp \
-  grim \
-  satty \
-  ttf-jetbrains-mono-nerd \
-  wf-recorder \
-  wl-clipboard \
-  yay \
-  zip \
-  zsh > /dev/null 2>&1) &
+# Generic function to execute package installation safely with guided output
+install_pkgs() {
+  local installer="$1"
+  local label="$2"
+  local pkgs=("${@:3}")
 
-spin $!
-log_success "Core system packages installed!"
+  log_step "Installing ${label} packages via ${installer}..."
+
+  # Create a temporary log file to catch errors
+  local tmp_log
+  tmp_log=$(mktemp)
+
+  # Construct command array safely based on the installer name
+  local cmd=()
+  if [ "$installer" = "pacman" ]; then
+    cmd=(sudo pacman -S --needed --noconfirm)
+  else
+    cmd=("$installer" -S --needed --noconfirm)
+  fi
+
+  # Run installation and pipe output to terminal AND log file using array expansion
+  "${cmd[@]}" "${pkgs[@]}" 2>&1 | tee "$tmp_log"
+  local exit_code=${PIPESTATUS[0]}
+
+  if [ $exit_code -ne 0 ]; then
+    log_error "Failed to install required ${label} packages!"
+
+    # Check if the error log mentions conflicting packages
+    if grep -iq "conflict" "$tmp_log"; then
+      log_warning "A package conflict was detected on your system!"
+
+      # Extract conflicting package names dynamically (strip version numbers)
+      local conflicting_pkgs
+      conflicting_pkgs=$(grep -i "are in conflict" "$tmp_log" | sed -n 's/.*and \(.*\) are in conflict.*/\1/p' | sed 's/-[0-9].*//' | sort -u)
+
+      if [ -n "$conflicting_pkgs" ]; then
+        log_info "To resolve this conflict, try removing the conflicting package(s) manually:"
+        for pkg in $conflicting_pkgs; do
+          echo -e "  ${YELLOW}sudo pacman -Rdd ${pkg}${NC}"
+        done
+        echo ""
+      else
+        log_info "Please check the log above to identify and remove conflicting packages manually."
+      fi
+    fi
+
+    rm -f "$tmp_log"
+    exit 1
+  fi
+
+  rm -f "$tmp_log"
+  log_success "${label} packages installed!"
+}
+
+# Core System Packages (Official Repos)
+CORE_PACMAN=(
+  archlinux-xdg-menu
+  blueman
+  brightnessctl
+  cava
+  cliphist
+  dolphin
+  fcitx5
+  fcitx5-configtool
+  fcitx5-gtk
+  fcitx5-qt
+  hyprland
+  hypridle
+  hyprlock
+  kitty
+  kvantum
+  nm-connection-editor
+  nvim
+  papirus-icon-theme
+  pavucontrol
+  qt5ct
+  qt6ct
+  quickshell
+  rofi
+  sddm
+  slurp
+  grim
+  satty
+  ttf-jetbrains-mono-nerd
+  wf-recorder
+  wl-clipboard
+  yay
+  zip
+  zsh
+)
 
 # Core AUR Packages
-log_step "Installing core AUR packages..."
-(yay -S --needed --noconfirm \
-  awww \
-  nwg-look \
-  pywal-16-git \
-  rofimoji \
-  wlogout \
-  wpgtk \
-  ydotool > /dev/null 2>&1) &
+CORE_AUR=(
+  awww
+  nwg-look
+  pywal-16-git
+  rofimoji
+  wlogout
+  wpgtk
+  ydotool
+)
 
-spin $!
-log_success "Core AUR packages installed!"
+# Run core installations
+install_pkgs "pacman" "Core System (Pacman)" "${CORE_PACMAN[@]}"
+install_pkgs "yay" "Core AUR" "${CORE_AUR[@]}"
 
+# Extra optional applications
 log_step "Extra applications"
 echo ""
 echo -e "${BLUE}Optional extra applications list:${NC}"
@@ -77,22 +130,15 @@ echo -e "  • ${YELLOW}pear-desktop${NC}      - YT music application"
 echo -e "  • ${YELLOW}vscodium-bin${NC}      - Open-source Code Editor"
 echo -e "  • ${YELLOW}zen-browser${NC}       - Best Web Browser (Firefox core)"
 echo ""
+
 if ask_yes_no "Would you like to install these extra applications?"; then
   log_info "Installing extra Pacman applications..."
-  (sudo pacman -S --needed --noconfirm \
-    libreoffice-still \
-    yazi > /dev/null 2>&1) &
-  spin $!
+  sudo pacman -S --needed --noconfirm libreoffice-still yazi || log_warning "Some optional Pacman apps failed to install"
 
   log_info "Installing extra AUR applications..."
-  (yay -S --needed --noconfirm \
-    logiops \
-    pear-desktop \
-    vscodium-bin \
-    zen-browser > /dev/null 2>&1) &
-  spin $!
+  yay -S --needed --noconfirm logiops pear-desktop vscodium-bin zen-browser || log_warning "Some optional AUR apps failed to install"
 
-  log_success "Extra applications installed successfully!"
+  log_success "Extra applications process finished!"
 fi
 
 log_success "Dependencies Setup complete!"

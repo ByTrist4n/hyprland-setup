@@ -64,6 +64,7 @@ log_success() {
 export -f log_success
 
 log_error() {
+  echo ""
   echo -e "  ${RED}❌${NC} $1"
   echo ""
 }
