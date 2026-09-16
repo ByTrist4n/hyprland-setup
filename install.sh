@@ -31,11 +31,11 @@ type_text 0.03 "" "  ${ICON_SPARKLE} Installation Script for the Hyprland of you
 print_link "${PROFIL_URL}" "ByTrist4n" "${BLUE}${BOLD}"
 echo ""
 echo ""
+echo -e "  ${YELLOW}${ICON_STAR} If you like it, drop a star! It helps a lot ${ICON_LOVE}${NC}"
+echo ""
 echo -e "  ${CYAN}${ICON_PACKAGE} Repository:${NC} $(
   print_link "${REPO_URL}" "${REPO_URL}" "${BLUE}${BOLD}"
 )"
-echo ""
-echo -e "  ${YELLOW}${ICON_STAR} If you like it, drop a star! It helps a lot ${ICON_LOVE}${NC}"
 echo ""
 
 echo -e "${YELLOW}┌──────┤ WARNING ├─────────────────────────────────────────────────────┐${NC}"
@@ -101,6 +101,12 @@ if ask_yes_no "Right, let's go!"; then
   echo ""
   echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
   echo -e "  ${GREEN}${ICON_SUCCESS} Well done ${ICON_FLEX} You now have a great Hyprland setup!${NC}"
+  echo ""
+  echo -e "  ${YELLOW}${ICON_STAR} If you like it, drop a star! It helps a lot ${ICON_LOVE}${NC}"
+  echo ""
+  echo -e "  ${CYAN}${ICON_PACKAGE} Repository:${NC} $(
+    print_link "${REPO_URL}" "${REPO_URL}" "${BLUE}${BOLD}"
+  )"
   echo ""
   echo -e "  ${ICON_THINK} Having trouble? Run the troubleshooting script to fix issues:"
   echo -e "     ${ICON_ARROW} ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
