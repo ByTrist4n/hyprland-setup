@@ -1,21 +1,21 @@
----------------------
----- KEYBINDINGS ----
----------------------
+-- ===================================================
+-- KEYBINDINGS
+-- ===================================================
 
-local globalVariables = require("config/global-variables")
+local userPrefs = require("config/user-preferences")
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- See https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 
-hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(globalVariables.terminal))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(userPrefs.apps.terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(
   mainMod .. " + SHIFT + DELETE",
   hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 )
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(globalVariables.fileManager))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(userPrefs.apps.fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(globalVariables.menu))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(userPrefs.apps.menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 -- Screenshot area saved to disk

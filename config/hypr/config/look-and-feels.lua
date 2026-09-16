@@ -1,17 +1,15 @@
------------------------
----- LOOK AND FEEL ----
------------------------
-
+-- ===================================================
+-- LOOK AND FEEL
+-- ===================================================
 local colors = require("config/colors")
+local userPrefs = require("config/user-preferences")
 
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
   general = {
-    gaps_in = 5,
-    gaps_out = 10,
-
-    border_size = 3,
-
+    gaps_in = userPrefs.theme.gapsIn,
+    gaps_out = userPrefs.theme.gapsOut,
+    border_size = userPrefs.theme.borderSize,
     col = {
       active_border = colors.color2,
       inactive_border = colors.background,
