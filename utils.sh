@@ -76,17 +76,42 @@ export -f log_info
 log_warning() { echo -e "  ${RED}${ICON_WARN}️ WARNING:${NC} $1"; }
 export -f log_warning
 
-# Ask Question [Y/n]
+# Ask Question [Y/n] or [y/N]
 ask_yes_no() {
+  local prompt_text="$1"
+  local default="${2:-Y}"
+  local prompt_suffix
+
+  # Combine BOLD with color directly in one ANSI sequence
+  if [[ "$default" =~ ^[Yy]$ ]]; then
+    prompt_suffix="\033[1;32m[Y/n]\033[0m"
+  else
+    prompt_suffix="\033[1;33m[y/N]\033[0m"
+  fi
+
   while true; do
-    read -p "$(
-      echo ""
-      echo -e "${ICON_THINK} $1 [Y/n] "
-    )" yn
-    case $yn in
-      "" | Yes | yes | Y | y) return 0 ;;
-      No | no | N | n) return 1 ;;
-      *) echo "Please answer y or n." ;;
+    echo ""
+    echo -ne "  ${CYAN}${ICON_THINK:-[?]}${NC} ${prompt_text} ${prompt_suffix} "
+    read -r yn
+
+    # Trim leading/trailing whitespace
+    yn="${yn#"${yn%%[![:space:]]*}"}"
+    yn="${yn%"${yn##*[![:space:]]}"}"
+
+    case "${yn,,}" in
+      y | yes | "")
+        if [[ "$default" =~ ^[Yy]$ ]]; then
+          return 0
+        else
+          [[ -n "$yn" ]] && return 0 || return 1
+        fi
+        ;;
+      n | no)
+        return 1
+        ;;
+      *)
+        echo -e "  ${RED}${ICON_CROSS:-[X]}${NC} Invalid input. Please answer \033[1my\033[0m or \033[1mn\033[0m."
+        ;;
     esac
   done
 }
