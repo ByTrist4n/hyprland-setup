@@ -64,7 +64,7 @@ if ask_yes_no "Right, let's go!"; then
   bash "./scripts/setup-packages.sh"
   bash "./scripts/setup-oh-my-zsh.sh"
 
-  log_step "Deploying Hyprland configuration files..."
+  log_section "Deploying Hyprland Configuration Files"
 
   DOTFILES_DIR="./config"
 

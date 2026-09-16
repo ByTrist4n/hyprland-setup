@@ -57,15 +57,22 @@ log_step() {
 }
 export -f log_step
 
+log_section() {
+  echo ""
+  echo -e "  ${MAGENTA}${ICON_SPARKLE:-✨}${NC} ${BOLD}$1${NC}"
+  echo ""
+}
+export -f log_section
+
 log_success() {
-  echo -e "  ${GREEN}${ICON_OK}${NC} $1"
+  echo -e "  ${GREEN}${ICON_OK:-✔}${NC} $1"
   echo ""
 }
 export -f log_success
 
 log_error() {
   echo ""
-  echo -e "  ${RED}${ICON_CROSS}${NC} $1"
+  echo -e "  ${RED}${ICON_CROSS:-❌}${NC} $1"
   echo ""
 }
 export -f log_error
@@ -73,7 +80,7 @@ export -f log_error
 log_info() { echo -e "  ${BLUE}➜${NC} $1"; }
 export -f log_info
 
-log_warning() { echo -e "  ${RED}${ICON_WARN}️ WARNING:${NC} $1"; }
+log_warning() { echo -e "  ${RED}${ICON_WARN:-⚠️} WARNING:${NC} $1"; }
 export -f log_warning
 
 # Ask Question [Y/n] or [y/N]
