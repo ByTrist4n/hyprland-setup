@@ -48,11 +48,19 @@ log_step() {
 
   if [[ "$LAST_FILE" != "$current_file" ]]; then
     export LAST_FILE="$current_file"
-    export STEP_TOTAL=$(grep -c 'log_step' "$current_file")
     export STEP_CURRENT=0
+
+    # Use manually defined STEP_TOTAL_MANUAL if available,
+    # otherwise automatically count log_step calls.
+    if [[ -z "${STEP_TOTAL_MANUAL:-}" ]]; then
+      export STEP_TOTAL=$(grep -cE 'log_step[[:space:]]+"' "$current_file")
+    else
+      export STEP_TOTAL="$STEP_TOTAL_MANUAL"
+    fi
   fi
 
   export STEP_CURRENT=$((STEP_CURRENT + 1))
+
   echo -e "==> [$STEP_CURRENT/$STEP_TOTAL] $1"
 }
 export -f log_step

@@ -5,6 +5,8 @@
 set -e
 source "./utils.sh"
 
+STEP_TOTAL_MANUAL=5
+
 log_step "Request for sudo privileges to install the packages (Pacman, AUR)"
 sudo -v
 
