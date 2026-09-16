@@ -6,7 +6,7 @@ hl.config({
   input = {
     -- Keyboard Layout Settings
     kb_layout = "us",
-    kb_variant = "intl",
+    kb_variant = "",
     kb_model = "",
     kb_options = "caps:escape", -- map CapsLock to Escape
     kb_rules = "",

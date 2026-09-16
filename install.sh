@@ -86,6 +86,7 @@ if ask_yes_no "Right, let's go!"; then
 
   log_success "Dot files have been successfully deployed."
 
+  bash "./scripts/setup-layout-keyboard.sh"
   bash "./scripts/setup-sddm.sh"
   bash "./scripts/setup-lazyvim.sh"
   bash "./scripts/setup-pywal-theme-switcher.sh"

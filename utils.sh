@@ -124,6 +124,27 @@ ask_yes_no() {
 }
 export -f ask_yes_no
 
+# Ask multiple-choice question [1-N] and print the result
+ask_choice() {
+  local prompt="$1"
+  local max="$2"
+  local choice
+
+  while true; do
+    echo -ne "  ${CYAN}${ICON_THINK:-[?]}${NC} $prompt ${BOLD}[1-$max]${NC} " >&2
+    read -r choice
+
+    if [[ "$choice" =~ ^[1-$max]$ ]]; then
+      echo "$choice"
+      return
+    fi
+
+    echo -e "  ${RED}${ICON_CROSS:-[X]}${NC} Invalid choice." >&2
+  done
+}
+
+export -f ask_choice
+
 # Spinner function to display a loading animation while running a command
 spin() {
   local pid=$1
