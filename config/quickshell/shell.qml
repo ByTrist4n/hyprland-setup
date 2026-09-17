@@ -42,10 +42,10 @@ ShellRoot {
 
                 anchors.fill: parent
                 implicitHeight: barRow.implicitHeight + 16
-                color: Qt.rgba(ThemeColors.bgBase.r, ThemeColors.bgBase.g, ThemeColors.bgBase.b, 0.9)
+                color: Qt.alpha(ThemeColors.bgBase, 0.5)
                 radius: 16
                 border.width: 1
-                border.color: ThemeColors.borderBase
+                border.color: Qt.alpha(ThemeColors.borderBase, 0.2)
 
                 RowLayout {
                     id: barRow
