@@ -19,8 +19,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Qt.alpha(ThemeColors.bgSurfaceDisabled, 0.55)
-        border.color: Qt.alpha(ThemeColors.accentPrimary, 0.22)
+        color: Qt.alpha(ThemeColors.bgSurfaceDisabled, 0.5)
+        border.color: Qt.alpha(ThemeColors.accentPrimary, 0.2)
         border.width: 1
         radius: 12
 
