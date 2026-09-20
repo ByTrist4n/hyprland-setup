@@ -19,8 +19,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Qt.alpha(ThemeColors.bgSurfaceDisabled, 0.5)
-        border.color: Qt.alpha(ThemeColors.accentPrimary, 0.2)
+        color: ThemeColors.bgBaseStrong
+        border.color: ThemeColors.borderBase
         border.width: 1
         radius: 12
 
@@ -53,8 +53,8 @@ Item {
             Rectangle {
                 anchors.fill: parent
                 radius: width / 2
-                color: Qt.alpha(ThemeColors.bgBase, 0.8)
-                border.color: Qt.alpha(ThemeColors.accentPrimary, 0.3)
+                color: ThemeColors.bgBaseStrong
+                border.color: ThemeColors.borderBase
                 border.width: 1
 
                 Text {
@@ -129,34 +129,45 @@ Item {
 
         // Login field
         Rectangle {
+            id: userContainer
+
             width: parent.width - 56
             anchors.horizontalCenter: parent.horizontalCenter
             height: 44
             radius: 8
-            color: Qt.alpha(ThemeColors.bgBase, 0.5)
-            border.color: Qt.alpha(ThemeColors.accentPrimary, 0.35)
-            border.width: 1
+            color: userInput.activeFocus ? ThemeColors.bgBaseMedium : ThemeColors.bgBaseSubtle
+            border.color: userInput.activeFocus ? ThemeColors.borderActive : ThemeColors.borderBase
+            border.width: userInput.activeFocus ? 2 : 1
 
-            TextInput {
+            TextField {
                 id: userInput
 
                 anchors.fill: parent
-                anchors.leftMargin: 14
-                anchors.rightMargin: 14
+                leftPadding: 14
+                rightPadding: 14
+                background: null
                 text: userModel.data(userModel.index(userModel.lastIndex, 0), 257) || ""
-                font.pixelSize: 14
+                placeholderText: "username"
+                placeholderTextColor: ThemeColors.fgMuted
                 font.family: config.fontFamily
+                font.pixelSize: 14
+                font.letterSpacing: 3
                 color: ThemeColors.fgPrimary
                 verticalAlignment: TextInput.AlignVCenter
                 Keys.onReturnPressed: pwdInput.forceActiveFocus()
                 Keys.onEnterPressed: pwdInput.forceActiveFocus()
+            }
 
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: "username"
-                    font: parent.font
-                    color: Qt.alpha(ThemeColors.fgMuted, 0.45)
-                    visible: parent.text === "" && !parent.activeFocus
+            Behavior on color {
+                ColorAnimation {
+                    duration: 150
+                }
+
+            }
+
+            Behavior on border.color {
+                ColorAnimation {
+                    duration: 150
                 }
 
             }
@@ -165,43 +176,39 @@ Item {
 
         // Password field
         Rectangle {
+            id: pwdContainer
+
             width: parent.width - 56
             anchors.horizontalCenter: parent.horizontalCenter
             height: 44
             radius: 8
-            color: Qt.alpha(ThemeColors.bgBase, 0.5)
-            border.color: pwdInput.activeFocus ? Qt.alpha(ThemeColors.accentPrimary, 0.9) : Qt.alpha(ThemeColors.accentPrimary, 0.35)
+            color: pwdInput.activeFocus ? ThemeColors.bgBaseMedium : ThemeColors.bgBaseSubtle
+            border.color: pwdInput.activeFocus ? ThemeColors.accentPrimary : ThemeColors.borderBase
             border.width: pwdInput.activeFocus ? 2 : 1
 
-            Row {
+            TextField {
+                id: pwdInput
+
                 anchors.fill: parent
-                anchors.leftMargin: 14
-                anchors.rightMargin: 14
-                spacing: 8
+                leftPadding: 14
+                rightPadding: 14
+                background: null
+                echoMode: TextInput.Password
+                placeholderText: "password"
+                placeholderTextColor: ThemeColors.fgMuted
+                font.family: config.fontFamily
+                font.pixelSize: 14
+                font.letterSpacing: 3
+                color: ThemeColors.fgPrimary
+                verticalAlignment: TextInput.AlignVCenter
+                Keys.onReturnPressed: doLogin()
+                Keys.onEnterPressed: doLogin()
+                Component.onCompleted: forceActiveFocus()
+            }
 
-                TextInput {
-                    id: pwdInput
-
-                    width: parent.width
-                    height: parent.height
-                    echoMode: TextInput.Password
-                    font.family: config.fontFamily
-                    font.pixelSize: 14
-                    font.letterSpacing: 3
-                    color: ThemeColors.fgPrimary
-                    verticalAlignment: TextInput.AlignVCenter
-                    Keys.onReturnPressed: doLogin()
-                    Keys.onEnterPressed: doLogin()
-                    Component.onCompleted: forceActiveFocus()
-
-                    Text {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: "password"
-                        font: parent.font
-                        color: Qt.alpha(ThemeColors.fgMuted, 0.45)
-                        visible: parent.text === "" && !parent.activeFocus
-                    }
-
+            Behavior on color {
+                ColorAnimation {
+                    duration: 150
                 }
 
             }
@@ -244,7 +251,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             height: 44
             radius: 8
-            color: btnMouse.containsMouse ? Qt.alpha(ThemeColors.accentPrimary, 0.85) : Qt.alpha(ThemeColors.accentPrimary, 0.65)
+            color: btnMouse.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgButton
 
             Text {
                 anchors.centerIn: parent
