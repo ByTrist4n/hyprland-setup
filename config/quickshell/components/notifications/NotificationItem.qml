@@ -17,7 +17,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: root.hasBorderRadius ? 8 : 0
+        radius: root.hasBorderRadius ? 16 : 0
         color: ThemeColors.bgSurface
         border.width: 1
         border.color: ThemeColors.borderBase

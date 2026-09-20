@@ -23,7 +23,7 @@ PanelWindow {
 
     margins {
         top: root.barHeight
-        right: 16
+        right: 12
     }
 
     ListView {
