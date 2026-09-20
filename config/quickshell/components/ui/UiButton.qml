@@ -26,7 +26,7 @@ Button {
         implicitWidth: 12
         implicitHeight: 12
         color: root.hovered ? root.hoverBgColor : root.defaultBgColor
-        radius: 6
+        radius: 8
         border.width: root.hasBorder ? 1 : null
         border.color: ThemeColors.borderBase
 

@@ -46,7 +46,7 @@ PanelWindow {
         z: 1
         width: 380
         height: Math.min(centerColumn.implicitHeight + 28, 700)
-        radius: 12
+        radius: 8
         color: ThemeColors.bgBase
         border.width: 1
         border.color: ThemeColors.borderBase

@@ -11,7 +11,7 @@ Rectangle {
 
     implicitWidth: volumeRow.implicitWidth + 24
     implicitHeight: volumeRow.implicitHeight + 16
-    radius: 10
+    radius: 8
     color: volumeMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
     border.width: 1
     border.color: ThemeColors.borderBase

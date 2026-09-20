@@ -129,7 +129,7 @@ Rectangle {
 
                 Rectangle {
                     anchors.fill: parent
-                    radius: 6
+                    radius: 4
                     color: wsDelegate.isActive ? Qt.alpha(ThemeColors.accentPrimary, 0.15) : (wsMouse.containsMouse ? Qt.alpha(ThemeColors.fgPrimary, 0.08) : "transparent")
 
                     Behavior on color {
