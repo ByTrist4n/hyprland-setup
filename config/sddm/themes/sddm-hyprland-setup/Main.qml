@@ -31,12 +31,12 @@ Rectangle {
 
             GradientStop {
                 position: 0
-                color: Qt.alpha(ThemeColors.bgBase, 0.45)
+                color: ThemeColors.bgBaseSubtle
             }
 
             GradientStop {
                 position: 1
-                color: Qt.alpha(ThemeColors.bgBase, 0.75)
+                color: ThemeColors.bgBaseStrong
             }
 
         }

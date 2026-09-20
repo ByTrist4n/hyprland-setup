@@ -19,15 +19,13 @@ Item {
             font.pixelSize: 96
             font.bold: true
             color: ThemeColors.fgPrimary
-            textFormat: Text.RichText
-            renderType: Text.NativeRendering
         }
 
         Rectangle {
             width: timeText.contentWidth
             height: 2
             radius: 1
-            color: Qt.alpha(ThemeColors.fgMuted, 0.25)
+            color: ThemeColors.fgMuted
 
             Rectangle {
                 id: secBar
@@ -50,9 +48,7 @@ Item {
 
             font.family: config.fontFamily
             font.pixelSize: 18
-            color: ThemeColors.fgMuted
-            opacity: 0.85
-            renderType: Text.NativeRendering
+            color: ThemeColors.fgPrimary
         }
 
     }
