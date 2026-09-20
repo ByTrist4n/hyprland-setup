@@ -258,7 +258,8 @@ Item {
                 font.family: config.fontFamily
                 text: "login"
                 font.pixelSize: 14
-                color: ThemeColors.fgOnAccent
+                font.bold: true
+                color: ThemeColors.fgButton
             }
 
             MouseArea {

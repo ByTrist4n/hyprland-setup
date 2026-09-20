@@ -17,6 +17,7 @@ QtObject {
     // --- 3. BUTTONS ---
     property color bgButton: Qt.alpha(getColor("color4", "#e08030"), 0.85)
     property color bgButtonHover: getColor("color4", "#e08030")
+    property color fgButton: getColor("color0", '#1a1008')
     // --- 4. TEXT & ICONS ---
     property color fgPrimary: getColor("color15", "#f0d0a0")
     property color fgMuted: Qt.alpha(getColor("color7", "#d4a870"), 0.5)
