@@ -45,7 +45,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: root.hasBorderRadius ? 16 : 0
-        color: hoverArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgSurface
+        color: hoverArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
         border.width: 1
         border.color: ThemeColors.borderBase
         visible: root.notif !== null
@@ -226,7 +226,7 @@ Item {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 30
                         radius: 8
-                        color: actionMouse.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgSurface
+                        color: actionMouse.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
 
                         UiText {
                             anchors.centerIn: parent

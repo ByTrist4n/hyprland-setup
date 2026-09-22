@@ -84,7 +84,7 @@ UiPopup {
                     height: 8
                     anchors.verticalCenter: parent.verticalCenter
                     radius: height / 2
-                    color: ThemeColors.bgSurface
+                    color: ThemeColors.bgBase
                 }
 
                 Rectangle {
@@ -190,7 +190,7 @@ UiPopup {
                     height: 8
                     anchors.verticalCenter: parent.verticalCenter
                     radius: height / 2
-                    color: ThemeColors.bgSurface
+                    color: ThemeColors.bgBase
                 }
 
                 Rectangle {

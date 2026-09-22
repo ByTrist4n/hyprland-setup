@@ -173,7 +173,7 @@ UiPopup {
                 width: 42
                 height: 24
                 radius: 12
-                color: root.bluetoothAdapter && root.bluetoothAdapter.enabled ? ThemeColors.bgButtonHover : ThemeColors.bgSurface
+                color: root.bluetoothAdapter && root.bluetoothAdapter.enabled ? ThemeColors.accentPrimary : ThemeColors.bgBase
                 border.width: 1
                 border.color: ThemeColors.borderBase
 

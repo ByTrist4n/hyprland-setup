@@ -13,7 +13,7 @@ Rectangle {
     implicitWidth: 36
     implicitHeight: 36
     radius: 8
-    color: notificationMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgSurface
+    color: notificationMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     border.width: 1
     border.color: ThemeColors.borderBase
 

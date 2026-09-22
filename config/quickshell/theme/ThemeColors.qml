@@ -35,7 +35,6 @@ QtObject {
     readonly property color bgBaseSubtle: Qt.alpha(bgBase, 0.3)
     readonly property color bgBaseMedium: Qt.alpha(bgBase, 0.6)
     readonly property color bgBaseStrong: Qt.alpha(bgBase, 0.8)
-    readonly property color bgSurface: getColor("color0")
     readonly property color bgSurfaceActive: getColor("color8")
     // --- 2. BORDERS ---
     readonly property color borderBase: getColor("color8")

@@ -13,7 +13,7 @@ Rectangle {
     anchors.centerIn: parent
     implicitWidth: clockLayout.implicitWidth + 16
     implicitHeight: clockLayout.implicitHeight + 16
-    color: clockMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgSurface
+    color: clockMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     radius: 8
     border.color: ThemeColors.borderBase
     border.width: 1
