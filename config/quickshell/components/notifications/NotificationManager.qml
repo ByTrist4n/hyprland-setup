@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell.Hyprland
 
 Item {
     id: root
@@ -30,9 +31,11 @@ Item {
         if (isNaN(index) || index < 0 || !actions || index >= actions.length)
             return ;
 
-        const action = actions[index];
-        if (action && typeof action.invoke === "function")
-            action.invoke();
+        // Informs the app, the user clicks on the notification
+        actions[index].invoke();
+        const appClass = item._notification.desktopEntry || item.appName || "";
+        if (appClass)
+            Hyprland.dispatch(`hl.dsp.focus({ window = "class:${appClass}" })`);
 
         root.removeNotification(item.id);
     }
