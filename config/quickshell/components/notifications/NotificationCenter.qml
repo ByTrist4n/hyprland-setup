@@ -35,17 +35,16 @@ PanelWindow {
     MouseArea {
         anchors.fill: parent
         z: 0
-        onClicked: {
-            root.isOpened = false;
-        }
+        onClicked: root.isOpened = false
     }
 
     Rectangle {
         id: popup
 
         z: 1
+        clip: true
         width: 380
-        height: Math.min(centerColumn.implicitHeight + 28, 700)
+        height: Math.min(contentColumn.implicitHeight + 28, 700)
         radius: 8
         color: ThemeColors.bgBase
         border.width: 1
@@ -59,7 +58,7 @@ PanelWindow {
         }
 
         ColumnLayout {
-            id: centerColumn
+            id: contentColumn
 
             spacing: 0
 
@@ -69,6 +68,7 @@ PanelWindow {
                 top: parent.top
             }
 
+            // Header
             Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 58
@@ -123,30 +123,30 @@ PanelWindow {
                             anchors.fill: parent
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                manager.clearAll();
-                            }
+                            onClicked: manager.clearAll()
                         }
 
                     }
 
                     UiButton {
                         contentText: ThemeIcons.cross
-                        onClicked: {
-                            root.toggle();
-                        }
+                        onClicked: root.toggle()
                     }
 
                 }
 
             }
 
+            // Separator
             Rectangle {
+                id: separator
+
                 Layout.fillWidth: true
                 Layout.preferredHeight: 1
                 color: ThemeColors.borderBase
             }
 
+            // Empty state
             Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 120
@@ -161,14 +161,17 @@ PanelWindow {
 
             }
 
+            // Notification list
             ListView {
                 id: notificationList
 
                 Layout.fillWidth: true
-                Layout.preferredHeight: Math.min(contentHeight, 640)
+                height: Math.min(contentHeight, 600)
                 visible: manager.notifications.length > 0
                 clip: true
                 spacing: 4
+                bottomMargin: 8
+                topMargin: 4
                 model: manager.notifications
 
                 delegate: NotificationItem {
