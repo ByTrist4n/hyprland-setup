@@ -77,7 +77,7 @@ Item {
                 })
             };
             root.notifications = [notificationWrapper].concat(root.notifications);
-            root.popupNotifications = root.popupNotifications.concat([notificationWrapper]);
+            root.popupNotifications = [notificationWrapper].concat(root.popupNotifications);
             const notificationId = notification.id;
             notification.closed.connect(function() {
                 root.notifications = removeFromList(root.notifications, notificationId);
