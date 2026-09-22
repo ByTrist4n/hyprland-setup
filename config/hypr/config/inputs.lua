@@ -22,6 +22,9 @@ hl.config({
       tap_to_click = true,
     },
   },
+  cursor = {
+    no_warps = true,
+  },
 })
 
 -- Touchpad Gestures Configuration
