@@ -274,7 +274,7 @@ UiPopup {
 
                     UiText {
                         visible: !isBusy && !modelData.connecting
-                        text: modelData.connected ? ThemeIcons.check : ThemeColors.chevronRight
+                        text: modelData.connected ? ThemeIcons.check : ThemeIcons.chevronRight
                         color: modelData.connected ? ThemeColors.success : ThemeColors.fgMuted
                         font.pixelSize: ThemeFonts.md
                         font.bold: true
