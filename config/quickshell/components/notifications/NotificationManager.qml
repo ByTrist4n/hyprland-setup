@@ -9,43 +9,55 @@ Item {
     property var notifications: []
     property var popupNotifications: []
 
-    function removePopup(notification) {
-        root.popupNotifications = root.popupNotifications.filter((n) => {
-            return n !== notification;
+    function removeFromList(list, notificationId) {
+        return list.filter((wrapper) => {
+            return wrapper && wrapper._notification && wrapper._notification.id !== notificationId;
         });
     }
 
-    function removeNotification(notification) {
-        root.notifications = root.notifications.filter((n) => {
-            return n !== notification;
-        });
-        root.popupNotifications = root.popupNotifications.filter((n) => {
-            return n !== notification;
-        });
-        if (notification && notification.tracked)
+    function removePopup(notificationWrapper) {
+        if (!notificationWrapper || !notificationWrapper._notification)
+            return ;
+
+        const notificationId = notificationWrapper._notification.id;
+        root.popupNotifications = removeFromList(root.popupNotifications, notificationId);
+    }
+
+    function removeNotification(notificationWrapper) {
+        if (!notificationWrapper || !notificationWrapper._notification)
+            return ;
+
+        const notification = notificationWrapper._notification;
+        const notificationId = notification.id;
+        root.notifications = removeFromList(root.notifications, notificationId);
+        root.popupNotifications = removeFromList(root.popupNotifications, notificationId);
+        if (notification.tracked)
             notification.dismiss();
 
     }
 
-    function invokeAction(notification, actionIndex) {
-        if (!notification)
+    function invokeAction(notificationWrapper, actionIndex) {
+        if (!notificationWrapper || !notificationWrapper._notification)
             return ;
 
+        const notification = notificationWrapper._notification;
         const actions = notification.actions;
         if (!actions || actionIndex < 0 || actionIndex >= actions.length)
             return ;
 
         actions[actionIndex].invoke();
-        const appClass = notification.desktopEntry || notification.appName || "";
+        const appClass = notification.desktopEntry || "";
         if (appClass)
             Hyprland.dispatch(`hl.dsp.focus({ window = "class:${appClass}" })`);
 
-        removeNotification(notification);
+        removeNotification(notificationWrapper);
     }
 
     function clearAll() {
-        root.notifications.forEach((n) => {
-            return n.tracked = false;
+        root.notifications.forEach((wrapper) => {
+            if (wrapper && wrapper._notification && wrapper._notification.tracked)
+                wrapper._notification.dismiss();
+
         });
         root.notifications = [];
         root.popupNotifications = [];
@@ -57,15 +69,19 @@ Item {
                 return ;
 
             notification.tracked = true;
-            root.notifications = [notification].concat(root.notifications);
-            root.popupNotifications = root.popupNotifications.concat([notification]);
+            const notificationWrapper = {
+                "_notification": notification,
+                "timestamp": new Date().toLocaleTimeString("fr-FR", {
+                    "hour": "2-digit",
+                    "minute": "2-digit"
+                })
+            };
+            root.notifications = [notificationWrapper].concat(root.notifications);
+            root.popupNotifications = root.popupNotifications.concat([notificationWrapper]);
+            const notificationId = notification.id;
             notification.closed.connect(function() {
-                root.notifications = root.notifications.filter((n) => {
-                    return n !== notification;
-                });
-                root.popupNotifications = root.popupNotifications.filter((n) => {
-                    return n !== notification;
-                });
+                root.notifications = removeFromList(root.notifications, notificationId);
+                root.popupNotifications = removeFromList(root.popupNotifications, notificationId);
             });
         }
 
