@@ -58,7 +58,7 @@ UiPopup {
             Layout.fillWidth: true
             implicitHeight: 48
             radius: 8
-            color: recMouse.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
+            color: recMouse.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgSurface
             border.color: ThemeColors.borderBase
             border.width: 1
 
@@ -102,7 +102,7 @@ UiPopup {
             Layout.fillWidth: true
             implicitHeight: 48
             radius: 8
-            color: shotMouse.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
+            color: shotMouse.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgSurface
             border.color: ThemeColors.borderBase
             border.width: 1
 

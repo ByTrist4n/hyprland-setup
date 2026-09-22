@@ -89,7 +89,7 @@ UiPopup {
                         width: 24
                         height: 24
                         radius: 4
-                        color: MediaService.activePlayer === modelData ? ThemeColors.bgSurfaceActive : "transparent"
+                        color: MediaService.activePlayer === modelData ? ThemeColors.bgButtonHover : "transparent"
                         border.color: MediaService.activePlayer === modelData ? ThemeColors.borderBase : "transparent"
                         border.width: 1
 

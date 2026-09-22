@@ -41,8 +41,8 @@ QtObject {
     readonly property color borderBase: getColor("color8")
     readonly property color borderActive: getColor("color4")
     // --- 3. BUTTONS ---
-    readonly property color bgButton: Qt.alpha(accentPrimary, 0.85)
-    readonly property color bgButtonHover: accentPrimary
+    readonly property color bgButton: accentPrimary
+    readonly property color bgButtonHover: accentSecondary
     readonly property color fgButton: getColor("background")
     // --- 4. TEXT & ICONS ---
     readonly property color fgPrimary: getColor("foreground")

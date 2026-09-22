@@ -14,7 +14,7 @@ Rectangle {
 
     implicitWidth: settingRow.implicitWidth + 24
     implicitHeight: settingRow.implicitHeight + 16
-    color: settingMouseArea.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgSurface
+    color: settingMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgSurface
     radius: 8
     border.color: ThemeColors.borderBase
     border.width: 1

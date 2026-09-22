@@ -9,8 +9,8 @@ Button {
     property color activeColor: ThemeColors.fgPrimary
     property color disabledColor: ThemeColors.fgMuted
     property real pixelSize: ThemeFonts.lg
-    property color hoverBgColor: ThemeColors.bgSurfaceActive
-    property color defaultBgColor: "transparent"
+    property color bgColorDefault: "transparent"
+    property color bgColorHover: ThemeColors.bgButtonHover
     property bool hasBorder: false
 
     flat: true
@@ -25,7 +25,7 @@ Button {
     background: Rectangle {
         implicitWidth: 12
         implicitHeight: 12
-        color: root.hovered ? root.hoverBgColor : root.defaultBgColor
+        color: root.hovered ? root.bgColorHover : root.defaultBgColor
         radius: 8
         border.width: root.hasBorder ? 1 : null
         border.color: ThemeColors.borderBase
