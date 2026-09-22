@@ -25,7 +25,7 @@ UiPopup {
             }
 
             UiButton {
-                contentText: ThemeIcons.cross
+                text: ThemeIcons.cross
                 onClicked: {
                     root.toggle();
                 }
@@ -247,7 +247,7 @@ UiPopup {
 
         UiButton {
             Layout.fillWidth: true
-            contentText: ThemeIcons.volume + " Audio settings"
+            text: ThemeIcons.volume + " Audio settings"
             hasBorder: true
             pixelSize: ThemeFonts.sm
             onClicked: {

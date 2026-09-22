@@ -120,21 +120,21 @@ UiPopup {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.previous()
-                    contentText: ThemeIcons.skipPrevious
+                    text: ThemeIcons.skipPrevious
                 }
 
                 UiButton {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.togglePlaying()
-                    contentText: (MediaService && MediaService.isPlaying) ? ThemeIcons.pause : ThemeIcons.play
+                    text: (MediaService && MediaService.isPlaying) ? ThemeIcons.pause : ThemeIcons.play
                 }
 
                 UiButton {
                     Layout.fillWidth: true
                     enabled: null != MediaService
                     onClicked: MediaService.next()
-                    contentText: ThemeIcons.skipNext
+                    text: ThemeIcons.skipNext
                 }
 
             }

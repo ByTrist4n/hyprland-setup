@@ -31,7 +31,7 @@ UiPopup {
             }
 
             UiButton {
-                contentText: ThemeIcons.cross
+                text: ThemeIcons.cross
                 onClicked: {
                     root.toggle();
                 }
@@ -152,7 +152,7 @@ UiPopup {
         // Card 3 - Session Power Menu
         UiButton {
             Layout.fillWidth: true
-            contentText: ThemeIcons.power + " Power Menu"
+            text: ThemeIcons.power + " Power Menu"
             hasBorder: true
             pixelSize: ThemeFonts.sm
             onClicked: {

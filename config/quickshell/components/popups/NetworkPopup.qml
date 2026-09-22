@@ -44,7 +44,7 @@ UiPopup {
             }
 
             UiButton {
-                contentText: ThemeIcons.cross
+                text: ThemeIcons.cross
                 onClicked: {
                     root.toggle();
                 }
@@ -327,7 +327,7 @@ UiPopup {
 
             UiButton {
                 Layout.fillWidth: true
-                contentText: "Network settings"
+                text: "Network settings"
                 hasBorder: true
                 pixelSize: ThemeFonts.sm
                 onClicked: {
@@ -338,7 +338,7 @@ UiPopup {
 
             UiButton {
                 Layout.fillWidth: true
-                contentText: "Bluetooth settings"
+                text: "Bluetooth settings"
                 hasBorder: true
                 pixelSize: ThemeFonts.sm
                 onClicked: {

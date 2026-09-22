@@ -129,7 +129,7 @@ PanelWindow {
                     }
 
                     UiButton {
-                        contentText: ThemeIcons.cross
+                        text: ThemeIcons.cross
                         onClicked: root.toggle()
                     }
 

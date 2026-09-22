@@ -180,7 +180,7 @@ Item {
                         }
 
                         UiButton {
-                            contentText: ThemeIcons.cross
+                            text: ThemeIcons.cross
                             onClicked: root.removeRequested(root.notification)
                         }
 
