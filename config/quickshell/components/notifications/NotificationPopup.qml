@@ -46,9 +46,7 @@ PanelWindow {
 
                 anchors.fill: parent
                 notification: modelData
-                onRemoveRequested: (id) => {
-                    return manager.removeNotification(id);
-                }
+                onRemoveRequested: manager.removeNotification(modelData)
                 onActionRequested: (id, actionId) => {
                     return manager.invokeAction(modelData, actionId);
                 }
@@ -58,7 +56,11 @@ PanelWindow {
                 interval: 3000
                 running: true
                 repeat: false
-                onTriggered: manager.removePopup(modelData.id)
+                onTriggered: {
+                    if (modelData)
+                        manager.removePopup(modelData);
+
+                }
             }
 
         }

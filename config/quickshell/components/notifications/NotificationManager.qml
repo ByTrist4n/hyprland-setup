@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell.Hyprland
+import Quickshell.Services.Notifications
 
 Item {
     id: root
@@ -7,44 +8,44 @@ Item {
     required property var server
     property var notifications: []
     property var popupNotifications: []
-    property int nextId: 0
 
-    function removePopup(id) {
-        root.popupNotifications = root.popupNotifications.filter(function(item) {
-            return item.id !== id;
+    function removePopup(notification) {
+        root.popupNotifications = root.popupNotifications.filter((n) => {
+            return n !== notification;
         });
     }
 
-    function removeNotification(id) {
-        root.notifications = root.notifications.filter(function(item) {
-            return item.id !== id;
+    function removeNotification(notification) {
+        root.notifications = root.notifications.filter((n) => {
+            return n !== notification;
         });
-        root.removePopup(id);
+        root.popupNotifications = root.popupNotifications.filter((n) => {
+            return n !== notification;
+        });
+        if (notification && notification.tracked)
+            notification.dismiss();
+
     }
 
-    function invokeAction(item, actionIndex) {
-        if (!item || !item._notification)
+    function invokeAction(notification, actionIndex) {
+        if (!notification)
             return ;
 
-        const index = Number(actionIndex);
-        const actions = item._notification.actions;
-        if (isNaN(index) || index < 0 || !actions || index >= actions.length)
+        const actions = notification.actions;
+        if (!actions || actionIndex < 0 || actionIndex >= actions.length)
             return ;
 
-        // Informs the app, the user clicks on the notification
-        actions[index].invoke();
-        const appClass = item._notification.desktopEntry || item.appName || "";
+        actions[actionIndex].invoke();
+        const appClass = notification.desktopEntry || notification.appName || "";
         if (appClass)
             Hyprland.dispatch(`hl.dsp.focus({ window = "class:${appClass}" })`);
 
-        root.removeNotification(item.id);
+        removeNotification(notification);
     }
 
     function clearAll() {
-        root.notifications.forEach(function(item) {
-            if (item && item._notification && typeof item._notification.dismiss === "function")
-                item._notification.dismiss();
-
+        root.notifications.forEach((n) => {
+            return n.tracked = false;
         });
         root.notifications = [];
         root.popupNotifications = [];
@@ -56,27 +57,16 @@ Item {
                 return ;
 
             notification.tracked = true;
-            const actions = (notification.actions || []).map(function(action, i) {
-                if (!action)
-                    return null;
-
-                return {
-                    "index": i,
-                    "text": action.text || ("Action " + (i + 1))
-                };
-            }).filter(Boolean);
-            const item = {
-                "id": root.nextId++,
-                "appName": notification.appName || "",
-                "appIcon": notification.image || "",
-                "summary": notification.summary || "",
-                "body": notification.body || "",
-                "actions": actions,
-                "_notification": notification
-            };
-            // Prepend to history, append to popups without spread operator
-            root.notifications = [item].concat(root.notifications);
-            root.popupNotifications = root.popupNotifications.concat([item]);
+            root.notifications = [notification].concat(root.notifications);
+            root.popupNotifications = root.popupNotifications.concat([notification]);
+            notification.closed.connect(function() {
+                root.notifications = root.notifications.filter((n) => {
+                    return n !== notification;
+                });
+                root.popupNotifications = root.popupNotifications.filter((n) => {
+                    return n !== notification;
+                });
+            });
         }
 
         target: root.server

@@ -177,11 +177,9 @@ PanelWindow {
                     hasBorderRadius: false
                     width: notificationList.width
                     notification: modelData
-                    onRemoveRequested: (id) => {
-                        manager.removeNotification(id);
-                    }
+                    onRemoveRequested: manager.removeNotification(modelData)
                     onActionRequested: (id, actionId) => {
-                        manager.invokeAction(modelData, actionId);
+                        return manager.invokeAction(modelData, actionId);
                     }
                 }
 

@@ -10,8 +10,8 @@ Item {
     required property var notification
     property bool hasBorderRadius: true
 
-    signal removeRequested(int id)
-    signal actionRequested(int id, string actionId)
+    signal removeRequested(var notification)
+    signal actionRequested(var notification, int actionIndex)
 
     implicitHeight: content.implicitHeight + 24
 
@@ -21,6 +21,7 @@ Item {
         color: ThemeColors.bgSurface
         border.width: 1
         border.color: ThemeColors.borderBase
+        visible: root.notification !== null
 
         ColumnLayout {
             id: content
@@ -55,20 +56,23 @@ Item {
                         fillMode: Image.PreserveAspectFit
                         asynchronous: true
                         source: {
-                            var rawSource = root.notification.appIcon || root.notification.image || "";
-                            if (!rawSource || rawSource === "")
+                            if (!root.notification)
                                 return "";
 
-                            // Absolute file paths
-                            if (rawSource.startsWith("/"))
-                                return "file://" + rawSource;
+                            var img = root.notification.image || root.notification.appIcon || "";
+                            if (!img)
+                                img = root.notification.appIcon || "";
 
-                            // Formatted URLs
-                            if (rawSource.startsWith("file://") || rawSource.startsWith("image://"))
-                                return rawSource;
+                            if (!img)
+                                return "";
 
-                            // Freedesktop icon theme lookup
-                            return "image://icon/" + rawSource;
+                            if (img.startsWith("/"))
+                                return "file://" + img;
+
+                            if (img.startsWith("file://") || img.startsWith("image://"))
+                                return img;
+
+                            return "image://icon/" + img;
                         }
                         visible: status === Image.Ready
                     }
@@ -130,9 +134,7 @@ Item {
 
                 UiButton {
                     contentText: ThemeIcons.cross
-                    onClicked: {
-                        root.removeRequested(root.notification.id);
-                    }
+                    onClicked: root.removeRequested(root.notification)
                 }
 
             }
@@ -141,10 +143,10 @@ Item {
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 6
-                visible: root.notification.actions && root.notification.actions.length > 0
+                visible: root.notification !== null && root.notification.actions !== null && root.notification.actions.length > 0
 
                 Repeater {
-                    model: root.notification.actions
+                    model: root.notification ? root.notification.actions : []
 
                     delegate: Rectangle {
                         required property var modelData
@@ -167,9 +169,7 @@ Item {
 
                             anchors.fill: parent
                             hoverEnabled: true
-                            onClicked: {
-                                root.actionRequested(root.notification.id, modelData.index);
-                            }
+                            onClicked: root.actionRequested(root.notification, modelData.index)
                         }
 
                     }
