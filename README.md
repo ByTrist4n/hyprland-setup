@@ -29,9 +29,9 @@
     <li>
       <a href="#tech-stack">Tech Stack</a>
       <ul>
-        <li><a href="#-core-pacman-packages">📦 Core Pacman Packages</a></li>
-        <li><a href="#-core-aur-packages">🛸 Core AUR Packages</a></li>
-        <li><a href="#-optional-extra-applications">💡 Optional Extra Applications</a></li>
+        <li><a href="#--core-pacman-packages">📦 Core Pacman Packages</a></li>
+        <li><a href="#--core-aur-packages">🛸 Core AUR Packages</a></li>
+        <li><a href="#--optional-extra-applications">💡 Optional Extra Applications</a></li>
       </ul>
     </li>
     <li><a href="#ideas--feedback-">Ideas & Feedback 💡</a></li>
@@ -47,6 +47,8 @@ A simplified, automated configuration script that allows you to create a polishe
 > ⭐ Thank you for supporting the project with a star 🫰💖
 
 ## Showcase
+
+Main desktop overview:
 
 ![Screenshot Desktop](./screenshots/screenshot_preview.jpg)
 
@@ -74,11 +76,7 @@ A simplified, automated configuration script that allows you to create a polishe
 
 ## Prerequisites
 
-- **Hyprland v0.55+** (Lua configuration format support)
-- Verify your installed version:
-  ```bash
-  hyprland --version
-  ```
+**Hyprland v0.55+** (Lua configuration format support). Verify your installed version with: `hyprland --version`
 
 ## Installation
 
@@ -107,7 +105,9 @@ sh install.sh
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
 [![Hyprland](https://img.shields.io/badge/Hyprland-blue?style=for-the-badge&logo=hyprland)](https://hypr.land)
 
-## 📦 Core Pacman Packages
+These are all the packages installed with "Hyprland Setup":
+<details>
+  <summary><b>📦 Core Pacman Packages</b></summary>
 
 | Package                                                                                                | Description                                                      |
 | :----------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------- |
@@ -140,7 +140,10 @@ sh install.sh
 | 📑 [archlinux-xdg-menu](https://archlinux.org/packages/extra/any/archlinux-xdg-menu/)                  | XDG menu generator                                               |
 | 📦 [zip](https://infozip.sourceforge.net/)                                                             | Compression utility                                              |
 
-## 🛸 Core AUR Packages
+</details>
+
+<details>
+  <summary><b>🛸 Core AUR Packages</b></summary>
 
 | Package                                              | Description                                      |
 | :--------------------------------------------------- | :----------------------------------------------- |
@@ -152,7 +155,10 @@ sh install.sh
 | 😃 [rofimoji](https://github.com/fdw/rofimoji)       | Rofi emoji and character picker                  |
 | 🤖 [ydotool](https://github.com/ReimuNotMoe/ydotool) | Wayland command-line input automation tool       |
 
-## 💡 Optional Extra Applications
+</details>
+
+<details>
+  <summary><b>💡 Optional Extra Applications</b></summary>
 
 | Package                                                      | Source | Description                                 |
 | :----------------------------------------------------------- | :----- | :------------------------------------------ |
@@ -162,6 +168,8 @@ sh install.sh
 | 🧭 [zen-browser](https://github.com/zen-browser/desktop)     | AUR    | Firefox-based browser focused on privacy    |
 | 🎵 [pear-desktop](https://github.com/pear-devs/pear-desktop) | AUR    | YouTube Music desktop client                |
 | 🖱️ [logiops](https://github.com/PixlOne/logiops)             | AUR    | Driver and utility for Logitech mice        |
+
+</details>
 
 <br>
 
@@ -180,6 +188,10 @@ Encountered an issue? Open a ticket in the [Issues section](https://github.com/B
 - [x] Quickshell bar integration
 - [x] Screenshot and markup workflow (`grim` + `slurp` + `satty`)
 - [x] Interactive installation menu with optional software selection
-- [ ] Expanded Quickshell widget library
-- [ ] Multi-style theme repository
+- [ ] Quickshell widget library
+  - [ ] Music pop-up control
+  - [ ] Todo block
+  - [ ] Add a “Do Not Disturb” mode for notifications
+- [ ] Calculator in Rofi
+- [ ] A collection of themes with different designs and colors
 - [ ] And more...
