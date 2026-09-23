@@ -26,7 +26,7 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("sh ~/.config/hyprland-setup/
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("loginctl lock-session && sleep 2 && systemctl suspend"))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("sh ~/.config/pywal-theme-switcher/pywal-theme-switcher.sh"))
-hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("rofimoji -a copy"))
+hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd('walker -m symbols -p "Search an emoji"'))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("sh ~/.config/hyprland-setup/scripts/video-capture.sh"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())

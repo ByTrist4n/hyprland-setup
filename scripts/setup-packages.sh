@@ -119,6 +119,7 @@ CORE_AUR=(
   elephant-desktopapplications
   elephant-calc
   elephant-clipboard
+  elephant-symbols
   nwg-look
   pywal-16-git
   walker
