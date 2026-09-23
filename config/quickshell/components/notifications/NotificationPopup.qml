@@ -46,6 +46,7 @@ PanelWindow {
 
                 anchors.fill: parent
                 notification: modelData
+                hasColorHover: false
                 onRemoveRequested: manager.removeNotification(modelData)
                 onActionRequested: (id, actionId) => {
                     return manager.invokeAction(modelData, actionId);
@@ -53,7 +54,7 @@ PanelWindow {
             }
 
             Timer {
-                interval: 3000
+                interval: 5000
                 running: true
                 repeat: false
                 onTriggered: {

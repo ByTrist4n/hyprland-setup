@@ -10,6 +10,7 @@ Item {
 
     required property var notification
     property bool hasBorderRadius: true
+    property bool hasColorHover: true
     property var notif: root.notification && root.notification._notification ? root.notification._notification : null
     property string timestamp: root.notification && root.notification.timestamp ? root.notification.timestamp : ""
     property var relevantActions: {
@@ -45,7 +46,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: root.hasBorderRadius ? 16 : 0
-        color: hoverArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
+        color: (hoverArea.containsMouse && root.hasColorHover) ? ThemeColors.bgButtonHover : ThemeColors.bgBase
         border.width: 1
         border.color: ThemeColors.borderBase
         visible: root.notif !== null
