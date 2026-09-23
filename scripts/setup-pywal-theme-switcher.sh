@@ -6,7 +6,7 @@
 setup_sddm_integration() {
   local sddm_theme_dir="/usr/share/sddm/themes/sddm-hyprland-setup"
   local sddm_bg_target="/var/tmp/sddm_wallpaper.jpg"
-  local hooks_dir="$HOME/.config/pywal-theme-switcher/post-hooks.d"
+  local hooks_dir="$HOME/.local/bin/pywal-theme-switcher/post-hooks.d"
   local hook_script="$hooks_dir/sddm-update.sh"
 
   if [ -d "$sddm_theme_dir" ]; then
