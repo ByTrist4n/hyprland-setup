@@ -29,9 +29,9 @@
     <li>
       <a href="#tech-stack">Tech Stack</a>
       <ul>
-        <li><a href="#--core-pacman-packages">📦 Core Pacman Packages</a></li>
-        <li><a href="#--core-aur-packages">🛸 Core AUR Packages</a></li>
-        <li><a href="#--optional-extra-applications">💡 Optional Extra Applications</a></li>
+        <li><a href="#core-pacman-packages">📦 Core Pacman Packages</a></li>
+        <li><a href="#core-aur-packages">🛸 Core AUR Packages</a></li>
+        <li><a href="#optional-extra-applications">💡 Optional Extra Applications</a></li>
       </ul>
     </li>
     <li><a href="#ideas--feedback-">Ideas & Feedback 💡</a></li>
@@ -107,7 +107,7 @@ sh install.sh
 
 These are all the packages installed with "Hyprland Setup":
 <details>
-  <summary><b>📦 Core Pacman Packages</b></summary>
+  <summary><b><span id="core-pacman-packages">📦 Core Pacman Packages</b></summary>
 
 | Package                                                                                                | Description                                                      |
 | :----------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------- |
@@ -143,7 +143,7 @@ These are all the packages installed with "Hyprland Setup":
 </details>
 
 <details>
-  <summary><b>🛸 Core AUR Packages</b></summary>
+  <summary><b><span id="core-aur-packages">🛸 Core AUR Packages</b></summary>
 
 | Package                                              | Description                                      |
 | :--------------------------------------------------- | :----------------------------------------------- |
@@ -158,7 +158,7 @@ These are all the packages installed with "Hyprland Setup":
 </details>
 
 <details>
-  <summary><b>💡 Optional Extra Applications</b></summary>
+  <summary><b><span id="optional-extra-applications">💡 Optional Extra Applications</b></summary>
 
 | Package                                                      | Source | Description                                 |
 | :----------------------------------------------------------- | :----- | :------------------------------------------ |
