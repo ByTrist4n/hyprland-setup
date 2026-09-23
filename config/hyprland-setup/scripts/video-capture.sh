@@ -11,7 +11,8 @@ if pgrep -x "wf-recorder" > /dev/null; then
   exit 0
 fi
 
-CHOICE=$(echo -e "1. Area selection (Zone)\n2. Active window\n3. Full screen" | rofi -dmenu -p "Record mode:")
+# Interactive selection using Walker in dmenu mode
+CHOICE=$(echo -e "1. Area selection (Zone)\n2. Active window\n3. Full screen" | walker -d -p "Record mode:")
 
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 OUTPUT_FILE="$VIDEOS_DIR/recording_${TIMESTAMP}.mp4"

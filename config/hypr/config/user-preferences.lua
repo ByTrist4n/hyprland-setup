@@ -8,7 +8,7 @@ local userPrefs = {
   apps = {
     terminal = "kitty",
     fileManager = "dolphin",
-    menu = "rofi -show drun",
+    menu = "walker", -- App Launcher with Calculator
     browser = "zen-browser",
     editor = "codium",
   },

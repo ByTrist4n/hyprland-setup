@@ -8,7 +8,14 @@ source "./utils.sh"
 STEP_TOTAL_MANUAL=5
 
 log_step "Request for sudo privileges to install the packages (Pacman, AUR)"
+
+# Keep sudo privileges alive until script finishes
 sudo -v
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2> /dev/null &
 
 # Refresh mirrors and databases
 log_step "Updating Pacman database..."
@@ -81,8 +88,9 @@ CORE_PACMAN=(
   fcitx5-configtool
   fcitx5-gtk
   fcitx5-qt
-  hyprland
+  grim
   hypridle
+  hyprland
   hyprlock
   kitty
   kvantum
@@ -93,11 +101,9 @@ CORE_PACMAN=(
   qt5ct
   qt6ct
   quickshell
-  rofi
+  satty
   sddm
   slurp
-  grim
-  satty
   ttf-jetbrains-mono-nerd
   wf-recorder
   wl-clipboard
@@ -109,9 +115,13 @@ CORE_PACMAN=(
 # Core AUR Packages
 CORE_AUR=(
   awww
+  elephant
+  elephant-desktopapplications
+  elephant-calc
+  elephant-clipboard
   nwg-look
   pywal-16-git
-  rofimoji
+  walker
   wlogout
   wpgtk
   ydotool

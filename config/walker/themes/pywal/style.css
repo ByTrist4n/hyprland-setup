@@ -1,0 +1,107 @@
+/* Imports */
+@import url("file:///home/tristan/.cache/wal/colors.css");
+
+/* Global CSS Reset */
+* {
+  all: unset;
+}
+
+/* Main Window & Layout Containers */
+.box-wrapper {
+  background: var(--background);
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--color8);
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+popover {
+  background: var(--background);
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid var(--color8);
+}
+
+/* Search Input Field */
+.input {
+  background: var(--background);
+  color: var(--foreground);
+  caret-color: var(--foreground);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.input placeholder {
+  opacity: 0.4;
+}
+
+/* Results List & Item Components */
+.list {
+  color: var(--foreground);
+}
+
+.item-box {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+child:selected .item-box,
+row:selected .item-box {
+  background: var(--color8);
+}
+
+.item-subtext {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* Preview Box & Hint Elements */
+.preview-box,
+.elephant-hint,
+.placeholder {
+  color: var(--foreground);
+}
+
+/* Keybindings Footer Bar */
+.keybinds {
+  padding-top: 10px;
+  border-top: 1px solid var(--background);
+  color: var(--foreground);
+  font-size: 12px;
+}
+
+.keybind-label {
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid var(--foreground);
+}
+
+.keybind-button {
+  opacity: 0.5;
+}
+
+.keybind-bind {
+  text-transform: lowercase;
+  opacity: 0.35;
+}
+
+/* Utilities, Icons & Scrollbar */
+.normal-icons {
+  -gtk-icon-size: 16px;
+}
+
+.large-icons {
+  -gtk-icon-size: 32px;
+}
+
+.error {
+  padding: 10px;
+  background: #ff5555;
+  color: var(--foreground);
+}
+
+scrollbar {
+  opacity: 0;
+}

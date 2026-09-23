@@ -1,0 +1,3 @@
+theme = "pywal"
+[providers]
+max_results = 300
