@@ -63,45 +63,7 @@ if ask_yes_no "Right, let's go!"; then
   bash "./scripts/setup-packages.sh"
   bash "./scripts/setup-oh-my-zsh.sh"
 
-  log_section "Deploying Hyprland Configuration Files"
-
-  DOTFILES_DIR="./config"
-
-  if [ ! -d "$DOTFILES_DIR" ]; then
-    log_error "Configuration directory $DOTFILES_DIR not found!"
-    exit 1
-  fi
-
-  mkdir -p "$HOME/.config"
-
-  # Copy configuration files into ~/.config/ without deleting source files
-  cp -rf "$DOTFILES_DIR"/* "$HOME/.config/"
-
-  # Symlink .zshrc
-  if [ -f "$HOME/.config/zsh/.zshrc" ]; then
-    log_info "Linking .zshrc to home directory..."
-    ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
-  fi
-
-  mkdir -p "$HOME/.local/bin"
-
-  # Link user scripts from ~/.config/hyprland-setup/scripts
-  if [ -d "$HOME/.config/hyprland-setup/scripts" ]; then
-    log_info "Linking user scripts to ~/.local/bin..."
-
-    # 2. Create symlinks in ~/.local/bin
-    for script in "$HOME"/.config/hyprland-setup/scripts/*; do
-      if [ -f "$script" ]; then
-        ln -sf "$script" "$HOME/.local/bin/$(basename "$script")"
-      fi
-    done
-  fi
-
-  # Make everything in ~/.local/bin executable
-  chmod +x "$HOME"/.local/bin/*
-
-  log_success "Dot files have been successfully deployed."
-
+  bash "./scripts/setup-config.sh"
   bash "./scripts/setup-layout-keyboard.sh"
   bash "./scripts/setup-sddm.sh"
   bash "./scripts/setup-lazyvim.sh"
