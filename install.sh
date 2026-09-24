@@ -86,7 +86,6 @@ if ask_yes_no "Right, let's go!"; then
   echo ""
   echo ""
   echo -e "  ${YELLOW}${ICON_STAR} If you like it, drop a star! It helps a lot ${ICON_LOVE}${NC}"
-  echo ""
   echo -e "  ${CYAN}${ICON_PACKAGE} Repository:${NC} $(
     print_link "${REPO_URL}" "${REPO_URL}" "${BLUE}${BOLD}"
   )"
