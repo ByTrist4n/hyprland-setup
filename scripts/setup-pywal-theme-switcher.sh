@@ -6,7 +6,7 @@
 setup_sddm_integration() {
   local sddm_theme_dir="/usr/share/sddm/themes/sddm-hyprland-setup"
   local sddm_bg_target="/var/tmp/sddm_wallpaper.jpg"
-  local hooks_dir="$HOME/.local/bin/pywal-theme-switcher/post-hooks.d"
+  local hooks_dir="$HOME/.local/share/pywal-theme-switcher/post-hooks.d"
   local hook_script="$hooks_dir/sddm-update.sh"
 
   if [ -d "$sddm_theme_dir" ]; then
@@ -55,7 +55,7 @@ if ask_yes_no "Would you like to set up \"Pywal Theme Switcher\" (https://github
   # Step 1: Install Pywal Theme Switcher
   (
     if git clone --quiet --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
-      cd "$THEME_SWITCHER_DIR" && ./install.sh
+      cd "$THEME_SWITCHER_DIR" && ./install.sh --rofi
     else
       exit 1
     fi
