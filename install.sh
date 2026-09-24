@@ -32,7 +32,6 @@ print_link "${PROFIL_URL}" "ByTrist4n" "${BLUE}${BOLD}"
 echo ""
 echo ""
 echo -e "  ${YELLOW}${ICON_STAR} If you like it, drop a star! It helps a lot ${ICON_LOVE}${NC}"
-echo ""
 echo -e "  ${CYAN}${ICON_PACKAGE} Repository:${NC} $(
   print_link "${REPO_URL}" "${REPO_URL}" "${BLUE}${BOLD}"
 )"
@@ -102,6 +101,10 @@ if ask_yes_no "Right, let's go!"; then
   echo ""
   echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
   echo -e "  ${GREEN}${ICON_SUCCESS} Well done ${ICON_FLEX} You now have a great Hyprland setup!${NC}"
+  echo ""
+  echo -e "  ${GREEN}We recommend running '${CYAN}pywal-theme-switcher${GREEN}'" or
+  echo -e "  pressing '${YELLOW}SUPER + SHIFT + T${GREEN}' to select a theme.${NC}"
+  echo ""
   echo ""
   echo -e "  ${YELLOW}${ICON_STAR} If you like it, drop a star! It helps a lot ${ICON_LOVE}${NC}"
   echo ""
