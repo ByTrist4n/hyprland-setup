@@ -188,10 +188,11 @@ Encountered an issue? Open a ticket in the [Issues section](https://github.com/B
 - [x] Quickshell bar integration
 - [x] Screenshot and markup workflow (`grim` + `slurp` + `satty`)
 - [x] Interactive installation menu with optional software selection
+- [x] Calculator in Walker
 - [ ] Quickshell widget library
   - [ ] Music pop-up control
   - [ ] Todo block
   - [ ] Add a “Do Not Disturb” mode for notifications
-- [ ] Calculator in Rofi
+- [ ] Add picker color shortcut
 - [ ] A collection of themes with different designs and colors
 - [ ] And more...
