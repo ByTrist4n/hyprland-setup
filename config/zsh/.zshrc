@@ -62,14 +62,16 @@ HL_CLOCK_TEMPLATE="%{$faint%} ... %{$reset$HL_LAYOUT_STYLE%}"
 HL_ERR_MODE='on'
 
 # --- Aliases ---
-alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
 # Standard grid view with icons
 alias ls='eza --icons --group-directories-first'
 # Detailed list view
 alias ll='eza -la --icons --octal-permissions --group-directories-first --time-style=long-iso'
 # Tree view with git status and depth restriction
 alias tree='eza --tree --icons --level=2'
+alias tree2='eza --tree --icons --level=3'
+alias tree3='eza --tree --icons --level=4'
 
 # Atuin plugin configuration
 eval "$(atuin init zsh)"
