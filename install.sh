@@ -83,6 +83,23 @@ if ask_yes_no "Right, let's go!"; then
     ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
   fi
 
+  mkdir -p "$HOME/.local/bin"
+
+  # Link user scripts from ~/.config/hyprland-setup/scripts
+  if [ -d "$HOME/.config/hyprland-setup/scripts" ]; then
+    log_info "Linking user scripts to ~/.local/bin..."
+
+    # 2. Create symlinks in ~/.local/bin
+    for script in "$HOME"/.config/hyprland-setup/scripts/*; do
+      if [ -f "$script" ]; then
+        ln -sf "$script" "$HOME/.local/bin/$(basename "$script")"
+      fi
+    done
+  fi
+
+  # Make everything in ~/.local/bin executable
+  chmod +x "$HOME"/.local/bin/*
+
   log_success "Dot files have been successfully deployed."
 
   bash "./scripts/setup-layout-keyboard.sh"
