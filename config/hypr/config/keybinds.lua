@@ -18,13 +18,13 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(userPrefs.apps.menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("hs-screenshot save")) -- Screenshot area saved to disk
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hs-screenshot clipboard")) -- Screenshot area copied to clipboard with preview
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("~/.local/bin/hs-screenshot save")) -- Screenshot area saved to disk
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.local/bin/hs-screenshot clipboard")) -- Screenshot area copied to clipboard with preview
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("loginctl lock-session && sleep 2 && systemctl suspend"))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.local/bin/pywal-theme-switcher"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd('walker -m symbols -p "Search an emoji"'))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("hs-video-capture"))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("~/.local/bin/hs-video-capture"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 

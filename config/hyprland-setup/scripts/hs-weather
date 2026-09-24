@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Usage: hs-weather [icon|temp|desc|wind|city]
+# Usage: ~/.local/bin/hs-weather [icon|temp|desc|wind|city]
 WEATHER_CACHE="/tmp/hyprlock-weather.json"
 GEO_CACHE="/tmp/hyprlock-geo.json"
 CACHE_TIME=600      #10min
