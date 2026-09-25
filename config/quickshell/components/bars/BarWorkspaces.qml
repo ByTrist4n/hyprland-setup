@@ -93,7 +93,7 @@ Rectangle {
                 if (Hyprland.workspaces) {
                     for (let i = 0; i < Hyprland.workspaces.values.length; i++) {
                         let ws = Hyprland.workspaces.values[i];
-                        if (ws.id > 5 || ws.id < 1)
+                        if (ws.id > 5)
                             list.push({
                             "id": ws.id,
                             "name": ws.name
