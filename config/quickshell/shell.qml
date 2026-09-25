@@ -70,6 +70,8 @@ ShellRoot {
 
                     BarRecord {
                         id: barRecord
+
+                        Layout.rightMargin: 8
                     }
 
                     BarVolume {

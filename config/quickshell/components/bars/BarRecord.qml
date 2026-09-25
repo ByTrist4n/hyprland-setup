@@ -13,7 +13,7 @@ Rectangle {
 
     visible: isRecording || isSharing || isMicActive
     implicitWidth: recordLayout.implicitWidth + 16
-    implicitHeight: 40
+    implicitHeight: 24
     color: isRecording ? ThemeColors.urgentSubtle : (isSharing ? ThemeColors.warningSubtle : ThemeColors.bgButtonHover)
     radius: 8
     border.width: 1
