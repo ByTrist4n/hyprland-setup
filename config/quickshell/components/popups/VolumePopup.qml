@@ -55,9 +55,9 @@ UiPopup {
                     font.bold: true
                 }
 
-                UiText {
+                UiButton {
                     text: AudioService.muted ? ThemeIcons.volumeOff : ThemeIcons.volume
-                    color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
+                    fgColor: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
                     font.pixelSize: ThemeFonts.lg
 
                     MouseArea {
@@ -70,63 +70,12 @@ UiPopup {
 
             }
 
-            Item {
-                id: slider
-
-                Layout.fillWidth: true
-                implicitHeight: 24
-
-                Rectangle {
-                    id: track
-
-                    x: 0
-                    width: parent.width
-                    height: 8
-                    anchors.verticalCenter: parent.verticalCenter
-                    radius: height / 2
-                    color: ThemeColors.bgBase
+            UiSlider {
+                value: AudioService.volume
+                enabled: !AudioService.muted
+                onValueChangedRequested: (newValue) => {
+                    return AudioService.setVolume(newValue);
                 }
-
-                Rectangle {
-                    anchors.left: track.left
-                    anchors.verticalCenter: track.verticalCenter
-                    width: track.width * AudioService.volume
-                    height: track.height
-                    radius: height / 2
-                    color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
-                }
-
-                Rectangle {
-                    width: 18
-                    height: 18
-                    radius: 9
-                    anchors.verticalCenter: track.verticalCenter
-                    x: Math.max(0, Math.min(slider.width - width, AudioService.volume * slider.width - width / 2))
-                    color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
-                    border.width: 2
-                    border.color: ThemeColors.bgBase
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    preventStealing: true
-                    onPressed: (mouse) => {
-                        return AudioService.setVolume(mouse.x / slider.width);
-                    }
-                    onPositionChanged: (mouse) => {
-                        if (pressed)
-                            AudioService.setVolume(mouse.x / slider.width);
-
-                    }
-                    onWheel: (wheel) => {
-                        const step = 0.02;
-                        AudioService.setVolume(AudioService.volume + (wheel.angleDelta.y > 0 ? step : -step));
-                        wheel.accepted = true;
-                    }
-                }
-
             }
 
         }
@@ -161,9 +110,9 @@ UiPopup {
                     font.bold: true
                 }
 
-                UiText {
+                UiButton {
                     text: AudioService.micMuted ? ThemeIcons.micOff : ThemeIcons.mic
-                    color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
+                    fgColor: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
                     font.pixelSize: ThemeFonts.lg
 
                     MouseArea {
@@ -176,63 +125,12 @@ UiPopup {
 
             }
 
-            Item {
-                id: micSlider
-
-                Layout.fillWidth: true
-                implicitHeight: 24
-
-                Rectangle {
-                    id: micTrack
-
-                    x: 0
-                    width: parent.width
-                    height: 8
-                    anchors.verticalCenter: parent.verticalCenter
-                    radius: height / 2
-                    color: ThemeColors.bgBase
+            UiSlider {
+                value: AudioService.micVolume
+                enabled: !AudioService.micMuted
+                onValueChangedRequested: (newValue) => {
+                    return AudioService.setMicVolume(newValue);
                 }
-
-                Rectangle {
-                    anchors.left: micTrack.left
-                    anchors.verticalCenter: micTrack.verticalCenter
-                    width: micTrack.width * AudioService.micVolume
-                    height: micTrack.height
-                    radius: height / 2
-                    color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
-                }
-
-                Rectangle {
-                    width: 18
-                    height: 18
-                    radius: 9
-                    anchors.verticalCenter: micTrack.verticalCenter
-                    x: Math.max(0, Math.min(micSlider.width - width, AudioService.micVolume * micSlider.width - width / 2))
-                    color: AudioService.micMuted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
-                    border.width: 2
-                    border.color: ThemeColors.bgBase
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    preventStealing: true
-                    onPressed: (mouse) => {
-                        return AudioService.setMicVolume(mouse.x / micSlider.width);
-                    }
-                    onPositionChanged: (mouse) => {
-                        if (pressed)
-                            AudioService.setMicVolume(mouse.x / micSlider.width);
-
-                    }
-                    onWheel: (wheel) => {
-                        const step = 0.02;
-                        AudioService.setMicVolume(AudioService.micVolume + (wheel.angleDelta.y > 0 ? step : -step));
-                        wheel.accepted = true;
-                    }
-                }
-
             }
 
         }

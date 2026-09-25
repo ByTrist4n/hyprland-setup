@@ -2,4 +2,5 @@ module components.ui
 
 UiButton 1.0 UiButton.qml
 UiPopup 1.0 UiPopup.qml
+UiSlider 1.0 UiSlider.qml
 UiText 1.0 UiText.qml
