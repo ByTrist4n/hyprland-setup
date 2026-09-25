@@ -13,8 +13,8 @@ Rectangle {
 
     visible: isRecording || isSharing || isMicActive
     implicitWidth: recordLayout.implicitWidth + 16
-    implicitHeight: 32
-    color: isRecording ? Qt.rgba(ThemeColors.urgent.r, ThemeColors.urgent.g, ThemeColors.urgent.b, 0.2) : (isSharing ? Qt.rgba(ThemeColors.warning.r, ThemeColors.warning.g, ThemeColors.warning.b, 0.2) : Qt.rgba(ThemeColors.accentPrimary.r, ThemeColors.accentPrimary.g, ThemeColors.accentPrimary.b, 0.2))
+    implicitHeight: 40
+    color: isRecording ? Qt.alpha(ThemeColors.urgent, 0.2) : (isSharing ? Qt.alpha(ThemeColors.warning, 0.2) : Qt.alpha(ThemeColors.accentPrimary, 0.2))
     radius: 8
     border.width: 1
     border.color: isRecording ? ThemeColors.urgent : (isSharing ? ThemeColors.warning : ThemeColors.accentPrimary)
@@ -58,12 +58,12 @@ Rectangle {
                     labels.push("REC");
 
                 if (isSharing)
-                    labels.push("LIVE");
+                    labels.push("LIVE SHARING");
 
                 if (isMicActive)
                     labels.push("MIC");
 
-                return labels.join(" & ");
+                return labels.join(" / ");
             }
             color: isRecording ? ThemeColors.urgent : (isSharing ? ThemeColors.warning : ThemeColors.accentPrimary)
             font.pixelSize: 12
