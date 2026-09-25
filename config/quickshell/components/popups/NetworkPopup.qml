@@ -89,7 +89,7 @@ UiPopup {
                 width: wifiList.width
                 height: visible ? 46 : 0
                 radius: 8
-                color: modelData.connected ? ThemeColors.bgSurfaceActive : ThemeColors.bgBase
+                color: modelData.connected ? ThemeColors.bgButton : wifiMouse.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgButtonSecondary
 
                 RowLayout {
                     anchors.fill: parent
@@ -99,13 +99,13 @@ UiPopup {
 
                     UiText {
                         text: modelData.connected ? ThemeIcons.wifi : ThemeIcons.wifiOff
-                        color: modelData.connected ? ThemeColors.accentPrimary : ThemeColors.fgMuted
+                        color: ThemeColors.fgButton
                         font.pixelSize: ThemeFonts.lg
                     }
 
                     UiText {
                         text: modelData.name
-                        color: ThemeColors.fgPrimary
+                        color: ThemeColors.fgButton
                         font.pixelSize: ThemeFonts.sm
                         elide: Text.ElideRight
                         Layout.fillWidth: true
@@ -113,24 +113,21 @@ UiPopup {
 
                     UiText {
                         visible: modelData.connected
-                        text: ThemeIcons.check
-                        color: ThemeColors.success
-                        font.pixelSize: ThemeFonts.sm
-                        font.bold: true
+                        text: modelData.connected ? ThemeIcons.check : ThemeIcons.chevronRight
+                        color: modelData.connected ? ThemeColors.success : ThemeColors.fgMuted
+                        font.pixelSize: ThemeFonts.lg
                     }
 
                     UiText {
                         visible: modelData.stateChanging
                         text: "Loading…"
-                        color: ThemeColors.accentPrimary
+                        color: ThemeColors.accentSecondary
                         font.pixelSize: ThemeFonts.md
                     }
 
                 }
 
                 MouseArea {
-                    // Prevent multiple connection requests
-
                     id: wifiMouse
 
                     anchors.fill: parent
@@ -236,7 +233,7 @@ UiPopup {
                 width: bluetoothList.width
                 height: visible ? 46 : 0
                 radius: 8
-                color: modelData.connected ? ThemeColors.bgSurfaceActive : bluetoothMouse.containsMouse ? ThemeColors.bgSurfaceActive : ThemeColors.bgBase
+                color: modelData.connected ? ThemeColors.bgButton : bluetoothMouse.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgButtonSecondary
 
                 Connections {
                     function onConnectedChanged() {
@@ -254,13 +251,13 @@ UiPopup {
 
                     UiText {
                         text: ThemeIcons.bluetoothConnect
-                        color: modelData.connected ? ThemeColors.accentSecondary : ThemeColors.fgMuted
+                        color: ThemeColors.fgButton
                         font.pixelSize: ThemeFonts.lg
                     }
 
                     UiText {
                         text: modelData.name || "Unknown device"
-                        color: ThemeColors.fgPrimary
+                        color: ThemeColors.fgButton
                         font.pixelSize: ThemeFonts.sm
                         elide: Text.ElideRight
                         Layout.fillWidth: true
@@ -276,8 +273,7 @@ UiPopup {
                         visible: !isBusy && !modelData.connecting
                         text: modelData.connected ? ThemeIcons.check : ThemeIcons.chevronRight
                         color: modelData.connected ? ThemeColors.success : ThemeColors.fgMuted
-                        font.pixelSize: ThemeFonts.md
-                        font.bold: true
+                        font.pixelSize: ThemeFonts.lg
                     }
 
                 }
