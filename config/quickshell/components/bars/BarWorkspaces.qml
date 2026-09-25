@@ -130,7 +130,7 @@ Rectangle {
                 Rectangle {
                     anchors.fill: parent
                     radius: 4
-                    color: wsDelegate.isActive ? Qt.alpha(ThemeColors.accentPrimary, 0.15) : (wsMouse.containsMouse ? Qt.alpha(ThemeColors.fgPrimary, 0.08) : "transparent")
+                    color: wsDelegate.isActive ? ThemeColors.accentPrimarySubtle : "transparent"
 
                     Behavior on color {
                         ColorAnimation {
@@ -145,10 +145,9 @@ Rectangle {
                     width: parent.width * 0.6
                     height: 2
                     radius: 1
-                    color: ThemeColors.accentPrimary
+                    color: wsDelegate.isActive ? ThemeColors.bgButtonSecondary : (wsMouse.containsMouse ? ThemeColors.fgMuted : "transparent")
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: wsDelegate.isActive
                 }
 
                 RowLayout {
@@ -159,7 +158,7 @@ Rectangle {
 
                     UiText {
                         text: wsDelegate.wsInfo.name
-                        color: wsDelegate.isActive ? ThemeColors.accentPrimary : Qt.alpha(ThemeColors.fgPrimary, 0.6)
+                        color: wsDelegate.isActive ? ThemeColors.accentPrimary : ThemeColors.fgMuted
                         font.pixelSize: ThemeFonts.xs
                         font.bold: wsDelegate.isActive
                         Layout.alignment: Qt.AlignVCenter
@@ -177,7 +176,7 @@ Rectangle {
                                 required property var modelData
 
                                 text: root.getWindowIcon(modelData)
-                                color: wsDelegate.isActive ? ThemeColors.accentPrimary : Qt.alpha(ThemeColors.fgPrimary, 0.5)
+                                color: wsDelegate.isActive ? ThemeColors.accentPrimary : ThemeColors.fgMuted
                                 font.pixelSize: ThemeFonts.sm
                                 Layout.alignment: Qt.AlignVCenter
                             }

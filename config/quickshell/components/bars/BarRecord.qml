@@ -14,7 +14,7 @@ Rectangle {
     visible: isRecording || isSharing || isMicActive
     implicitWidth: recordLayout.implicitWidth + 16
     implicitHeight: 40
-    color: isRecording ? Qt.alpha(ThemeColors.urgent, 0.2) : (isSharing ? Qt.alpha(ThemeColors.warning, 0.2) : Qt.alpha(ThemeColors.accentPrimary, 0.2))
+    color: isRecording ? ThemeColors.urgentSubtle : (isSharing ? ThemeColors.warningSubtle : ThemeColors.bgButtonHover)
     radius: 8
     border.width: 1
     border.color: isRecording ? ThemeColors.urgent : (isSharing ? ThemeColors.warning : ThemeColors.accentPrimary)

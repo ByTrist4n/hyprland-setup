@@ -50,11 +50,15 @@ QtObject {
     readonly property color fgOnAccent: getColor("background")
     // --- 5. ACCENTS & STATES ---
     readonly property color accentPrimary: getColor("color4")
+    readonly property color accentPrimarySubtle: Qt.alpha(getColor("color4"), 0.3)
     readonly property color accentSecondary: getColor("color5")
     // Hardcoded status colors
     readonly property color urgent: "#ff5555"
+    readonly property color urgentSubtle: Qt.alpha("#ff5555", 0.3)
     readonly property color success: "#50fa7b"
+    readonly property color successSubtle: Qt.alpha("#50fa7b", 0.3)
     readonly property color warning: "#f1fa8c"
+    readonly property color warningSubtle: Qt.alpha("#f1fa8c", 0.3)
 
     // Helper function to resolve color with fallback safely
     function getColor(key) {
