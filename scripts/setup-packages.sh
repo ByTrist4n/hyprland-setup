@@ -76,9 +76,23 @@ install_pkgs() {
   log_success "${label} packages installed!"
 }
 
+# Ensure yay is present (bootstrap from AUR if missing)
+ensure_aur_helper() {
+  if ! command -v yay &> /dev/null; then
+    log_step "AUR helper (yay) not found. Bootstrapping yay from AUR..."
+    local tmp_dir
+    tmp_dir=$(mktemp -d)
+    git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay"
+    (cd "$tmp_dir/yay" && makepkg -si --noconfirm)
+    rm -rf "$tmp_dir"
+    log_success "yay successfully bootstrapped!"
+  fi
+}
+
 # Core System Packages (Official Repos)
 CORE_PACMAN=(
   archlinux-xdg-menu
+  base-devel
   blueman
   brightnessctl
   cava
@@ -88,6 +102,7 @@ CORE_PACMAN=(
   fcitx5-configtool
   fcitx5-gtk
   fcitx5-qt
+  git
   grim
   hypridle
   hyprland
@@ -107,7 +122,6 @@ CORE_PACMAN=(
   ttf-jetbrains-mono-nerd
   wf-recorder
   wl-clipboard
-  yay
   zip
   zsh
 )
@@ -131,6 +145,7 @@ CORE_AUR=(
 
 # Run core installations
 install_pkgs "pacman" "Core System (Pacman)" "${CORE_PACMAN[@]}"
+ensure_aur_helper
 install_pkgs "yay" "Core AUR" "${CORE_AUR[@]}"
 
 # Extra optional applications
