@@ -10,14 +10,16 @@ Rectangle {
     required property var notificationManager
     required property var notificationCenter
 
-    implicitWidth: 36
-    implicitHeight: 36
+    implicitWidth: 40
+    implicitHeight: notificationText.implicitHeight + 16
     radius: 8
     color: notificationMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     border.width: 1
     border.color: ThemeColors.borderBase
 
     UiText {
+        id: notificationText
+
         anchors.centerIn: parent
         // TODO: Do not disturb mode
         text: false ? ThemeIcons.notificationOff : ThemeIcons.notification
