@@ -92,13 +92,10 @@ CORE_PACMAN=(
   hyprland
   hyprlock
   kitty
-  kvantum
   nm-connection-editor
   nvim
   papirus-icon-theme
   pavucontrol
-  qt5ct
-  qt6ct
   quickshell
   satty
   sddm
@@ -112,19 +109,14 @@ CORE_PACMAN=(
 
 # Core AUR Packages
 CORE_AUR=(
-  awww
   elephant
   elephant-desktopapplications
   elephant-calc
   elephant-clipboard
   elephant-symbols
   elephant-files
-  nwg-look
-  pywal-16-git
   walker
   wlogout
-  wpgtk
-  ydotool
 )
 
 # Run core installations
