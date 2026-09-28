@@ -5,7 +5,9 @@
 set -e
 source "./utils.sh"
 
-STEP_TOTAL_MANUAL=5
+STEP_TOTAL_MANUAL=4
+LOG_FILE="/tmp/hyprland-setup-install.log"
+> "$LOG_FILE"
 
 log_step "Request for sudo privileges to install the packages (Pacman, AUR)"
 
@@ -17,24 +19,25 @@ while true; do
   kill -0 "$$" || exit
 done 2> /dev/null &
 
-# Refresh mirrors and databases
+# Refresh mirrors and databases silently
 log_step "Updating Pacman database..."
-sudo pacman -Sy --noconfirm
-log_success "Pacman database updated!"
+if sudo pacman -Sy --noconfirm >> "$LOG_FILE" 2>&1; then
+  log_success "Pacman database updated!"
+else
+  log_error "Failed to update Pacman database. Check logs at $LOG_FILE"
+  exit 1
+fi
 
-# Generic function to execute package installation safely with guided output
+# Generic function to execute package installation cleanly
 install_pkgs() {
   local installer="$1"
   local label="$2"
-  local pkgs=("${@:3}")
+  shift 2
+  local pkgs=("$@")
 
-  log_step "Installing ${label} packages via ${installer}..."
+  log_step "Installing ${label} packages (${#pkgs[@]} packages)..."
 
-  # Create a temporary log file to catch errors
-  local tmp_log
-  tmp_log=$(mktemp)
-
-  # Construct command array safely based on the installer name
+  # Build command
   local cmd=()
   if [ "$installer" = "pacman" ]; then
     cmd=(sudo pacman -S --needed --noconfirm)
@@ -42,50 +45,31 @@ install_pkgs() {
     cmd=("$installer" -S --needed --noconfirm)
   fi
 
-  # Run installation and pipe output to terminal AND log file using array expansion
-  "${cmd[@]}" "${pkgs[@]}" 2>&1 | tee "$tmp_log"
-  local exit_code=${PIPESTATUS[0]}
-
-  if [ $exit_code -ne 0 ]; then
-    log_error "Failed to install required ${label} packages!"
-
-    # Check if the error log mentions conflicting packages
-    if grep -iq "conflict" "$tmp_log"; then
-      log_warning "A package conflict was detected on your system!"
-
-      # Extract conflicting package names dynamically (strip version numbers)
-      local conflicting_pkgs
-      conflicting_pkgs=$(grep -i "are in conflict" "$tmp_log" | sed -n 's/.*and \(.*\) are in conflict.*/\1/p' | sed 's/-[0-9].*//' | sort -u)
-
-      if [ -n "$conflicting_pkgs" ]; then
-        log_info "To resolve this conflict, try removing the conflicting package(s) manually:"
-        for pkg in $conflicting_pkgs; do
-          echo -e "  ${YELLOW}sudo pacman -Rdd ${pkg}${NC}"
-        done
-        echo ""
-      else
-        log_info "Please check the log above to identify and remove conflicting packages manually."
-      fi
-    fi
-
-    rm -f "$tmp_log"
+  # Execute silently while logging to file
+  if "${cmd[@]}" "${pkgs[@]}" >> "$LOG_FILE" 2>&1; then
+    log_success "${label} packages installed successfully!"
+  else
+    log_error "Failed to install ${label} packages!"
+    log_info "Check the error details in: ${LOG_FILE}"
     exit 1
   fi
-
-  rm -f "$tmp_log"
-  log_success "${label} packages installed!"
 }
 
 # Ensure yay is present (bootstrap from AUR if missing)
 ensure_aur_helper() {
   if ! command -v yay &> /dev/null; then
-    log_step "AUR helper (yay) not found. Bootstrapping yay from AUR..."
+    log_info "AUR helper (yay) not found. Bootstrapping yay..."
     local tmp_dir
     tmp_dir=$(mktemp -d)
-    git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay"
-    (cd "$tmp_dir/yay" && makepkg -si --noconfirm)
-    rm -rf "$tmp_dir"
-    log_success "yay successfully bootstrapped!"
+    if git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay" >> "$LOG_FILE" 2>&1 \
+      && (cd "$tmp_dir/yay" && makepkg -si --noconfirm >> "$LOG_FILE" 2>&1); then
+      rm -rf "$tmp_dir"
+      log_success "yay successfully bootstrapped!"
+    else
+      rm -rf "$tmp_dir"
+      log_error "Failed to bootstrap yay. Check logs at $LOG_FILE"
+      exit 1
+    fi
   fi
 }
 
@@ -144,30 +128,26 @@ CORE_AUR=(
 )
 
 # Run core installations
-install_pkgs "pacman" "Core System (Pacman)" "${CORE_PACMAN[@]}"
+install_pkgs "pacman" "Core System" "${CORE_PACMAN[@]}"
 ensure_aur_helper
 install_pkgs "yay" "Core AUR" "${CORE_AUR[@]}"
 
 # Extra optional applications
-log_step "Extra applications"
 echo ""
 echo -e "${BLUE}Optional extra applications list:${NC}"
-echo -e "  • ${YELLOW}libreoffice-still${NC} - Office suite"
-echo -e "  • ${YELLOW}yazi${NC}              - Terminal file manager"
-echo -e "  • ${YELLOW}logiops${NC}           - Logitech MX app"
-echo -e "  • ${YELLOW}pear-desktop${NC}      - YT music application"
-echo -e "  • ${YELLOW}vscodium-bin${NC}      - Open-source Code Editor"
-echo -e "  • ${YELLOW}zen-browser${NC}       - Best Web Browser (Firefox core)"
+echo -e "  • ${CYAN}libreoffice-still${NC} - Office suite"
+echo -e "  • ${CYAN}yazi${NC}              - Terminal file manager"
+echo -e "  • ${CYAN}logiops${NC}           - Logitech MX app"
+echo -e "  • ${CYAN}pear-desktop${NC}      - YT music application"
+echo -e "  • ${CYAN}vscodium-bin${NC}      - Open-source Code Editor"
+echo -e "  • ${CYAN}zen-browser${NC}       - Best Web Browser (Firefox core)"
 echo ""
 
 if ask_yes_no "Would you like to install these extra applications?"; then
-  log_info "Installing extra Pacman applications..."
-  sudo pacman -S --needed --noconfirm libreoffice-still yazi || log_warning "Some optional Pacman apps failed to install"
-
-  log_info "Installing extra AUR applications..."
-  yay -S --needed --noconfirm logiops pear-desktop vscodium-bin zen-browser || log_warning "Some optional AUR apps failed to install"
-
-  log_success "Extra applications process finished!"
+  log_info "Installing extra Pacman & AUR applications..."
+  sudo pacman -S --needed --noconfirm libreoffice-still yazi >> "$LOG_FILE" 2>&1 || log_warning "Some optional Pacman apps failed"
+  yay -S --needed --noconfirm logiops pear-desktop vscodium-bin zen-browser >> "$LOG_FILE" 2>&1 || log_warning "Some optional AUR apps failed"
+  log_success "Extra applications installed!"
 fi
 
 log_success "Dependencies Setup complete!"
