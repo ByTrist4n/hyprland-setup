@@ -46,7 +46,10 @@ EOF
 set -e
 source "./utils.sh"
 
-if ask_yes_no "Would you like to set up \"Pywal Theme Switcher\" to dynamically theme your desktop (https://github.com/ByTrist4n/pywal-theme-switcher)?"; then
+echo -e "${YELLOW}[RECOMMENDED]${NC} Pywal Theme Switcher dynamically themes Hyprland, GTK, Qt & Quickshell."
+echo -e "Repo: https://github.com/ByTrist4n/pywal-theme-switcher"
+
+if ask_yes_no "Would you like to install and set up Pywal Theme Switcher now?"; then
   log_step "Setting up Pywal Theme Switcher..."
 
   REPO_URL="https://github.com/ByTrist4n/pywal-theme-switcher.git"
