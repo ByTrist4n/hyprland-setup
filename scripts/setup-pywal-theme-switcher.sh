@@ -46,7 +46,7 @@ EOF
 set -e
 source "./utils.sh"
 
-if ask_yes_no "Would you like to set up \"Pywal Theme Switcher\" (https://github.com/ByTrist4n/pywal-theme-switcher)?"; then
+if ask_yes_no "Would you like to set up \"Pywal Theme Switcher\" to dynamically theme your desktop (https://github.com/ByTrist4n/pywal-theme-switcher)?"; then
   log_step "Setting up Pywal Theme Switcher..."
 
   REPO_URL="https://github.com/ByTrist4n/pywal-theme-switcher.git"
