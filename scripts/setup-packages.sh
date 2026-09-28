@@ -21,7 +21,10 @@ done 2> /dev/null &
 
 # Refresh mirrors and databases silently
 log_step "Updating Pacman database..."
-if sudo pacman -Sy --noconfirm >> "$LOG_FILE" 2>&1; then
+sudo pacman -Sy --noconfirm >> "$LOG_FILE" 2>&1 &
+spin $!
+
+if wait $!; then
   log_success "Pacman database updated!"
 else
   log_error "Failed to update Pacman database. Check logs at $LOG_FILE"
@@ -37,7 +40,6 @@ install_pkgs() {
 
   log_step "Installing ${label} packages (${#pkgs[@]} packages)..."
 
-  # Build command
   local cmd=()
   if [ "$installer" = "pacman" ]; then
     cmd=(sudo pacman -S --needed --noconfirm)
@@ -45,8 +47,11 @@ install_pkgs() {
     cmd=("$installer" -S --needed --noconfirm)
   fi
 
-  # Execute silently while logging to file
-  if "${cmd[@]}" "${pkgs[@]}" >> "$LOG_FILE" 2>&1; then
+  "${cmd[@]}" "${pkgs[@]}" >> "$LOG_FILE" 2>&1 &
+  local cmd_pid=$!
+  spin "$cmd_pid"
+
+  if wait "$cmd_pid"; then
     log_success "${label} packages installed successfully!"
   else
     log_error "Failed to install ${label} packages!"
@@ -61,8 +66,14 @@ ensure_aur_helper() {
     log_info "AUR helper (yay) not found. Bootstrapping yay..."
     local tmp_dir
     tmp_dir=$(mktemp -d)
-    if git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay" >> "$LOG_FILE" 2>&1 \
-      && (cd "$tmp_dir/yay" && makepkg -si --noconfirm >> "$LOG_FILE" 2>&1); then
+
+    (git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay" >> "$LOG_FILE" 2>&1 \
+      && cd "$tmp_dir/yay" && makepkg -si --noconfirm >> "$LOG_FILE" 2>&1) &
+
+    local cmd_pid=$!
+    spin "$cmd_pid"
+
+    if wait "$cmd_pid"; then
       rm -rf "$tmp_dir"
       log_success "yay successfully bootstrapped!"
     else
@@ -137,8 +148,11 @@ echo ""
 
 if ask_yes_no "Would you like to install these extra applications?"; then
   log_info "Installing extra Pacman & AUR applications..."
-  sudo pacman -S --needed --noconfirm libreoffice-still yazi >> "$LOG_FILE" 2>&1 || log_warning "Some optional Pacman apps failed"
-  yay -S --needed --noconfirm logiops pear-desktop vscodium-bin zen-browser >> "$LOG_FILE" 2>&1 || log_warning "Some optional AUR apps failed"
+
+  (sudo pacman -S --needed --noconfirm libreoffice-still yazi >> "$LOG_FILE" 2>&1 \
+    && yay -S --needed --noconfirm logiops pear-desktop vscodium-bin zen-browser >> "$LOG_FILE" 2>&1) &
+
+  spin $!
   log_success "Extra applications installed!"
 fi
 
