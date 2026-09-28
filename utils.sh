@@ -15,6 +15,9 @@ NC='\033[0m' # No Color
 # Bold variables
 BOLD='\033[1m'
 
+PROFIL_URL="https://github.com/ByTrist4n"
+REPO_URL="$PROFIL_URL/hyprland-setup"
+
 # Function to simulate typing text smoothly
 type_text() {
   local delay="${1:-0.04}"

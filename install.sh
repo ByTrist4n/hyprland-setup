@@ -9,9 +9,6 @@
 set -e
 source "./utils.sh"
 
-PROFIL_URL="https://github.com/ByTrist4n"
-REPO_URL="$PROFIL_URL/hyprland-setup"
-
 clear
 
 echo -e "${MAGENTA}──────────────────────────────────────────────────────────────────────${NC}"
@@ -27,7 +24,7 @@ echo -e "                         ${MAGENTA}S E T U P${NC}"
 echo ""
 echo -e "${MAGENTA}──────────────────────────────────────────────────────────────────────${NC}"
 echo ""
-type_text 0.03 "" "  ${ICON_SPARKLE} Installation Script for the Hyprland of your Dreams • By "
+type_text 0.03 "" "  ${ICON_SPARKLE} Installation sript for the Hyprland of your dreams • By "
 print_link "${PROFIL_URL}" "ByTrist4n" "${BLUE}${BOLD}"
 echo ""
 echo ""
@@ -69,31 +66,29 @@ if ask_yes_no "Right, let's go!"; then
   bash "./scripts/setup-lazyvim.sh"
   bash "./scripts/setup-pywal-theme-switcher.sh"
 
-  # Reload Hyprland at the very end when all components are installed
+  # Check if Hyprland is currently running
   if pgrep -x "Hyprland" > /dev/null 2>&1; then
-    log_info "Reloading Hyprland configuration..."
-    hyprctl --batch "reload"
-    log_success "Hyprland configuration reloaded successfully."
-  fi
+    log_info "Hyprland is already running."
 
-  # Success screen
-  echo ""
-  echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
-  echo -e "  ${GREEN}${ICON_SUCCESS} Well done ${ICON_FLEX} You now have a great Hyprland setup!${NC}"
-  echo ""
-  echo -e "  ${GREEN}We recommend running '${CYAN}pywal-theme-switcher${GREEN}'" or
-  echo -e "  pressing '${YELLOW}SUPER + SHIFT + T${GREEN}' to select a theme.${NC}"
-  echo ""
-  echo ""
-  echo -e "  ${YELLOW}${ICON_STAR} If you like it, drop a star! It helps a lot ${ICON_LOVE}${NC}"
-  echo -e "  ${CYAN}${ICON_PACKAGE} Repository:${NC} $(
-    print_link "${REPO_URL}" "${REPO_URL}" "${BLUE}${BOLD}"
-  )"
-  echo ""
-  echo -e "  ${ICON_THINK} Having trouble? Run the troubleshooting script to fix issues:"
-  echo -e "     ${ICON_ARROW} ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
-  echo -e "     ${ICON_ARROW} $(print_link "${REPO_URL}/issues" "Are you having any problems?" "${BLUE}${BOLD}")"
-  echo ""
-  echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
-  echo ""
+    # Reload config without injecting duplicate exec commands
+    hyprctl reload
+    log_success "Configuration reloaded!"
+
+    # Launch Kitty welcome screen directly once
+    kitty --title 'Welcome' -e "$PWD/scripts/welcome.sh" &
+  else
+    # Hyprland is NOT running: inject command for first graphical launch
+    if [ -f "$HOME/.config/hypr/hyprland.lua" ]; then
+      sed -i '/welcome.sh/d' "$HOME/.config/hypr/hyprland.lua" 2> /dev/null || true
+      echo -e "\nhl.exec_cmd(\"kitty --title 'Welcome' -e $PWD/scripts/welcome.sh\")" >> "$HOME/.config/hypr/hyprland.lua"
+    fi
+
+    echo -en "${GREEN}Launching Hyprland in ${NC}"
+    for i in 3 2 1; do
+      echo -n "$i... "
+      sleep 1
+    done
+    echo ""
+    exec Hyprland
+  fi
 fi
