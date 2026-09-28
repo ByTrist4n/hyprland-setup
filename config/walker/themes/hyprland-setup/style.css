@@ -65,13 +65,29 @@ popover {
   color: var(--foreground);
 }
 
+/* Clear default GTK row selection background */
+child,
+row,
+child:selected,
+row:selected {
+  background: transparent;
+}
+
 .item-box {
   padding: 10px;
   border-radius: 10px;
+  transition: background 0.15s ease;
 }
 
+/* Hover state */
+.item-box:hover {
+  background: alpha(var(--color8), 0.4);
+}
+
+/* Selected state (Keyboard selection) */
 child:selected .item-box,
-row:selected .item-box {
+row:selected .item-box,
+.item-box:selected {
   background: var(--color8);
 }
 
@@ -90,7 +106,7 @@ row:selected .item-box {
 /* Keybindings Footer Bar */
 .keybinds {
   padding-top: 10px;
-  border-top: 1px solid var(--background);
+  border-top: 1px solid var(--color8);
   color: var(--foreground);
   font-size: 12px;
 }
