@@ -2,8 +2,9 @@
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Sixtyfour&size=24&pause=1000&color=1793d1&width=435&lines=Hyprland+Setup;ByTrist4n)](https://git.io/typing-svg)
 
-[![GitHub stars](https://img.shields.io/github/stars/ByTrist4n/hyprland-setup?style=for-the-badge&logo=github&color=daaa3f&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
+[![https://img.shields.io/github/v/release/ByTrist4n/hyprland-setup?style=for-the-badge&color=1793d1&labelColor=252733](https://img.shields.io/github/v/release/ByTrist4n/hyprland-setup?style=for-the-badge&color=1793d1&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
 [![Last Commit](https://img.shields.io/github/last-commit/ByTrist4n/hyprland-setup?style=for-the-badge&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
+[![GitHub stars](https://img.shields.io/github/stars/ByTrist4n/hyprland-setup?style=for-the-badge&logo=github&color=daaa3f&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
 [![Repo Size](https://img.shields.io/github/repo-size/ByTrist4n/hyprland-setup?style=for-the-badge&logo=codesandbox&color=DDB&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
 [![Hyprland](https://img.shields.io/badge/Hyprland-v0.55%2B-1793d1?logo=hyprland&style=for-the-badge&logoColor=1793d1&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup)
 </div>
@@ -85,7 +86,7 @@ Clone the repository and run the setup script:
 ```bash
 git clone https://github.com/ByTrist4n/hyprland-setup.git
 cd hyprland-setup
-sh install.sh
+./install.sh
 ```
 
 <br>
@@ -103,9 +104,11 @@ sh install.sh
 # Tech Stack
 
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
+[![CachyOS](https://img.shields.io/badge/CachyOS-00A88F?style=for-the-badge&logo=cachyos&logoColor=white)](https://cachyos.org)
+
 [![Hyprland](https://img.shields.io/badge/Hyprland-blue?style=for-the-badge&logo=hyprland)](https://hypr.land)
 
-These are all the packages installed with "Hyprland Setup":
+These are all the packages installed with **"Hyprland Setup"**:
 <details>
   <summary><b><span id="core-pacman-packages">📦 Core Pacman Packages</b></summary>
 
