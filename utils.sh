@@ -162,20 +162,24 @@ spin() {
   local delay=0.1
   local spinstr='|/-\'
 
+  # Restore cursor if interrupted
+  trap 'tput cnorm; exit 1' INT TERM
+
   # Hide the terminal cursor
   tput civis
 
   while kill -0 "$pid" 2> /dev/null; do
     local temp=${spinstr#?}
-    printf " [%c] " "$spinstr"
+    printf "  ${CYAN}[%c]${NC} Installing..." "${spinstr:0:1}"
     spinstr=$temp${spinstr%"$temp"}
     sleep $delay
-    printf "\b\b\b\b\b"
+    printf "\r"
   done
 
-  # Clear spinner and restore cursor
-  printf "    \b\b\b\b"
+  # Clear line and restore cursor
+  printf "\r\033[K"
   tput cnorm
+  trap - INT TERM
 }
 export -f spin
 
