@@ -1,34 +1,14 @@
+export XDG_CONFIG_HOME="$HOME/.config"
+export ZSH_CUSTOM="$XDG_CONFIG_HOME/zsh/custom"
 export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/custom"
 
-# --- Oh My Zsh Global Configuration ---
-
-# Theme configuration
-ZSH_THEME="headline/headline"
-
-zstyle ':omz:update' mode auto # update automatically without asking
-zstyle ':omz:update' frequency 13
-
-# Oh My Zsh plugins
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  zoxide
-  fzf
-  aliases
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# --- OVERRIDE HEADLINE THEME VARIABLES (AFTER SOURCING) ---
-
+# --- Headline Theme Configuration ---
 HL_SEP_MODE='on'
 HL_INFO_MODE='auto'
 HL_OVERWRITE='on'
 HL_LAYOUT_STYLE="%{$light_black%}"
 HL_LAYOUT_TEMPLATE=(
-  _PRE "${IS_SSH+ %{$reset$faint%\}ssh}" # shows " ssh" if this is an SSH session
+  _PRE "${IS_SSH+ %{$reset$faint%\}ssh}"
   USER ' ...'
   HOST " %{$reset$faint%}at%{$reset$HL_LAYOUT_STYLE%} ..."
   VENV " %{$reset$faint%}with%{$reset$HL_LAYOUT_STYLE%} ..."
@@ -61,11 +41,27 @@ HL_CLOCK_MODE='on'
 HL_CLOCK_TEMPLATE="%{$faint%} ... %{$reset$HL_LAYOUT_STYLE%}"
 HL_ERR_MODE='on'
 
-# --- Aliases ---
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
+# --- Oh My Zsh Global Settings ---
+ZSH_THEME="headline/headline"
 
-# Eza aliases (eza replaces ls)
+zstyle ':omz:update' mode auto
+zstyle ':omz:update' frequency 13
+
+# Plugin definitions (Only native Oh My Zsh plugins)
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+# Source main Oh My Zsh script
+source $ZSH/oh-my-zsh.sh
+
+# --- Custom Aliases ---
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
+
+# Modern CLI tools integration (eza, zoxide, atuin)
 if command -v eza &>/dev/null; then
   alias ls='eza --icons --group-directories-first'
   alias ll='eza -la --icons --octal-permissions --group-directories-first --time-style=long-iso'
@@ -74,7 +70,6 @@ if command -v eza &>/dev/null; then
   alias tree3='eza --tree --icons --level=4'
 fi
 
-# Initializations for fzf, zoxide, and atuin
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 fi
@@ -84,7 +79,7 @@ if command -v atuin &>/dev/null; then
   bindkey '^[[A' atuin-up-search
 fi
 
-# Launch fastfetch on terminal startup
+# Terminal startup banner
 if command -v fastfetch &>/dev/null; then
   fastfetch
 fi
