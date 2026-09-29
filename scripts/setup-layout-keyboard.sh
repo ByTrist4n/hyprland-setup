@@ -6,6 +6,8 @@
 set -e
 source "./utils.sh"
 
+LOG_FILE="${LOG_FILE:-/tmp/hyprland-setup-install.log}"
+
 log_info "Configuring keyboard layout for Hyprland..."
 
 if ask_yes_no "Would you like to configure the keyboard layout?"; then
@@ -34,8 +36,8 @@ if ask_yes_no "Would you like to configure the keyboard layout?"; then
   esac
 
   if [[ "$choice" != "1" && -f "$input_lua_file" ]]; then
-    sed -i "s/kb_layout = \".*\"/kb_layout = \"$layout\"/" "$input_lua_file"
-    sed -i "s/kb_variant = \".*\"/kb_variant = \"$variant\"/" "$input_lua_file"
+    sed -i "s/kb_layout = \".*\"/kb_layout = \"$layout\"/" "$input_lua_file" >> "$LOG_FILE" 2>&1
+    sed -i "s/kb_variant = \".*\"/kb_variant = \"$variant\"/" "$input_lua_file" >> "$LOG_FILE" 2>&1
 
     log_success "Keyboard layout set to '$layout' (variant: '$variant')."
   elif [[ "$choice" != "1" ]]; then

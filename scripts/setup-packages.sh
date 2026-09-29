@@ -6,8 +6,8 @@ set -e
 source "./utils.sh"
 
 STEP_TOTAL_MANUAL=4
-LOG_FILE="/tmp/hyprland-setup-install.log"
-> "$LOG_FILE"
+
+LOG_FILE="${LOG_FILE:-/tmp/hyprland-setup-install.log}"
 
 log_step "Request for sudo privileges to install the packages (Pacman, AUR)"
 

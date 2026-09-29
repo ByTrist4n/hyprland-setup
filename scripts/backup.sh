@@ -6,20 +6,22 @@ set -e
 
 source "./utils.sh"
 
+LOG_FILE="${LOG_FILE:-/tmp/hyprland-setup-install.log}"
+
 log_step "Creating a full backup of existing ~/.config and shell files..."
 
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
 # Backup the whole ~/.config directory if it exists and is not empty
 if [ -d "$HOME/.config" ] && [ "$(ls -A "$HOME/.config")" ]; then
-  cp -rf "$HOME/.config" "$HOME/.config.bak_$TIMESTAMP" &
+  (cp -rf "$HOME/.config" "$HOME/.config.bak_$TIMESTAMP" >> "$LOG_FILE" 2>&1) &
   spin $!
   log_info "Entire \"~/.config\" backed up to \"~/.config.bak_$TIMESTAMP\""
 fi
 
 # Backup existing .zshrc if it exists and is not a symlink
 if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
-  mv "$HOME/.zshrc" "$HOME/.zshrc.bak_$TIMESTAMP"
+  mv "$HOME/.zshrc" "$HOME/.zshrc.bak_$TIMESTAMP" >> "$LOG_FILE" 2>&1
   log_info "Existing .zshrc backed up to .zshrc.bak_$TIMESTAMP"
 fi
 

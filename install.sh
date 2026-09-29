@@ -8,6 +8,8 @@
 
 set -e
 source "./utils.sh"
+export LOG_FILE="/tmp/hyprland-setup-install.log"
+> "$LOG_FILE"
 
 clear
 
