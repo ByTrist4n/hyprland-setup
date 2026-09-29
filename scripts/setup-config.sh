@@ -18,15 +18,15 @@ fi
 
 mkdir -p "$HOME/.config" >> "$LOG_FILE" 2>&1
 
-# Patch pywal path in walker style before copying
+# Copy configuration files into ~/.config/ without deleting source files
+cp -rf "$DOTFILES_DIR"/* "$HOME/.config/" >> "$LOG_FILE" 2>&1
+
+# Patch pywal path in walker style AFTER copying
 WALKER_STYLE="$HOME/.config/walker/themes/hyprland-setup/style.css"
 if [ -f "$WALKER_STYLE" ]; then
   log_info "Patching walker theme CSS..."
   sed -i "s|WALKER_PYWAL_COLORS|$HOME/.cache/wal/colors.css|g" "$WALKER_STYLE"
 fi
-
-# Copy configuration files into ~/.config/ without deleting source files
-cp -rf "$DOTFILES_DIR"/* "$HOME/.config/" >> "$LOG_FILE" 2>&1
 
 # Symlink .zshrc if present in dotfiles
 if [ -f "$HOME/.config/zsh/.zshrc" ]; then
