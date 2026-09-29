@@ -22,7 +22,7 @@
 }
 
 /* Dynamic Pywal Imports (Overrides fallback variables if present) */
-@import url("file:///home/tristan/.cache/wal/colors.css");
+@import url("file://WALKER_PYWAL_COLORS");
 
 /* Global CSS Reset */
 * {
