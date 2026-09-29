@@ -2,7 +2,12 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export ZSH_CUSTOM="$XDG_CONFIG_HOME/zsh/custom"
 export ZSH="$HOME/.oh-my-zsh"
 
+# Add ~/.local/bin to PATH
+export PATH="$HOME/.local/bin:$PATH"
+
 # --- Headline Theme Configuration ---
+typeset -A HL_GIT_STATUS_SYMBOLS
+
 HL_SEP_MODE='on'
 HL_INFO_MODE='auto'
 HL_OVERWRITE='on'
