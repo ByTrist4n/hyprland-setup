@@ -6,6 +6,7 @@ pragma Singleton
 Item {
     id: root
 
+    // Active player selection logic
     property MprisPlayer selectedPlayer: null
     readonly property var availablePlayers: Mpris.players.values
     readonly property MprisPlayer activePlayer: {
@@ -20,11 +21,29 @@ Item {
         });
         return playing || root.availablePlayers[0];
     }
-    property string trackTitle: "No media playing"
-    property string trackArtist: "Unknown artist"
+    // Exposed media metadata
+    readonly property string rawTrackTitle: activePlayer ? (activePlayer.trackTitle || "").trim() : ""
+    readonly property string rawTrackArtist: activePlayer ? (activePlayer.trackArtist || "").trim() : ""
+    readonly property string trackArtUrl: activePlayer ? (activePlayer.trackArtUrl || "") : ""
+    // Buffered properties to prevent flickering during track changes
+    property string trackTitle: ""
+    property string trackArtist: ""
+    property bool hasMedia: false
     property bool isPlaying: false
-    readonly property string trackArtUrl: activePlayer ? activePlayer.trackArtUrl : ""
 
+    // Sync metadata with debounced visibility logic
+    function syncMetadata() {
+        if (rawTrackTitle === "") {
+            mediaDebounceTimer.start();
+        } else {
+            mediaDebounceTimer.stop();
+            trackTitle = rawTrackTitle;
+            trackArtist = rawTrackArtist;
+            hasMedia = true;
+        }
+    }
+
+    // Player selection controls
     function selectPlayer(player) {
         root.selectedPlayer = player;
     }
@@ -33,6 +52,7 @@ Item {
         root.selectedPlayer = null;
     }
 
+    // Playback control wrappers
     function previous() {
         if (activePlayer && activePlayer.canGoPrevious)
             activePlayer.previous();
@@ -51,11 +71,12 @@ Item {
 
     }
 
+    // Icon resolver based on desktop entry or player identity
     function playerIcon(player) {
         if (!player)
             return ThemeIcons.music;
 
-        const id = player.identity ? player.identity.toLowerCase() : "";
+        const id = (player.identity || "").toLowerCase();
         if (id.includes("spotify"))
             return "󰓇";
 
@@ -68,12 +89,13 @@ Item {
         if (id.includes("vlc"))
             return "󰕼";
 
-        if (id.includes("youtube-music"))
+        if (id.includes("youtube-music") || id.includes("ytmusic"))
             return "󰗃";
 
         return ThemeIcons.music;
     }
 
+    // Pause all other active players when a new one starts playing
     function enforceSinglePlayback(current) {
         availablePlayers.forEach((p) => {
             if (p !== current && p.playbackState === MprisPlaybackState.Playing && p.canPause)
@@ -82,32 +104,23 @@ Item {
         });
     }
 
-    function syncTrackInfo() {
-        const title = activePlayer ? activePlayer.trackTitle : "";
-        const artist = activePlayer ? activePlayer.trackArtist : "";
-        if (title && title.trim() !== "") {
-            resetTimer.stop();
-            trackTitle = title;
-            trackArtist = (artist && artist.trim() !== "") ? artist : "Unknown artist";
-            isPlaying = activePlayer ? activePlayer.isPlaying : false;
-        } else if (!resetTimer.running) {
-            resetTimer.start();
-        }
-    }
+    onRawTrackTitleChanged: syncMetadata()
+    onRawTrackArtistChanged: syncMetadata()
+    onActivePlayerChanged: syncMetadata()
 
-    onActivePlayerChanged: syncTrackInfo()
-
+    // Timer to delay hiding the widget when trackTitle temporarily drops to empty
     Timer {
-        id: resetTimer
+        id: mediaDebounceTimer
 
         interval: 350
         onTriggered: {
-            root.trackTitle = "No media playing";
-            root.trackArtist = "Unknown artist";
-            root.isPlaying = false;
+            root.trackTitle = "";
+            root.trackArtist = "";
+            root.hasMedia = false;
         }
     }
 
+    // Debounce timer for play/pause toggle states
     Timer {
         id: pauseDebounceTimer
 
@@ -115,15 +128,8 @@ Item {
         onTriggered: root.isPlaying = root.activePlayer ? root.activePlayer.isPlaying : false
     }
 
+    // Listen to playing state changes on active player
     Connections {
-        function onTrackTitleChanged() {
-            root.syncTrackInfo();
-        }
-
-        function onTrackArtistChanged() {
-            root.syncTrackInfo();
-        }
-
         function onIsPlayingChanged() {
             if (root.activePlayer && root.activePlayer.isPlaying) {
                 pauseDebounceTimer.stop();
@@ -136,6 +142,7 @@ Item {
         target: root.activePlayer
     }
 
+    // Watch all players to auto-switch active player on playback
     Instantiator {
         model: Mpris.players.values
 

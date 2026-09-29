@@ -6,7 +6,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Services.Mpris
 
 Rectangle {
     id: root
@@ -17,6 +16,7 @@ Rectangle {
     radius: 8
     border.color: ThemeColors.borderBase
     border.width: 1
+    visible: MediaService.hasMedia
 
     RowLayout {
         id: musicRow
@@ -27,17 +27,18 @@ Rectangle {
         RowLayout {
             spacing: 6
 
+            // Status icon
             UiText {
                 text: MediaService.isPlaying ? ThemeIcons.music : ThemeIcons.musicOff
                 color: ThemeColors.fgPrimary
                 font.pixelSize: ThemeFonts.sm
-                // Prevent width collapse during icon switch
                 Layout.preferredWidth: 16
                 horizontalAlignment: Text.AlignHCenter
             }
 
+            // Track title
             UiText {
-                text: MediaService.trackTitle
+                text: MediaService.trackTitle || "Unknown title"
                 Layout.maximumWidth: 200
                 color: ThemeColors.fgPrimary
                 font.pixelSize: ThemeFonts.sm
@@ -45,8 +46,9 @@ Rectangle {
                 elide: Text.ElideRight
             }
 
+            // Track artist
             UiText {
-                text: "- " + MediaService.trackArtist
+                text: "- " + (MediaService.trackArtist || "Unknown artist")
                 Layout.maximumWidth: 150
                 color: ThemeColors.fgMuted
                 font.pixelSize: ThemeFonts.xs
@@ -55,6 +57,7 @@ Rectangle {
 
         }
 
+        // Audio visualizer widget
         CavaVisualizer {
             Layout.preferredWidth: 120
             Layout.preferredHeight: 24
