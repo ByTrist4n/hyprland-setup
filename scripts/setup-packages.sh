@@ -105,6 +105,7 @@ CORE_PACMAN=(
   inetutils
   kitty
   nm-connection-editor
+  noto-fonts-emoji
   nvim
   papirus-icon-theme
   pavucontrol
