@@ -112,6 +112,7 @@ CORE_PACMAN=(
   sddm
   slurp
   ttf-jetbrains-mono-nerd
+  vim
   wf-recorder
   wl-clipboard
   zip
