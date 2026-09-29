@@ -102,6 +102,7 @@ CORE_PACMAN=(
   hypridle
   hyprland
   hyprlock
+  inetutils
   kitty
   nm-connection-editor
   nvim
