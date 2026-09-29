@@ -21,13 +21,18 @@ setup_sddm_integration() {
 
     # 2. Copy initial wallpaper (pywal wallpaper OR fallback to theme's default.jpg)
     if [ -f "$HOME/.cache/wal/wal_wallpaper.jpg" ]; then
-      cp -f "$HOME/.cache/wal/wal_wallpaper.jpg" "$sddm_bg_target" >> "$LOG_FILE" 2>&1
+      sudo cp -f "$HOME/.cache/wal/wal_wallpaper.jpg" "$sddm_bg_target" >> "$LOG_FILE" 2>&1
     elif [ -f "$sddm_theme_dir/assets/default.jpg" ]; then
-      cp -f "$sddm_theme_dir/assets/default.jpg" "$sddm_bg_target" >> "$LOG_FILE" 2>&1
+      sudo cp -f "$sddm_theme_dir/assets/default.jpg" "$sddm_bg_target" >> "$LOG_FILE" 2>&1
     fi
-    [ -f "$sddm_bg_target" ] && chmod 644 "$sddm_bg_target" >> "$LOG_FILE" 2>&1
 
-    # 3. Create the post-hook for pywal-theme-switcher (No sudo required)
+    # Ensure world readability and user ownership
+    if [ -f "$sddm_bg_target" ]; then
+      sudo chown "$USER:$USER" "$sddm_bg_target" >> "$LOG_FILE" 2>&1
+      chmod 644 "$sddm_bg_target" >> "$LOG_FILE" 2>&1
+    fi
+
+    # 3. Create the post-hook for pywal-theme-switcher
     mkdir -p "$hooks_dir" >> "$LOG_FILE" 2>&1
     cat << 'EOF' > "$hook_script"
 #!/bin/bash
@@ -47,6 +52,33 @@ EOF
   fi
 }
 
+setup_kitty_integration() {
+  local kitty_conf_dir="$HOME/.config/kitty"
+  local kitty_conf_file="$kitty_conf_dir/kitty.conf"
+  local wal_cache_dir="$HOME/.cache/wal"
+  local kitty_colors_file="$wal_cache_dir/colors-kitty.conf"
+  local include_line="include ~/.cache/wal/colors-kitty.conf"
+
+  # 1. Ensure .cache/wal directory exists and colors-kitty.conf exists
+  mkdir -p "$wal_cache_dir" >> "$LOG_FILE" 2>&1
+  if [ ! -f "$kitty_colors_file" ]; then
+    touch "$kitty_colors_file" >> "$LOG_FILE" 2>&1
+  fi
+  chown "$USER:$USER" "$kitty_colors_file" >> "$LOG_FILE" 2>&1 || true
+
+  # 2. Append include directive to kitty.conf if missing
+  mkdir -p "$kitty_conf_dir" >> "$LOG_FILE" 2>&1
+  if [ ! -f "$kitty_conf_file" ]; then
+    touch "$kitty_conf_file" >> "$LOG_FILE" 2>&1
+  fi
+
+  if ! grep -qF "$include_line" "$kitty_conf_file"; then
+    echo "" >> "$kitty_conf_file"
+    echo "# Include dynamic Pywal color palette" >> "$kitty_conf_file"
+    echo "$include_line" >> "$kitty_conf_file"
+  fi
+}
+
 echo -e "${YELLOW}[RECOMMENDED]${NC} Pywal Theme Switcher dynamically themes Hyprland, GTK, Qt & Quickshell."
 echo -e "Repo: https://github.com/ByTrist4n/pywal-theme-switcher"
 
@@ -57,37 +89,36 @@ if ask_yes_no "Would you like to install and set up Pywal Theme Switcher now?"; 
   THEME_SWITCHER_DIR="$(mktemp -d)"
 
   # Step 1: Install Pywal Theme Switcher
-  (
-    if git clone --quiet --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
-      cd "$THEME_SWITCHER_DIR" && ./install.sh --rofi
+  if git clone --quiet --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
+    # Run installation with --rofi and -y (non-interactive mode)
+    if (cd "$THEME_SWITCHER_DIR" && ./install.sh --rofi -y >> "$LOG_FILE" 2>&1); then
+      log_success "Pywal Theme Switcher has been successfully configured."
     else
+      log_error "Failed to install Pywal Theme Switcher. Check $LOG_FILE"
+      rm -rf "$THEME_SWITCHER_DIR"
       exit 1
     fi
-  ) >> "$LOG_FILE" 2>&1 &
-
-  spin $!
-
-  # Check exit status of Step 1
-  if [ $? -eq 0 ]; then
-    log_success "Pywal Theme Switcher has been successfully configured."
-
-    # Step 2: Configure SDDM integration hook
-    SDDM_THEME_DIR="/usr/share/sddm/themes/sddm-hyprland-setup"
-    if [ -d "$SDDM_THEME_DIR" ]; then
-      log_step "Configuring SDDM wallpaper sync hook..."
-
-      (setup_sddm_integration) &
-      spin $!
-
-      if [ $? -eq 0 ]; then
-        log_success "SDDM wallpaper hook successfully set up."
-      else
-        log_error "Failed to set up SDDM wallpaper hook. Check $LOG_FILE"
-      fi
-    fi
   else
-    log_error "Failed to install Pywal Theme Switcher. Check $LOG_FILE"
+    log_error "Failed to clone Pywal Theme Switcher repository."
+    rm -rf "$THEME_SWITCHER_DIR"
+    exit 1
   fi
 
   rm -rf "$THEME_SWITCHER_DIR"
+
+  # Step 2: Configure Kitty integration
+  log_step "Configuring Kitty color integration..."
+  setup_kitty_integration
+
+  # Step 3: Configure SDDM integration hook
+  SDDM_THEME_DIR="/usr/share/sddm/themes/sddm-hyprland-setup"
+  if [ -d "$SDDM_THEME_DIR" ]; then
+    log_step "Configuring SDDM wallpaper sync hook..."
+
+    if setup_sddm_integration; then
+      log_success "SDDM wallpaper hook successfully set up."
+    else
+      log_error "Failed to set up SDDM wallpaper hook. Check $LOG_FILE"
+    fi
+  fi
 fi
