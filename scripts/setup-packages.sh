@@ -5,7 +5,7 @@
 set -e
 source "./utils.sh"
 
-STEP_TOTAL_MANUAL=4
+STEP_TOTAL_MANUAL=6
 
 LOG_FILE="${LOG_FILE:-/tmp/hyprland-setup-install.log}"
 
@@ -138,6 +138,20 @@ CORE_AUR=(
   wlogout
 )
 
+# Extra Optional Packages (Official Repos)
+EXTRA_PACMAN=(
+  libreoffice-still
+  yazi
+)
+
+# Extra Optional Packages (AUR)
+EXTRA_AUR=(
+  logiops
+  pear-desktop
+  vscodium-bin
+  zen-browser-bin
+)
+
 # Run core installations
 install_pkgs "pacman" "Core System" "${CORE_PACMAN[@]}"
 ensure_aur_helper
@@ -151,17 +165,12 @@ echo -e "  • ${CYAN}yazi${NC}              - Terminal file manager"
 echo -e "  • ${CYAN}logiops${NC}           - Logitech MX app"
 echo -e "  • ${CYAN}pear-desktop${NC}      - YT music application"
 echo -e "  • ${CYAN}vscodium-bin${NC}      - Open-source Code Editor"
-echo -e "  • ${CYAN}zen-browser${NC}       - Best Web Browser (Firefox core)"
+echo -e "  • ${CYAN}zen-browser-bin${NC}  - Best Web Browser (Firefox core)"
 echo ""
 
 if ask_yes_no "Would you like to install these extra applications?"; then
-  log_info "Installing extra Pacman & AUR applications..."
-
-  (sudo pacman -S --needed --noconfirm libreoffice-still yazi >> "$LOG_FILE" 2>&1 \
-    && yay -S --needed --noconfirm logiops pear-desktop vscodium-bin zen-browser >> "$LOG_FILE" 2>&1) &
-
-  spin $!
-  log_success "Extra applications installed!"
+  install_pkgs "pacman" "Extra Official" "${EXTRA_PACMAN[@]}"
+  install_pkgs "yay" "Extra AUR" "${EXTRA_AUR[@]}"
 fi
 
 log_success "Dependencies Setup complete!"

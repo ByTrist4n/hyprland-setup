@@ -11,6 +11,11 @@ source "./utils.sh"
 export LOG_FILE="/tmp/hyprland-setup-install.log"
 > "$LOG_FILE"
 
+# Write execution header to log file
+echo "=========================================================" >> "$LOG_FILE"
+echo " Installation Run Started: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE"
+echo "=========================================================" >> "$LOG_FILE"
+
 clear
 
 echo -e "${MAGENTA}──────────────────────────────────────────────────────────────────────${NC}"
