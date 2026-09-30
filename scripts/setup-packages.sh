@@ -64,11 +64,15 @@ install_pkgs() {
 ensure_aur_helper() {
   if ! command -v yay &> /dev/null; then
     log_info "AUR helper (yay) not found. Bootstrapping yay..."
+
+    sudo pacman -S --needed --noconfirm git base-devel >> "$LOG_FILE" 2>&1
+
     local tmp_dir
     tmp_dir=$(mktemp -d)
 
     (git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay" >> "$LOG_FILE" 2>&1 \
-      && cd "$tmp_dir/yay" && makepkg -si --noconfirm >> "$LOG_FILE" 2>&1) &
+      && cd "$tmp_dir/yay" \
+      && makepkg -si --noconfirm >> "$LOG_FILE" 2>&1) &
 
     local cmd_pid=$!
     spin "$cmd_pid"
