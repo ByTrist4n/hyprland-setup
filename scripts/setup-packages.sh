@@ -72,7 +72,8 @@ ensure_aur_helper() {
 
     (git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay" >> "$LOG_FILE" 2>&1 \
       && cd "$tmp_dir/yay" \
-      && makepkg -si --noconfirm >> "$LOG_FILE" 2>&1) &
+      && makepkg -s --noconfirm >> "$LOG_FILE" 2>&1 \
+      && sudo pacman -U --noconfirm yay-*.pkg.tar.zst >> "$LOG_FILE" 2>&1) &
 
     local cmd_pid=$!
     spin "$cmd_pid"
