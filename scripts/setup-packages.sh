@@ -98,6 +98,7 @@ CORE_PACMAN=(
   cava
   cliphist
   dolphin
+  fastfetch
   fcitx5
   fcitx5-configtool
   fcitx5-gtk
