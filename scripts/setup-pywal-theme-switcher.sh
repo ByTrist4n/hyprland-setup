@@ -47,6 +47,9 @@ fi
 EOF
 
     chmod +x "$hook_script" >> "$LOG_FILE" 2>&1
+
+    # Execute hook immediately once
+    "$hook_script" >> "$LOG_FILE" 2>&1 || true
   else
     exit 1
   fi
@@ -76,6 +79,44 @@ setup_kitty_integration() {
     echo "" >> "$kitty_conf_file"
     echo "# Include dynamic Pywal color palette" >> "$kitty_conf_file"
     echo "$include_line" >> "$kitty_conf_file"
+  fi
+}
+
+setup_wlogout_integration() {
+  local wlogout_conf_dir="$HOME/.config/wlogout"
+  local hooks_dir="$HOME/.local/share/pywal-theme-switcher/post-hooks.d"
+  local hook_script="$hooks_dir/wlogout-update.sh"
+
+  if [ -d "$wlogout_conf_dir" ]; then
+    mkdir -p "$hooks_dir" >> "$LOG_FILE" 2>&1
+
+    # 2. Create post-hook for wlogout to recolor SVG fill attributes
+    cat << 'EOF' > "$hook_script"
+#!/bin/bash
+# Recolor wlogout SVG icons using Pywal palette
+
+wal_colors="$HOME/.cache/wal/colors.json"
+wlogout_assets="$HOME/.config/wlogout/assets"
+
+if [ -f "$wal_colors" ] && [ -d "$wlogout_assets" ]; then
+  color_wal=$(grep -oP '"color15":\s*"\K[^"]+' "$wal_colors")
+
+  if [ -n "$color_wal" ]; then
+    find "$wlogout_assets" -type f -name "*.svg" -exec sed -i -E "s/fill=\"[^\"]*\"/fill=\"$color_wal\"/g" {} +
+  fi
+fi
+
+if pgrep -x "wlogout" > /dev/null; then
+  pkill -HUP wlogout 2>/dev/null || true
+fi
+EOF
+
+    chmod +x "$hook_script" >> "$LOG_FILE" 2>&1
+
+    # Execute hook immediately once
+    "$hook_script" >> "$LOG_FILE" 2>&1 || true
+  else
+    exit 1
   fi
 }
 
@@ -119,6 +160,18 @@ if ask_yes_no "Would you like to install and set up Pywal Theme Switcher now?"; 
       log_success "SDDM wallpaper hook successfully set up."
     else
       log_error "Failed to set up SDDM wallpaper hook. Check $LOG_FILE"
+    fi
+  fi
+
+  # Step 4: Configure wlogout integration hook
+  WLOGOUT_CONF_DIR="$HOME/.config/wlogout"
+  if [ -d "$WLOGOUT_CONF_DIR" ]; then
+    log_step "Configuring wlogout color sync hook..."
+
+    if setup_wlogout_integration; then
+      log_success "wlogout hook successfully set up."
+    else
+      log_error "Failed to set up wlogout hook. Check $LOG_FILE"
     fi
   fi
 fi
