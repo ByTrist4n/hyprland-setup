@@ -149,7 +149,6 @@ EXTRA_PACMAN=(
 # Extra Optional Packages (AUR)
 EXTRA_AUR=(
   logiops
-  pear-desktop
   vscodium-bin
   zen-browser-bin
 )
@@ -164,7 +163,6 @@ echo ""
 echo -e "${BLUE}Optional extra applications list:${NC}"
 echo -e "  • ${CYAN}libreoffice-still${NC} - Office suite"
 echo -e "  • ${CYAN}logiops${NC}           - Logitech MX app"
-echo -e "  • ${CYAN}pear-desktop${NC}      - YT music application"
 echo -e "  • ${CYAN}vlc${NC}               - VLC media player"
 echo -e "  • ${CYAN}vscodium-bin${NC}      - Open-source Code Editor"
 echo -e "  • ${CYAN}yazi${NC}              - Terminal file manager"
