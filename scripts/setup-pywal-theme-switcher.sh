@@ -120,6 +120,36 @@ EOF
   fi
 }
 
+setup_dolphin_integration() {
+  local dolphin_conf_dir="$HOME/.config"
+  local dolphin_conf_file="$dolphin_conf_dir/dolphinrc"
+
+  mkdir -p "$dolphin_conf_dir" >> "$LOG_FILE" 2>&1
+
+  if [ ! -f "$dolphin_conf_file" ]; then
+    # Create file with default UiSettings section if missing
+    cat << 'EOF' > "$dolphin_conf_file"
+[UiSettings]
+ColorScheme=Pywal
+EOF
+  else
+    # File exists: check if [UiSettings] header is present
+    if grep -q "^\[UiSettings\]" "$dolphin_conf_file"; then
+      # Update or add ColorScheme key within [UiSettings]
+      if grep -q "^ColorScheme=" "$dolphin_conf_file"; then
+        sed -i 's/^ColorScheme=.*/ColorScheme=Pywal/' "$dolphin_conf_file" >> "$LOG_FILE" 2>&1
+      else
+        sed -i '/^\[UiSettings\]/a ColorScheme=Pywal' "$dolphin_conf_file" >> "$LOG_FILE" 2>&1
+      fi
+    else
+      # Append new section if [UiSettings] doesn't exist
+      echo "" >> "$dolphin_conf_file"
+      echo "[UiSettings]" >> "$dolphin_conf_file"
+      echo "ColorScheme=Pywal" >> "$dolphin_conf_file"
+    fi
+  fi
+}
+
 echo -e "${YELLOW}[RECOMMENDED]${NC} Pywal Theme Switcher dynamically themes Hyprland, GTK, Qt & Quickshell."
 echo -e "Repo: https://github.com/ByTrist4n/pywal-theme-switcher"
 
@@ -151,7 +181,11 @@ if ask_yes_no "Would you like to install and set up Pywal Theme Switcher now?"; 
   log_step "Configuring Kitty color integration..."
   setup_kitty_integration
 
-  # Step 3: Configure SDDM integration hook
+  # Step 3: Configure Dolphin integration
+  log_step "Configuring Dolphin color scheme..."
+  setup_dolphin_integration
+
+  # Step 4: Configure SDDM integration hook
   SDDM_THEME_DIR="/usr/share/sddm/themes/sddm-hyprland-setup"
   if [ -d "$SDDM_THEME_DIR" ]; then
     log_step "Configuring SDDM wallpaper sync hook..."
@@ -163,7 +197,7 @@ if ask_yes_no "Would you like to install and set up Pywal Theme Switcher now?"; 
     fi
   fi
 
-  # Step 4: Configure wlogout integration hook
+  # Step 5: Configure wlogout integration hook
   WLOGOUT_CONF_DIR="$HOME/.config/wlogout"
   if [ -d "$WLOGOUT_CONF_DIR" ]; then
     log_step "Configuring wlogout color sync hook..."
