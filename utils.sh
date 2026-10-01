@@ -183,9 +183,27 @@ spin() {
 }
 export -f spin
 
-# Detect emoji font support and setup global icon variables
+# Check if running in a Linux TTY
+is_tty() {
+  [[ "$(tty)" =~ ^/dev/tty[0-9]+$ ]] || [[ "$TERM" == "linux" ]]
+}
+
 setup_icons() {
-  if command -v fc-list > /dev/null 2>&1 && fc-list : family | grep -iq "emoji"; then
+  if is_tty; then
+    # Simple ASCII symbols for TTY environment
+    ICON_SPARKLE="*"
+    ICON_STAR="*"
+    ICON_LOVE="<3"
+    ICON_PACKAGE="[P]"
+    ICON_SUCCESS="[OK]"
+    ICON_FLEX="[OK]"
+    ICON_THINK="[?]"
+    ICON_ARROW="->"
+    ICON_OK="[OK]"
+    ICON_WARN="[!]"
+    ICON_CROSS="[X]"
+  elif command -v fc-list > /dev/null 2>&1 && fc-list : family | grep -iqE "emoji|nerd"; then
+    # Full emoji / nerd font support for Wayland/X11 terminals
     ICON_SPARKLE="✨"
     ICON_STAR="⭐"
     ICON_LOVE="🫰💖"
@@ -195,9 +213,10 @@ setup_icons() {
     ICON_THINK="🤔"
     ICON_ARROW="➔"
     ICON_OK="✔"
-    ICON_WARN="⚠"
+    ICON_WARN="⚠️"
     ICON_CROSS="❌"
   else
+    # Unicode basic fallback
     ICON_SPARKLE="★"
     ICON_STAR="★"
     ICON_LOVE="♥"
