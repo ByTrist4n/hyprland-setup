@@ -8,35 +8,14 @@ source "./utils.sh"
 LOG_FILE="${LOG_FILE:-/tmp/hyprland-setup-install.log}"
 
 setup_sddm_integration() {
-  local sddm_theme_dir="/usr/share/sddm/themes/sddm-hyprland-setup"
-  local sddm_bg_target="/var/tmp/sddm_wallpaper.jpg"
-  local hooks_dir="$HOME/.local/share/pywal-theme-switcher/post-hooks.d"
+  local hooks_dir="$HOME/.config/pywal-theme-switcher/post-hooks.d"
   local hook_script="$hooks_dir/sddm-update.sh"
 
-  if [ -d "$sddm_theme_dir" ]; then
-    # 1. Update theme.conf to use the dynamic wallpaper path
-    if [ -f "$sddm_theme_dir/theme.conf" ]; then
-      sudo sed -i 's|^background=.*|background="/var/tmp/sddm_wallpaper.jpg"|g' "$sddm_theme_dir/theme.conf" >> "$LOG_FILE" 2>&1
-    fi
+  mkdir -p "$hooks_dir" >> "$LOG_FILE" 2>&1
 
-    # 2. Copy initial wallpaper (pywal wallpaper OR fallback to theme's default.jpg)
-    if [ -f "$HOME/.cache/wal/wal_wallpaper.jpg" ]; then
-      sudo cp -f "$HOME/.cache/wal/wal_wallpaper.jpg" "$sddm_bg_target" >> "$LOG_FILE" 2>&1
-    elif [ -f "$sddm_theme_dir/assets/default.jpg" ]; then
-      sudo cp -f "$sddm_theme_dir/assets/default.jpg" "$sddm_bg_target" >> "$LOG_FILE" 2>&1
-    fi
-
-    # Ensure world readability and user ownership
-    if [ -f "$sddm_bg_target" ]; then
-      sudo chown "$USER:$USER" "$sddm_bg_target" >> "$LOG_FILE" 2>&1
-      chmod 644 "$sddm_bg_target" >> "$LOG_FILE" 2>&1
-    fi
-
-    # 3. Create the post-hook for pywal-theme-switcher
-    mkdir -p "$hooks_dir" >> "$LOG_FILE" 2>&1
-    cat << 'EOF' > "$hook_script"
+  # Create post-hook script to update SDDM wallpaper on theme change
+  cat << 'EOF' > "$hook_script"
 #!/bin/bash
-# Sync wallpaper to SDDM on change
 sddm_target="/var/tmp/sddm_wallpaper.jpg"
 wal_wallpaper="$HOME/.cache/wal/wal_wallpaper.jpg"
 
@@ -46,13 +25,10 @@ if [ -f "$wal_wallpaper" ]; then
 fi
 EOF
 
-    chmod +x "$hook_script" >> "$LOG_FILE" 2>&1
+  chmod +x "$hook_script" >> "$LOG_FILE" 2>&1
 
-    # Execute hook immediately once
-    "$hook_script" >> "$LOG_FILE" 2>&1 || true
-  else
-    exit 1
-  fi
+  # Run hook once immediately
+  "$hook_script" >> "$LOG_FILE" 2>&1 || true
 }
 
 setup_kitty_integration() {
@@ -84,13 +60,13 @@ setup_kitty_integration() {
 
 setup_wlogout_integration() {
   local wlogout_conf_dir="$HOME/.config/wlogout"
-  local hooks_dir="$HOME/.local/share/pywal-theme-switcher/post-hooks.d"
+  local hooks_dir="$HOME/.config/pywal-theme-switcher/post-hooks.d"
   local hook_script="$hooks_dir/wlogout-update.sh"
 
   if [ -d "$wlogout_conf_dir" ]; then
     mkdir -p "$hooks_dir" >> "$LOG_FILE" 2>&1
 
-    # 2. Create post-hook for wlogout to recolor SVG fill attributes
+    # Create post-hook for wlogout to recolor SVG fill attributes
     cat << 'EOF' > "$hook_script"
 #!/bin/bash
 # Recolor wlogout SVG icons using Pywal palette
@@ -115,8 +91,6 @@ EOF
 
     # Execute hook immediately once
     "$hook_script" >> "$LOG_FILE" 2>&1 || true
-  else
-    exit 1
   fi
 }
 
@@ -187,22 +161,14 @@ setup_dolphin_integration
 SDDM_THEME_DIR="/usr/share/sddm/themes/sddm-hyprland-setup"
 if [ -d "$SDDM_THEME_DIR" ]; then
   log_step "Configuring SDDM wallpaper sync hook..."
-
-  if setup_sddm_integration; then
-    log_success "SDDM wallpaper hook successfully set up."
-  else
-    log_error "Failed to set up SDDM wallpaper hook. Check $LOG_FILE"
-  fi
+  setup_sddm_integration
+  log_success "SDDM wallpaper hook successfully set up."
 fi
 
 # Step 5: Configure wlogout integration hook
 WLOGOUT_CONF_DIR="$HOME/.config/wlogout"
 if [ -d "$WLOGOUT_CONF_DIR" ]; then
   log_step "Configuring wlogout color sync hook..."
-
-  if setup_wlogout_integration; then
-    log_success "wlogout hook successfully set up."
-  else
-    log_error "Failed to set up wlogout hook. Check $LOG_FILE"
-  fi
+  setup_wlogout_integration
+  log_success "wlogout hook successfully set up."
 fi
