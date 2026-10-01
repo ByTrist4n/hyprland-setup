@@ -36,6 +36,9 @@ CORE_PACMAN=(
   kitty
   libavif
   libheif
+  lib32-mesa
+  lib32-vulkan-icd-loader
+  mesa
   nm-connection-editor
   noto-fonts-emoji
   nvim
@@ -47,6 +50,8 @@ CORE_PACMAN=(
   slurp
   ttf-jetbrains-mono-nerd
   vim
+  vulkan-icd-loader
+  virglrenderer
   wf-recorder
   wl-clipboard
   zip
@@ -137,7 +142,17 @@ ensure_aur_helper() {
   fi
 }
 
-# Run core steps [1/4] to [4/4]
+# Enable multilib repository if not already active (required for lib32-* packages)
+ensure_multilib() {
+  if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
+    log_info "Enabling multilib repository in /etc/pacman.conf..."
+    echo -e "\n[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf > /dev/null
+  fi
+}
+
+# Run core steps [1/3] to [3/3]
+ensure_multilib
+
 log_step "Updating Pacman database..."
 sudo pacman -Sy --noconfirm >> "$LOG_FILE" 2>&1 &
 spin $!
