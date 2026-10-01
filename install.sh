@@ -1,5 +1,5 @@
 #!/bin/bash
-# =============================================================
+# ==============================================================================
 # A simplified, automated configuration script that allows you to create a polished,
 # functional Hyprland environment with a single command.
 # Repository: https://github.com/ByTrist4n/hyprland-setup
@@ -31,7 +31,7 @@ echo -e "                         ${MAGENTA}S E T U P${NC}"
 echo ""
 echo -e "${MAGENTA}──────────────────────────────────────────────────────────────────────${NC}"
 echo ""
-type_text 0.03 "" "  ${ICON_SPARKLE} Installation sript for the Hyprland of your dreams • By "
+type_text 0.03 "" "  ${ICON_SPARKLE} Installation script for the Hyprland of your dreams • By "
 print_link "${PROFIL_URL}" "ByTrist4n" "${BLUE}${BOLD}"
 echo ""
 echo ""
@@ -105,12 +105,12 @@ if ask_yes_no "Right, let's go!"; then
       echo -e "\nhl.exec_cmd(\"kitty --title 'Welcome' -e $PWD/scripts/welcome.sh\")" >> "$HOME/.config/hypr/hyprland.lua"
     fi
 
-    echo -en "${GREEN}Launching Hyprland in ${NC}"
-    for i in 3 2 1; do
-      echo -n "$i... "
-      sleep 1
-    done
+    log_success "Installation completed successfully!"
     echo ""
-    exec Hyprland
+    if ask_yes_no "A system reboot is recommended to apply all changes. Reboot now?"; then
+      sudo reboot
+    else
+      log_info "You can now reboot manually or start your display manager (SDDM)."
+    fi
   fi
 fi
