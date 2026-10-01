@@ -45,7 +45,7 @@ print_link() {
 }
 export -f print_link
 
-# Echo with stepper (example: [1/7])
+# Echo with step counter (e.g., [1/7])
 log_step() {
   local current_file="${BASH_SOURCE[1]}"
 
