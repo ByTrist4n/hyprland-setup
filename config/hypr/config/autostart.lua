@@ -13,4 +13,6 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("hypridle")
   hl.exec_cmd("awww-daemon")
   hl.exec_cmd("quickshell")
+  hl.exec_cmd("wl-paste --type text --watch cliphist store") -- Start cliphist watching text clipboard data
+  hl.exec_cmd("wl-paste --type image --watch cliphist store") -- Start cliphist watching image clipboard data
 end)
