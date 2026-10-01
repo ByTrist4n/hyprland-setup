@@ -8,17 +8,6 @@ source "./utils.sh"
 STEP_TOTAL_MANUAL=6
 
 LOG_FILE="${LOG_FILE:-/tmp/hyprland-setup-install.log}"
-
-log_step "Request for sudo privileges to install the packages (Pacman, AUR)"
-
-# Keep sudo privileges alive until script finishes
-sudo -v
-while true; do
-  sudo -n true
-  sleep 60
-  kill -0 "$$" || exit
-done 2> /dev/null &
-
 # Refresh mirrors and databases silently
 log_step "Updating Pacman database..."
 sudo pacman -Sy --noconfirm >> "$LOG_FILE" 2>&1 &

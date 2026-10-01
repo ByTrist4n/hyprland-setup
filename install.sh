@@ -63,6 +63,23 @@ fi
 
 if ask_yes_no "Right, let's go!"; then
 
+  # Prompt for sudo privileges once globally
+  log_step "Requesting sudo privileges for the entire setup..."
+  sudo -v
+
+  # Configure temporary passwordless sudo rule for current user
+  SUDOERS_FILE="/etc/sudoers.d/99-hyprland-setup-temp"
+  echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee "$SUDOERS_FILE" > /dev/null
+  sudo chmod 0440 "$SUDOERS_FILE"
+
+  # Clean up temporary sudo rule when the entire installation completes or exits
+  cleanup() {
+    sudo rm -f "$SUDOERS_FILE" 2> /dev/null || true
+  }
+  trap cleanup EXIT INT TERM
+
+  clear
+
   bash "./scripts/backup.sh"
   bash "./scripts/setup-packages.sh"
   bash "./scripts/setup-oh-my-zsh.sh"
