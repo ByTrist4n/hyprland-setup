@@ -150,62 +150,59 @@ EOF
   fi
 }
 
-echo -e "${YELLOW}[RECOMMENDED]${NC} Pywal Theme Switcher dynamically themes Hyprland, GTK, Qt & Quickshell."
-echo -e "Repo: https://github.com/ByTrist4n/pywal-theme-switcher"
+log_section "Setting up Pywal Theme Switcher..."
+log_info "Pywal Theme Switcher dynamically themes Hyprland, GTK, Qt & Quickshell."
+log_info "Repo: https://github.com/ByTrist4n/pywal-theme-switcher"
 
-if ask_yes_no "Would you like to install and set up Pywal Theme Switcher now?"; then
-  log_step "Setting up Pywal Theme Switcher..."
+REPO_URL="https://github.com/ByTrist4n/pywal-theme-switcher.git"
+THEME_SWITCHER_DIR="$(mktemp -d)"
 
-  REPO_URL="https://github.com/ByTrist4n/pywal-theme-switcher.git"
-  THEME_SWITCHER_DIR="$(mktemp -d)"
-
-  # Step 1: Install Pywal Theme Switcher
-  if git clone --quiet --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
-    # Run installation with --rofi and -y (non-interactive mode)
-    if (cd "$THEME_SWITCHER_DIR" && ./install.sh --rofi -y >> "$LOG_FILE" 2>&1); then
-      log_success "Pywal Theme Switcher has been successfully configured."
-    else
-      log_error "Failed to install Pywal Theme Switcher. Check $LOG_FILE"
-      rm -rf "$THEME_SWITCHER_DIR"
-      exit 1
-    fi
+# Step 1: Install Pywal Theme Switcher
+if git clone --quiet --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
+  # Run installation with --rofi and -y (non-interactive mode)
+  if (cd "$THEME_SWITCHER_DIR" && ./install.sh --rofi -y >> "$LOG_FILE" 2>&1); then
+    log_success "Pywal Theme Switcher has been successfully configured."
   else
-    log_error "Failed to clone Pywal Theme Switcher repository."
+    log_error "Failed to install Pywal Theme Switcher. Check $LOG_FILE"
     rm -rf "$THEME_SWITCHER_DIR"
     exit 1
   fi
-
+else
+  log_error "Failed to clone Pywal Theme Switcher repository."
   rm -rf "$THEME_SWITCHER_DIR"
+  exit 1
+fi
 
-  # Step 2: Configure Kitty integration
-  log_step "Configuring Kitty color integration..."
-  setup_kitty_integration
+rm -rf "$THEME_SWITCHER_DIR"
 
-  # Step 3: Configure Dolphin integration
-  log_step "Configuring Dolphin color scheme..."
-  setup_dolphin_integration
+# Step 2: Configure Kitty integration
+log_step "Configuring Kitty color integration..."
+setup_kitty_integration
 
-  # Step 4: Configure SDDM integration hook
-  SDDM_THEME_DIR="/usr/share/sddm/themes/sddm-hyprland-setup"
-  if [ -d "$SDDM_THEME_DIR" ]; then
-    log_step "Configuring SDDM wallpaper sync hook..."
+# Step 3: Configure Dolphin integration
+log_step "Configuring Dolphin color scheme..."
+setup_dolphin_integration
 
-    if setup_sddm_integration; then
-      log_success "SDDM wallpaper hook successfully set up."
-    else
-      log_error "Failed to set up SDDM wallpaper hook. Check $LOG_FILE"
-    fi
+# Step 4: Configure SDDM integration hook
+SDDM_THEME_DIR="/usr/share/sddm/themes/sddm-hyprland-setup"
+if [ -d "$SDDM_THEME_DIR" ]; then
+  log_step "Configuring SDDM wallpaper sync hook..."
+
+  if setup_sddm_integration; then
+    log_success "SDDM wallpaper hook successfully set up."
+  else
+    log_error "Failed to set up SDDM wallpaper hook. Check $LOG_FILE"
   fi
+fi
 
-  # Step 5: Configure wlogout integration hook
-  WLOGOUT_CONF_DIR="$HOME/.config/wlogout"
-  if [ -d "$WLOGOUT_CONF_DIR" ]; then
-    log_step "Configuring wlogout color sync hook..."
+# Step 5: Configure wlogout integration hook
+WLOGOUT_CONF_DIR="$HOME/.config/wlogout"
+if [ -d "$WLOGOUT_CONF_DIR" ]; then
+  log_step "Configuring wlogout color sync hook..."
 
-    if setup_wlogout_integration; then
-      log_success "wlogout hook successfully set up."
-    else
-      log_error "Failed to set up wlogout hook. Check $LOG_FILE"
-    fi
+  if setup_wlogout_integration; then
+    log_success "wlogout hook successfully set up."
+  else
+    log_error "Failed to set up wlogout hook. Check $LOG_FILE"
   fi
 fi
