@@ -21,26 +21,30 @@ Item {
         });
         return playing || root.availablePlayers[0];
     }
-    // Exposed media metadata
+    // Exposed raw media metadata
     readonly property string rawTrackTitle: activePlayer ? (activePlayer.trackTitle || "").trim() : ""
     readonly property string rawTrackArtist: activePlayer ? (activePlayer.trackArtist || "").trim() : ""
     readonly property string trackArtUrl: activePlayer ? (activePlayer.trackArtUrl || "") : ""
-    // Buffered properties to prevent flickering during track changes
+    readonly property bool rawIsPlaying: activePlayer ? (activePlayer.playbackState === MprisPlaybackState.Playing) : false
+    // Buffered properties to prevent UI flickering during track changes
     property string trackTitle: ""
     property string trackArtist: ""
     property bool hasMedia: false
     property bool isPlaying: false
 
     // Sync metadata with debounced visibility logic
-    function syncMetadata() {
-        if (rawTrackTitle === "") {
-            mediaDebounceTimer.start();
-        } else {
-            mediaDebounceTimer.stop();
+    function syncState() {
+        // Immediate updates when media starts playing or new metadata arrives
+        if (rawIsPlaying)
+            isPlaying = true;
+
+        if (rawTrackTitle !== "") {
             trackTitle = rawTrackTitle;
             trackArtist = rawTrackArtist;
             hasMedia = true;
         }
+        // Restart debounce timer to handle delayed clear/pause states
+        debounceTimer.restart();
     }
 
     // Player selection controls
@@ -104,42 +108,26 @@ Item {
         });
     }
 
-    onRawTrackTitleChanged: syncMetadata()
-    onRawTrackArtistChanged: syncMetadata()
-    onActivePlayerChanged: syncMetadata()
+    onRawTrackTitleChanged: syncState()
+    onRawTrackArtistChanged: syncState()
+    onActivePlayerChanged: syncState()
+    onRawIsPlayingChanged: syncState()
 
-    // Timer to delay hiding the widget when trackTitle temporarily drops to empty
+    // Timer to delay hiding the widget when isPlaying/trackTitle temporarily drops to empty
     Timer {
-        id: mediaDebounceTimer
+        id: debounceTimer
 
         interval: 350
         onTriggered: {
-            root.trackTitle = "";
-            root.trackArtist = "";
-            root.hasMedia = false;
-        }
-    }
+            if (!root.rawIsPlaying)
+                root.isPlaying = false;
 
-    // Debounce timer for play/pause toggle states
-    Timer {
-        id: pauseDebounceTimer
-
-        interval: 300
-        onTriggered: root.isPlaying = root.activePlayer ? root.activePlayer.isPlaying : false
-    }
-
-    // Listen to playing state changes on active player
-    Connections {
-        function onIsPlayingChanged() {
-            if (root.activePlayer && root.activePlayer.isPlaying) {
-                pauseDebounceTimer.stop();
-                root.isPlaying = true;
-            } else {
-                pauseDebounceTimer.start();
+            if (root.rawTrackTitle === "") {
+                root.trackTitle = "";
+                root.trackArtist = "";
+                root.hasMedia = false;
             }
         }
-
-        target: root.activePlayer
     }
 
     // Watch all players to auto-switch active player on playback
