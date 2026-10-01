@@ -78,8 +78,6 @@ if ask_yes_no "Right, let's go!"; then
   }
   trap cleanup EXIT INT TERM
 
-  clear
-
   bash "./scripts/backup.sh"
   bash "./scripts/setup-packages.sh"
   bash "./scripts/setup-oh-my-zsh.sh"
