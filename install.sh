@@ -100,11 +100,11 @@ if ask_yes_no "Right, let's go!"; then
     kitty --title 'Welcome' -e "$PWD/scripts/welcome.sh" &
   else
     # Hyprland is NOT running: inject command for first graphical launch
-    if [ -f "$HOME/.config/hypr/hyprland.lua" ]; then
-      sed -i '/welcome.sh/d' "$HOME/.config/hypr/hyprland.lua" 2> /dev/null || true
-      echo -e "\nhl.exec_cmd(\"kitty --title 'Welcome' -e $PWD/scripts/welcome.sh\")" >> "$HOME/.config/hypr/hyprland.lua"
+    AUTOSTART_FILE="$HOME/.config/hypr/config/autostart.lua"
+    if [ -f "$AUTOSTART_FILE" ]; then
+      sed -i '/welcome.sh/d' "$AUTOSTART_FILE" 2> /dev/null || true
+      sed -i "/hl.on(\"hyprland.start\"/a \  hl.exec_cmd(\"kitty --title 'Welcome' -e $PWD/scripts/welcome.sh\")" "$AUTOSTART_FILE"
     fi
-
     log_success "Installation completed successfully!"
     echo ""
     if ask_yes_no "A system reboot is recommended to apply all changes. Reboot now?"; then

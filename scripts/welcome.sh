@@ -1,6 +1,7 @@
 #!/bin/bash
 # Success message displayed inside Kitty on first Hyprland launch
 
+cd "$(dirname "$(readlink -f "$0")")/.." || exit 1
 source "./utils.sh"
 
 LOG_FILE="${LOG_FILE:-/tmp/hyprland-setup-install.log}"
@@ -22,7 +23,7 @@ echo -e "${MAGENTA}────────────────────�
 echo ""
 echo -e "  ${ICON_SUCCESS} Well done! You now have a great Hyprland setup! ${ICON_FLEX}"
 echo ""
-echo -e "  If you use \"Pywal Theme Swicther\", we recommend running"
+echo -e "  If you use \"Pywal Theme Switcher\", we recommend running"
 echo -e "  '${CYAN}pywal-theme-switcher${NC}' or pressing '${YELLOW}SUPER + SHIFT + T${NC}'"
 echo -e "  to select a theme.${NC}"
 echo ""
@@ -37,9 +38,9 @@ echo -e "     ${ICON_ARROW} https://github.com/ByTrist4n/hyprland-setup/issues"
 echo ""
 echo -e "${MAGENTA}────────────────────────────────────────────────────────────────────────${NC}"
 
-# Remove the temporary hl.exec_cmd line from hyprland.lua
-if [ -f "$HOME/.config/hypr/hyprland.lua" ]; then
-  sed -i '/welcome.sh/d' "$HOME/.config/hypr/hyprland.lua" >> "$LOG_FILE" 2>&1 || true
+# Remove the temporary Welcome line from autostart.lua
+if [ -f "$HOME/.config/hypr/config/autostart.lua" ]; then
+  sed -i '/welcome.sh/d' "$HOME/.config/hypr/config/autostart.lua" >> "$LOG_FILE" 2>&1 || true
 fi
 
 read -p "Press [ENTER] to close this window..."
