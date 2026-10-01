@@ -31,8 +31,11 @@ CORE_PACMAN=(
   hypridle
   hyprland
   hyprlock
+  imagemagick
   inetutils
   kitty
+  libavif
+  libheif
   nm-connection-editor
   noto-fonts-emoji
   nvim
