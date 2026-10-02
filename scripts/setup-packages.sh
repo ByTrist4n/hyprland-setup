@@ -27,6 +27,7 @@ CORE_PACMAN=(
   fcitx5-gtk
   fcitx5-qt
   git
+  gpu-screen-recorder
   grim
   hypridle
   hyprland

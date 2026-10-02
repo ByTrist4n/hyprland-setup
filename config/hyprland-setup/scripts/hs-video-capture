@@ -1,43 +1,48 @@
 #!/usr/bin/env bash
-# Interactive screen recording launcher using wf-recorder and Hyprland IPC
+# Interactive screen recording launcher (wf-recorder + gpu-screen-recorder portal)
 
 VIDEOS_DIR="$HOME/Videos"
 mkdir -p "$VIDEOS_DIR"
 
-# Stop existing recording if already running
-if pgrep -x "wf-recorder" > /dev/null; then
-  killall -INT wf-recorder
-  notify-send "Screen Recorder" "Recording stopped" -i video-x-generic
-  exit 0
-fi
+# Stop an existing recording if one is running.
+# pgrep -x matches the 15 first chars of the process name,
+# so "gpu-screen-recorder" must be written "gpu-screen-reco".
+for rec in wf-recorder gpu-screen-reco; do
+  if pgrep -x "$rec" > /dev/null; then
+    pkill -INT -x "$rec"
+    notify-send "Screen Recorder" "Recording stopped" -i video-x-generic
+    exit 0
+  fi
+done
 
 # Interactive selection using Walker in dmenu mode
-CHOICE=$(echo -e "1. Area selection (Zone)\n2. Active window\n3. Full screen" | walker -d -p "Record mode:")
+CHOICE=$(printf '%s\n' \
+  "1. Area selection (Zone)" \
+  "2. Window app" \
+  "3. Full screen" | walker -d -p "Record mode:")
 
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 OUTPUT_FILE="$VIDEOS_DIR/recording_${TIMESTAMP}.mp4"
 
 case "$CHOICE" in
   *"Area"*)
-    # Interactive region drag with slurp
-    GEOM=$(slurp)
+    GEOM=$(slurp) || exit 0
+    wf-recorder -g "$GEOM" -f "$OUTPUT_FILE" &
     ;;
-  *"Active window"*)
-    # Get active window geometry from Hyprland IPC
-    GEOM=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+  *"Window"*)
+    # The portal picker lets you choose the window once, then it keeps recording it
+    gpu-screen-recorder -w portal -f 60 -o "$OUTPUT_FILE" &
     ;;
   *"Full screen"*)
-    # Get focused monitor geometry from Hyprland IPC
-    GEOM=$(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | "\(.x),\(.y) \(.width)x\(.height)"')
+    OUTPUT=$(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name')
+    [ -n "$OUTPUT" ] && wf-recorder -o "$OUTPUT" -f "$OUTPUT_FILE" &
     ;;
   *)
     exit 0
     ;;
 esac
 
-# Start recording if geometry is valid
-if [ -n "$GEOM" ] && [ "$GEOM" != "null" ]; then
-  wf-recorder -g "$GEOM" -f "$OUTPUT_FILE" &
+sleep 0.5
+if pgrep -x wf-recorder > /dev/null || pgrep -x gpu-screen-reco > /dev/null; then
   notify-send "Screen Recorder" "Recording started..." -i video-x-generic
-  sleep 0.5
 fi
