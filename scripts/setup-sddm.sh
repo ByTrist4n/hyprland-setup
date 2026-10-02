@@ -39,15 +39,13 @@ if ask_yes_no "Would you like to install SDDM Hyprland Setup Theme?"; then
     sudo find "$SDDM_THEME_DIR" -type d -exec chmod 755 {} + >> "$LOG_FILE" 2>&1
     sudo find "$SDDM_THEME_DIR" -type f -exec chmod 644 {} + >> "$LOG_FILE" 2>&1
 
-    # Link dynamic Pywal colors if available, otherwise preserve default static file
-    if [ -f "$USER_WAL_COLORS" ]; then
-      # Grant directory traversability and file read permissions for SDDM daemon
-      chmod 755 "$HOME" "$HOME/.cache" "$HOME/.cache/wal" 2> /dev/null || true
+    # Ensure user wal cache directory exists and set traversal permissions for SDDM greeter
+    mkdir -p "$HOME/.cache/wal" >> "$LOG_FILE" 2>&1
+    chmod 755 "$HOME" "$HOME/.cache" "$HOME/.cache/wal" 2> /dev/null || true
 
-      # Replace static file with dynamic symlink
-      sudo ln -sf "$USER_WAL_COLORS" "$SDDM_THEME_DIR/Colors.qml" >> "$LOG_FILE" 2>&1
-      log_info "Dynamic Pywal palette linked to SDDM theme."
-    fi
+    # Link dynamic Pywal palette unconditionally (creates symlink even if target is generated later)
+    sudo ln -sf "$USER_WAL_COLORS" "$SDDM_THEME_DIR/Colors.qml" >> "$LOG_FILE" 2>&1
+    log_info "Dynamic Pywal palette symlink configured for SDDM."
 
     # Set as active SDDM theme
     sudo mkdir -p /etc/sddm.conf.d >> "$LOG_FILE" 2>&1
