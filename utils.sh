@@ -192,7 +192,7 @@ setup_icons() {
     ICON_SPARKLE="*"
     ICON_STAR="*"
     ICON_LOVE="<3"
-    ICON_PACKAGE="[P]"
+    ICON_PACKAGE="[PACKAGE]"
     ICON_SUCCESS="[OK]"
     ICON_FLEX="[OK]"
     ICON_THINK="[?]"
