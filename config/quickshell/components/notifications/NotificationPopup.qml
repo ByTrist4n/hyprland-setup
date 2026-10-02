@@ -23,7 +23,7 @@ PanelWindow {
 
     margins {
         top: root.barHeight
-        right: 16
+        right: 12
     }
 
     ListView {
@@ -46,19 +46,22 @@ PanelWindow {
 
                 anchors.fill: parent
                 notification: modelData
-                onRemoveRequested: (id) => {
-                    return manager.removeNotification(id);
-                }
+                hasColorHover: false
+                onRemoveRequested: manager.removeNotification(modelData)
                 onActionRequested: (id, actionId) => {
                     return manager.invokeAction(modelData, actionId);
                 }
             }
 
             Timer {
-                interval: 3000
+                interval: 5000
                 running: true
                 repeat: false
-                onTriggered: manager.removePopup(modelData.id)
+                onTriggered: {
+                    if (modelData)
+                        manager.removePopup(modelData);
+
+                }
             }
 
         }

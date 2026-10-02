@@ -35,21 +35,20 @@ PanelWindow {
     MouseArea {
         anchors.fill: parent
         z: 0
-        onClicked: {
-            root.isOpened = false;
-        }
+        onClicked: root.isOpened = false
     }
 
     Rectangle {
         id: popup
 
         z: 1
+        clip: true
         width: 380
-        height: Math.min(centerColumn.implicitHeight + 28, 700)
-        radius: 12
-        color: ThemeColor.bgBase
+        height: Math.min(contentColumn.implicitHeight + 28, 700)
+        radius: 8
+        color: ThemeColors.bgBase
         border.width: 1
-        border.color: ThemeColor.borderBase
+        border.color: ThemeColors.borderBase
 
         anchors {
             top: parent.top
@@ -59,7 +58,7 @@ PanelWindow {
         }
 
         ColumnLayout {
-            id: centerColumn
+            id: contentColumn
 
             spacing: 0
 
@@ -69,6 +68,7 @@ PanelWindow {
                 top: parent.top
             }
 
+            // Header
             Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 58
@@ -79,11 +79,11 @@ PanelWindow {
                     anchors.rightMargin: 12
                     spacing: 8
 
-                    Text {
+                    UiText {
                         Layout.fillWidth: true
                         text: "Notifications"
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.lg
+                        color: ThemeColors.fgPrimary
+                        font.pixelSize: ThemeFonts.lg
                         font.bold: true
                     }
 
@@ -91,7 +91,7 @@ PanelWindow {
                         implicitWidth: clearRow.implicitWidth + 12
                         implicitHeight: 28
                         radius: 8
-                        color: clearMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : "transparent"
+                        color: clearMouseArea.containsMouse ? ThemeColors.bgButtonHover : "transparent"
                         visible: manager.notifications.length > 0
 
                         RowLayout {
@@ -100,18 +100,18 @@ PanelWindow {
                             anchors.centerIn: parent
                             spacing: 6
 
-                            Text {
+                            UiText {
                                 text: manager.notifications.length
-                                color: ThemeColor.fgPrimary
-                                font.pixelSize: ThemeFont.sm
+                                color: ThemeColors.fgPrimary
+                                font.pixelSize: ThemeFonts.sm
                                 font.bold: true
                                 Layout.alignment: Qt.AlignBottom
                             }
 
-                            Text {
-                                text: ThemeIcon.clean
-                                color: ThemeColor.fgPrimary
-                                font.pixelSize: ThemeFont.lg
+                            UiText {
+                                text: ThemeIcons.clean
+                                color: ThemeColors.fgPrimary
+                                font.pixelSize: ThemeFonts.lg
                                 Layout.alignment: Qt.AlignBottom
                             }
 
@@ -123,52 +123,55 @@ PanelWindow {
                             anchors.fill: parent
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                manager.clearAll();
-                            }
+                            onClicked: manager.clearAll()
                         }
 
                     }
 
                     UiButton {
-                        contentText: ThemeIcon.cross
-                        onClicked: {
-                            root.toggle();
-                        }
+                        text: ThemeIcons.cross
+                        onClicked: root.toggle()
                     }
 
                 }
 
             }
 
+            // Separator
             Rectangle {
+                id: separator
+
                 Layout.fillWidth: true
                 Layout.preferredHeight: 1
-                color: ThemeColor.borderBase
+                color: ThemeColors.borderBase
             }
 
+            // Empty state
             Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 120
                 visible: manager.notifications.length === 0
 
-                Text {
+                UiText {
                     anchors.centerIn: parent
                     text: "No notification"
-                    color: ThemeColor.fgMuted
-                    font.pixelSize: ThemeFont.sm
+                    color: ThemeColors.fgMuted
+                    font.pixelSize: ThemeFonts.sm
                 }
 
             }
 
+            // Notification list
             ListView {
                 id: notificationList
 
                 Layout.fillWidth: true
-                Layout.preferredHeight: Math.min(contentHeight, 640)
+                height: Math.min(contentHeight, 600)
                 visible: manager.notifications.length > 0
                 clip: true
                 spacing: 4
+                bottomMargin: 8
+                topMargin: 4
                 model: manager.notifications
 
                 delegate: NotificationItem {
@@ -177,11 +180,9 @@ PanelWindow {
                     hasBorderRadius: false
                     width: notificationList.width
                     notification: modelData
-                    onRemoveRequested: (id) => {
-                        manager.removeNotification(id);
-                    }
+                    onRemoveRequested: manager.removeNotification(modelData)
                     onActionRequested: (id, actionId) => {
-                        manager.invokeAction(modelData, actionId);
+                        return manager.invokeAction(modelData, actionId);
                     }
                 }
 

@@ -1,71 +1,116 @@
 #!/bin/bash
+# ==============================================================================
+# A simplified, automated configuration script that allows you to create a polished,
+# functional Hyprland environment with a single command.
+# Repository: https://github.com/ByTrist4n/hyprland-setup
+# Author: ByTrist4n (https://github.com/ByTrist4n)
+# ==============================================================================
+
 set -e
 source "./utils.sh"
+export LOG_FILE="/tmp/hyprland-setup-install.log"
+> "$LOG_FILE"
 
-echo "                         _                 _   __      _               "
-echo "  /\\  /\\_   _ _ __  _ __| | __ _ _ __   __| | / _\\ ___| |_ _   _ _ __  "
-echo " / /_/ / | | | '_ \\| '__| |/ _\` | '_ \\ / _\` | \\ \\ / _ \\ __| | | | '_ \\ "
-echo "/ __  /| |_| | |_) | |  | | (_| | | | | (_| | _\\ \\  __/ |_| |_| | |_) |"
-echo "\\/ /_/  \\__, | .__/|_|  |_|\\__,_|_| |_|\\__,_| \\__/\\___|\\__|\\__,_| .__/ "
-echo "        |___/|_|                                                |_|    "
-echo -e "   ${BOLD}✨ Installation Script for the Hyprland of your Dreams ${NC}• ${BLUE}By '\e]8;;https://github.com/ByTrist4n/\e\\ByTrist4n\e]8;;\e\\'${NC}"
-echo -e "────────────────────────────────────────────────────────────────────────"
+# Write execution header to log file
+echo "=========================================================" >> "$LOG_FILE"
+echo " Installation Run Started: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE"
+echo "=========================================================" >> "$LOG_FILE"
+
+clear
+
+echo -e "${MAGENTA}──────────────────────────────────────────────────────────────────────${NC}"
+echo -e "${CYAN}"
+echo "  ██╗  ██╗██╗   ██╗██████╗ ██████╗ ██╗      █████╗ ███╗   ██╗██████╗  "
+echo "  ██║  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗██║     ██╔══██╗████╗  ██║██╔══██╗ "
+echo "  ███████║ ╚████╔╝ ██████╔╝██████╔╝██║     ███████║██╔██╗ ██║██║  ██║ "
+echo "  ██╔══██║  ╚██╔╝  ██╔═══╝ ██╔══██╗██║     ██╔══██║██║╚██╗██║██║  ██║ "
+echo "  ██║  ██║   ██║   ██║     ██║  ██║███████╗██║  ██║██║ ╚████║██████╔╝ "
+echo "  ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝  "
+echo -e "${NC}"
+echo -e "                         ${MAGENTA}S E T U P${NC}"
 echo ""
-echo -e "┌──────┤ WARNING ├─────────────────────────────────────────────────────┐"
-echo -e "│ Before beginning the installation, please back up your system.       │"
-echo -e "│ For your information, the script backs up \"~/.config/\" and \".zshrc\". │"
-echo -e "│                                                                      │"
-echo -e "│ You use this programme entirely at your own risk.                    │"
-echo -e "└──────────────────────────────────────────────────────────────────────┘"
+echo -e "${MAGENTA}──────────────────────────────────────────────────────────────────────${NC}"
+echo ""
+type_text 0.03 "" "  ${ICON_SPARKLE} Installation script for the Hyprland of your dreams • By "
+print_link "${PROFIL_URL}" "ByTrist4n" "${BLUE}${BOLD}"
+echo ""
+echo ""
+echo -e "  ${YELLOW}${ICON_STAR} If you like it, drop a star! It helps a lot ${ICON_LOVE}${NC}"
+echo -e "  ${CYAN}${ICON_PACKAGE} Repository:${NC} $(
+  print_link "${REPO_URL}" "${REPO_URL}" "${BLUE}${BOLD}"
+)"
 echo ""
 
-if ask_yes_no "Would you like to continue with the installation?"; then
+echo -e "${YELLOW}┌──────┤ WARNING ├─────────────────────────────────────────────────────┐${NC}"
+echo -e "${YELLOW}│${NC} Before beginning the installation, please back up your system.       ${YELLOW}│${NC}"
+echo -e "${YELLOW}│${NC} For your information, the script backs up \"~/.config/\" and \".zshrc\". ${YELLOW}│${NC}"
+echo -e "${YELLOW}│${NC}                                                                      ${YELLOW}│${NC}"
+echo -e "${YELLOW}│${NC} You use this programme entirely at your own risk.                    ${YELLOW}│${NC}"
+echo -e "${YELLOW}└──────────────────────────────────────────────────────────────────────┘${NC}"
+echo ""
 
-  bash "./scripts/backup.sh"
-  bash "./scripts/setup-dependencies.sh"
-  bash "./scripts/setup-oh-my-zsh.sh"
-
-  # -------------------------------------------------------------
-  # Clone and Deploy Hyprland Dotfiles (Configuration folders)
-  # -------------------------------------------------------------
-  log_step "Deploying Hyprland configuration files..."
-
-  DOTFILES_DIR="./config"
-
-  if [ ! -d "$DOTFILES_DIR" ]; then
-    log_error "Configuration directory $DOTFILES_DIR not found!"
+# Check if running on Arch Linux or arch-based distro
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+  if [[ "$ID" != "arch" && "$ID_LIKE" != *"arch"* ]]; then
+    log_error "This script is designed for Arch Linux and its derivatives only."
     exit 1
   fi
+else
+  log_error "This script is designed for Arch Linux and its derivatives only.\n     Cannot detect OS distribution (/etc/os-release missing)."
+  exit 1
+fi
 
-  mkdir -p "$HOME/.config"
+if ask_yes_no "Right, let's go!"; then
 
-  # Copy configuration files into ~/.config/ without deleting source files
-  cp -rf "$DOTFILES_DIR"/* "$HOME/.config/"
+  # Prompt for sudo privileges once globally
+  log_step "Requesting sudo privileges for the entire setup..."
+  sudo -v
 
-  # Symlink .zshrc from ~/.config/zsh/.zshrc to $HOME/.zshrc
-  if [ -f "$HOME/.config/zsh/.zshrc" ]; then
-    log_info "Linking .zshrc to home directory..."
-    ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
-  fi
+  # Configure temporary passwordless sudo rule for current user
+  SUDOERS_FILE="/etc/sudoers.d/99-hyprland-setup-temp"
+  echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee "$SUDOERS_FILE" > /dev/null
+  sudo chmod 0440 "$SUDOERS_FILE"
 
-  # Reload Hyprland configuration if running
-  if command -v hyprctl &> /dev/null && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
-    hyprctl reload
-  fi
+  # Clean up temporary sudo rule when the entire installation completes or exits
+  cleanup() {
+    sudo rm -f "$SUDOERS_FILE" 2> /dev/null || true
+  }
+  trap cleanup EXIT INT TERM
 
-  log_success "Dot files have been successfully deployed."
+  bash "./scripts/backup.sh"
+  bash "./scripts/setup-packages.sh"
+  bash "./scripts/setup-oh-my-zsh.sh"
 
+  bash "./scripts/setup-config.sh"
+  bash "./scripts/setup-layout-keyboard.sh"
+  bash "./scripts/setup-sddm.sh"
   bash "./scripts/setup-lazyvim.sh"
-  bash "./scripts/setup-theme-sw1tcher.sh"
+  bash "./scripts/setup-pywal-theme-switcher.sh"
 
-  # -------------------------------------------------------------
-  # Success Screen
-  # -------------------------------------------------------------
-  echo ""
-  echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
-  echo -e "  ${GREEN}🎉 Well done 💪 You now have a great Hyprland setup!${NC}"
-  echo -e "  🤔 Having trouble?${NC} Run the troubleshooting script to fix issues:"
-  echo -e "     ➔ ${BLUE}${BOLD}sh troubleshooting.sh${NC}"
-  echo -e "${CYAN}────────────────────────────────────────────────────────────────────────${NC}"
-  echo ""
+  # Check if Hyprland is currently running
+  if pgrep -x "Hyprland" > /dev/null 2>&1; then
+    log_info "Hyprland is already running."
+
+    # Reload config without injecting duplicate exec commands
+    hyprctl reload
+    log_success "Configuration reloaded!"
+
+    # Launch Kitty welcome screen directly once
+    kitty --title 'Welcome' -e "$PWD/scripts/welcome.sh" &
+  else
+    # Hyprland is NOT running: inject command for first graphical launch
+    AUTOSTART_FILE="$HOME/.config/hypr/config/autostart.lua"
+    if [ -f "$AUTOSTART_FILE" ]; then
+      sed -i '/welcome.sh/d' "$AUTOSTART_FILE" 2> /dev/null || true
+      sed -i "/hl.on(\"hyprland.start\"/a \  hl.exec_cmd(\"kitty --title 'Welcome' -e $PWD/scripts/welcome.sh\")" "$AUTOSTART_FILE"
+    fi
+    log_success "Installation completed successfully!"
+    echo ""
+    if ask_yes_no "A system reboot is recommended to apply all changes. Reboot now?"; then
+      sudo reboot
+    else
+      log_info "You can now reboot manually or start your display manager (SDDM)."
+    fi
+  fi
 fi

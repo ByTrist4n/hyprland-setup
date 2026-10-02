@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -9,181 +10,197 @@ Rectangle {
     id: root
 
     function getWindowIcon(client) {
-        if (!client)
-            return "";
+        if (!client || !client.wayland || !client.wayland.appId)
+            return ThemeIcons.defaultIcon;
 
         let appId = client.wayland.appId.toLowerCase();
         if (appId.includes("firefox") || appId.includes("zen"))
-            return "";
+            return ThemeIcons.browser;
 
         if (appId.includes("youtube_music") || appId.includes("youtube-music"))
-            return ThemeIcon.music;
+            return ThemeIcons.music;
 
         if (appId.includes("code") || appId.includes("codium"))
-            return "";
+            return ThemeIcons.code;
 
         if (appId.includes("kitty"))
-            return "󰆍";
+            return ThemeIcons.terminal;
 
         if (appId.includes("thunar") || appId.includes("dolphin"))
-            return "";
+            return ThemeIcons.folder;
 
         if (appId.includes("discord"))
-            return "";
+            return ThemeIcons.discord;
 
         if (appId.includes("vlc"))
-            return "󰕼";
+            return ThemeIcons.media;
 
         if (appId.includes("nwg-look") || appId.includes("qt5ct") || appId.includes("qt6ct"))
-            return "󰒓";
+            return ThemeIcons.settingsAlt;
 
         if (appId.includes("blueman-manager"))
-            return "";
+            return ThemeIcons.bluetoothManager;
 
         if (appId.includes("pavucontrol"))
-            return "󱕂";
+            return ThemeIcons.audioControl;
 
         if (appId.includes("nm-connection-editor"))
-            return "󰐻";
+            return ThemeIcons.networkManager;
 
         if (appId.includes("superproductivity"))
-            return "";
+            return ThemeIcons.productivity;
 
         if (appId.includes("thunderbird"))
-            return "";
+            return ThemeIcons.thunderbird;
 
         if (appId.includes("mail"))
-            return "󰶊";
+            return ThemeIcons.mail;
 
-        return "";
+        return ThemeIcons.defaultIcon;
     }
 
     implicitWidth: wsRow.implicitWidth + 16
-    implicitHeight: wsRow.implicitHeight + 16
-    color: ThemeColor.bgSurface
+    implicitHeight: 40
+    color: ThemeColors.bgBase
     radius: 8
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
     border.width: 1
 
     RowLayout {
-        anchors.fill: parent
-        anchors.leftMargin: 8
-        anchors.rightMargin: 8
-        spacing: 8
+        id: wsRow
 
-        RowLayout {
-            id: wsRow
+        anchors.centerIn: parent
+        spacing: 4
 
-            spacing: 4
+        Repeater {
+            model: {
+                let list = [{
+                    "id": 1,
+                    "name": "1"
+                }, {
+                    "id": 2,
+                    "name": "2"
+                }, {
+                    "id": 3,
+                    "name": "3"
+                }, {
+                    "id": 4,
+                    "name": "4"
+                }, {
+                    "id": 5,
+                    "name": "5"
+                }];
+                if (Hyprland.workspaces) {
+                    for (let i = 0; i < Hyprland.workspaces.values.length; i++) {
+                        let ws = Hyprland.workspaces.values[i];
+                        if (ws.id > 5)
+                            list.push({
+                            "id": ws.id,
+                            "name": ws.name
+                        });
 
-            Repeater {
-                model: {
-                    let list = [{
-                        "id": 1,
-                        "name": "1"
-                    }, {
-                        "id": 2,
-                        "name": "2"
-                    }, {
-                        "id": 3,
-                        "name": "3"
-                    }, {
-                        "id": 4,
-                        "name": "4"
-                    }, {
-                        "id": 5,
-                        "name": "5"
-                    }];
-                    if (Hyprland.workspaces) {
-                        for (let i = 0; i < Hyprland.workspaces.values.length; i++) {
-                            let ws = Hyprland.workspaces.values[i];
-                            if (ws.id > 5 || ws.id < 1)
-                                list.push({
-                                "id": ws.id,
-                                "name": ws.name
-                            });
+                    }
+                }
+                return list;
+            }
+
+            delegate: Item {
+                id: wsDelegate
+
+                required property var modelData
+                property var wsInfo: modelData
+                property bool isActive: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id === wsInfo.id : false
+                // Filter toplevels for windows belonging to this workspace
+                property var workspaceClients: {
+                    let clients = [];
+                    if (Hyprland.toplevels) {
+                        for (let i = 0; i < Hyprland.toplevels.values.length; i++) {
+                            let top = Hyprland.toplevels.values[i];
+                            if (top.workspace && top.workspace.id === wsInfo.id)
+                                clients.push(top);
 
                         }
                     }
-                    return list;
+                    return clients;
                 }
 
-                delegate: Rectangle {
-                    id: wsDelegate
+                implicitWidth: wsContentLayout.implicitWidth + 12
+                implicitHeight: 24
 
-                    required property var modelData
-                    property var wsInfo: modelData
-                    property bool isActive: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id === wsInfo.id : false
-                    // Filter toplevels for windows belonging to this workspace
-                    property var workspaceClients: {
-                        let clients = [];
-                        if (Hyprland.toplevels) {
-                            for (let i = 0; i < Hyprland.toplevels.values.length; i++) {
-                                let top = Hyprland.toplevels.values[i];
-                                if (top.workspace && top.workspace.id === wsInfo.id)
-                                    clients.push(top);
+                Rectangle {
+                    anchors.fill: parent
+                    radius: 4
+                    color: wsDelegate.isActive ? ThemeColors.accentPrimarySubtle : "transparent"
 
-                            }
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 120
                         }
-                        return clients;
+
                     }
 
-                    implicitWidth: wsContentLayout.implicitWidth + 12
-                    implicitHeight: 24
-                    radius: 4
-                    topRightRadius: 8
-                    color: wsDelegate.isActive ? Qt.alpha(ThemeColor.bgSurfaceActive, 0.5) : "transparent"
+                }
+
+                Rectangle {
+                    width: parent.width * 0.6
+                    height: 2
+                    radius: 1
+                    color: wsDelegate.isActive ? ThemeColors.bgButtonSecondary : (wsMouse.containsMouse ? ThemeColors.fgMuted : "transparent")
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                RowLayout {
+                    id: wsContentLayout
+
+                    anchors.centerIn: parent
+                    spacing: 4
+
+                    UiText {
+                        text: wsDelegate.wsInfo.name
+                        color: wsDelegate.isActive ? ThemeColors.accentPrimary : ThemeColors.fgMuted
+                        font.pixelSize: ThemeFonts.xs
+                        font.bold: wsDelegate.isActive
+                        Layout.alignment: Qt.AlignVCenter
+                    }
 
                     RowLayout {
-                        id: wsContentLayout
-
-                        anchors.centerIn: parent
                         spacing: 3
+                        visible: wsDelegate.workspaceClients.length > 0
+                        Layout.alignment: Qt.AlignVCenter
 
-                        Text {
-                            text: wsDelegate.wsInfo.name
-                            color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
-                            font.pixelSize: ThemeFont.xs
-                            font.bold: wsDelegate.isActive
-                            Layout.alignment: Qt.AlignBottom
-                        }
+                        Repeater {
+                            model: wsDelegate.workspaceClients
 
-                        RowLayout {
-                            spacing: 2
-                            visible: wsDelegate.workspaceClients.length > 0
-                            Layout.alignment: Qt.AlignBottom
-                            Layout.bottomMargin: 2
+                            delegate: UiText {
+                                required property var modelData
 
-                            Repeater {
-                                model: wsDelegate.workspaceClients
-
-                                delegate: Text {
-                                    required property var modelData
-
-                                    text: root.getWindowIcon(modelData)
-                                    color: wsDelegate.isActive ? ThemeColor.accentPrimary : ThemeColor.fgPrimary
-                                    font.pixelSize: ThemeFont.md
-                                }
-
+                                text: root.getWindowIcon(modelData)
+                                color: wsDelegate.isActive ? ThemeColors.accentPrimary : ThemeColors.fgMuted
+                                font.pixelSize: ThemeFonts.sm
+                                Layout.alignment: Qt.AlignVCenter
                             }
 
                         }
 
                     }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: (event) => {
-                            if (wsDelegate.wsInfo.id > 0) {
-                                Hyprland.dispatch(`hl.dsp.focus({ workspace = "${wsDelegate.wsInfo.id}" })`);
-                            } else {
-                                let cleanSpecialName = wsDelegate.wsInfo.name.replace("special:", "");
-                                Hyprland.dispatch(`hl.dsp.workspace.toggle_special("${cleanSpecialName}")`);
-                            }
+                }
+
+                MouseArea {
+                    id: wsMouse
+
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: (event) => {
+                        if (wsDelegate.wsInfo.id > 0) {
+                            Hyprland.dispatch(`hl.dsp.focus({ workspace = "${wsDelegate.wsInfo.id}" })`);
+                        } else {
+                            let cleanSpecialName = wsDelegate.wsInfo.name.replace("special:", "");
+                            Hyprland.dispatch(`hl.dsp.workspace.toggle_special("${cleanSpecialName}")`);
                         }
                     }
-
                 }
 
             }

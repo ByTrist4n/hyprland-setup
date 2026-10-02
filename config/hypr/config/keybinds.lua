@@ -1,33 +1,31 @@
----------------------
----- KEYBINDINGS ----
----------------------
+-- ===================================================
+-- KEYBINDINGS
+-- ===================================================
 
-local globalVariables = require("config/global-variables")
+local userPrefs = require("config/user-preferences")
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- See https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 
-hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(globalVariables.terminal))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(userPrefs.apps.terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(
   mainMod .. " + SHIFT + DELETE",
   hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 )
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(globalVariables.fileManager))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("walker -m clipboard"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(userPrefs.apps.fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(globalVariables.menu))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(userPrefs.apps.menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
-hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("flameshot gui"))
-hl.bind(
-  mainMod .. " + SHIFT + " .. globalVariables.keyboard.f3,
-  hl.dsp.exec_cmd("flameshot full --path ~/Pictures/Screenshots")
-)
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("~/.local/bin/hs-screenshot save")) -- Screenshot area saved to disk
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.local/bin/hs-screenshot clipboard")) -- Screenshot area copied to clipboard with preview
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("loginctl lock-session && sleep 2 && systemctl suspend"))
-hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("sh ~/.config/theme-sw1tcher/theme-sw1tcher.sh"))
-hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("rofimoji -a copy"))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("sh ~/.config/hypr/scripts/record-menu.sh"))
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.local/bin/pywal-theme-switcher"))
+hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd('walker -m symbols -p "Search an emoji"'))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("~/.local/bin/hs-video-capture"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 

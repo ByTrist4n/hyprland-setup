@@ -1,4 +1,6 @@
 import QtQuick
+import Quickshell.Hyprland
+import Quickshell.Services.Notifications
 
 Item {
     id: root
@@ -6,41 +8,55 @@ Item {
     required property var server
     property var notifications: []
     property var popupNotifications: []
-    property int nextId: 0
 
-    function removePopup(id) {
-        root.popupNotifications = root.popupNotifications.filter(function(item) {
-            return item.id !== id;
+    function removeFromList(list, notificationId) {
+        return list.filter((wrapper) => {
+            return wrapper && wrapper._notification && wrapper._notification.id !== notificationId;
         });
     }
 
-    function removeNotification(id) {
-        root.notifications = root.notifications.filter(function(item) {
-            return item.id !== id;
-        });
-        root.removePopup(id);
+    function removePopup(notificationWrapper) {
+        if (!notificationWrapper || !notificationWrapper._notification)
+            return ;
+
+        const notificationId = notificationWrapper._notification.id;
+        root.popupNotifications = removeFromList(root.popupNotifications, notificationId);
     }
 
-    function invokeAction(item, actionIndex) {
-        if (!item || !item._notification)
+    function removeNotification(notificationWrapper) {
+        if (!notificationWrapper || !notificationWrapper._notification)
             return ;
 
-        const index = Number(actionIndex);
-        const actions = item._notification.actions;
-        if (isNaN(index) || index < 0 || !actions || index >= actions.length)
+        const notification = notificationWrapper._notification;
+        const notificationId = notification.id;
+        root.notifications = removeFromList(root.notifications, notificationId);
+        root.popupNotifications = removeFromList(root.popupNotifications, notificationId);
+        if (notification.tracked)
+            notification.dismiss();
+
+    }
+
+    function invokeAction(notificationWrapper, actionIndex) {
+        if (!notificationWrapper || !notificationWrapper._notification)
             return ;
 
-        const action = actions[index];
-        if (action && typeof action.invoke === "function")
-            action.invoke();
+        const notification = notificationWrapper._notification;
+        const actions = notification.actions;
+        if (!actions || actionIndex < 0 || actionIndex >= actions.length)
+            return ;
 
-        root.removeNotification(item.id);
+        actions[actionIndex].invoke();
+        const appClass = notification.desktopEntry || "";
+        if (appClass)
+            Hyprland.dispatch(`hl.dsp.focus({ window = "class:${appClass}" })`);
+
+        removeNotification(notificationWrapper);
     }
 
     function clearAll() {
-        root.notifications.forEach(function(item) {
-            if (item && item._notification && typeof item._notification.dismiss === "function")
-                item._notification.dismiss();
+        root.notifications.forEach((wrapper) => {
+            if (wrapper && wrapper._notification && wrapper._notification.tracked)
+                wrapper._notification.dismiss();
 
         });
         root.notifications = [];
@@ -53,27 +69,20 @@ Item {
                 return ;
 
             notification.tracked = true;
-            const actions = (notification.actions || []).map(function(action, i) {
-                if (!action)
-                    return null;
-
-                return {
-                    "index": i,
-                    "text": action.text || ("Action " + (i + 1))
-                };
-            }).filter(Boolean);
-            const item = {
-                "id": root.nextId++,
-                "appName": notification.appName || "",
-                "appIcon": notification.image || "",
-                "summary": notification.summary || "",
-                "body": notification.body || "",
-                "actions": actions,
-                "_notification": notification
+            const notificationWrapper = {
+                "_notification": notification,
+                "timestamp": new Date().toLocaleTimeString("fr-FR", {
+                    "hour": "2-digit",
+                    "minute": "2-digit"
+                })
             };
-            // Prepend to history, append to popups without spread operator
-            root.notifications = [item].concat(root.notifications);
-            root.popupNotifications = root.popupNotifications.concat([item]);
+            root.notifications = [notificationWrapper].concat(root.notifications);
+            root.popupNotifications = [notificationWrapper].concat(root.popupNotifications);
+            const notificationId = notification.id;
+            notification.closed.connect(function() {
+                root.notifications = removeFromList(root.notifications, notificationId);
+                root.popupNotifications = removeFromList(root.popupNotifications, notificationId);
+            });
         }
 
         target: root.server

@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import "../widgets"
 import QtQuick
 import QtQuick.Controls
@@ -11,10 +12,10 @@ Rectangle {
 
     anchors.centerIn: parent
     implicitWidth: clockLayout.implicitWidth + 16
-    implicitHeight: clockLayout.implicitHeight + 16
-    color: clockMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+    implicitHeight: 40
+    color: clockMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     radius: 8
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
     border.width: 1
 
     RowLayout {
@@ -23,18 +24,18 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 6
 
-        Text {
+        UiText {
             text: "󰃭"
-            color: ThemeColor.accentPrimary
-            font.pixelSize: ThemeFont.lg
+            color: ThemeColors.accentPrimary
+            font.pixelSize: ThemeFonts.lg
         }
 
-        Text {
+        UiText {
             id: clockText
 
             text: clockTimer.timeString
-            color: ThemeColor.fgPrimary
-            font.pixelSize: ThemeFont.sm
+            color: ThemeColors.fgPrimary
+            font.pixelSize: ThemeFonts.sm
             font.bold: true
         }
 

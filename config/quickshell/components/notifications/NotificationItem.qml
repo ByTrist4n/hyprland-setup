@@ -2,6 +2,7 @@ import "../../theme"
 import "../ui"
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Services.Notifications
 import Quickshell.Widgets
 
 Item {
@@ -9,30 +10,86 @@ Item {
 
     required property var notification
     property bool hasBorderRadius: true
+    property bool hasColorHover: true
+    property var notif: root.notification && root.notification._notification ? root.notification._notification : null
+    property string timestamp: root.notification && root.notification.timestamp ? root.notification.timestamp : ""
+    property var relevantActions: {
+        if (!root.notif || !root.notif.actions)
+            return [];
 
-    signal removeRequested(int id)
-    signal actionRequested(int id, string actionId)
+        return root.notif.actions.filter((action) => {
+            var id = (action.identifier || action.id || "").toLowerCase();
+            return id !== "default" && id !== "view";
+        });
+    }
+
+    signal removeRequested(var notification)
+    signal actionRequested(var notification, int actionIndex)
+
+    function invokeDefaultAction() {
+        if (!root.notif || !root.notif.actions)
+            return false;
+
+        for (var i = 0; i < root.notif.actions.length; i++) {
+            var action = root.notif.actions[i];
+            var id = (action.identifier || action.id || "").toLowerCase();
+            if (id === "default" || id === "view") {
+                root.actionRequested(root.notification, i);
+                return true;
+            }
+        }
+        return false;
+    }
 
     implicitHeight: content.implicitHeight + 24
 
     Rectangle {
         anchors.fill: parent
-        radius: root.hasBorderRadius ? 8 : 0
-        color: ThemeColor.bgSurface
+        radius: root.hasBorderRadius ? 16 : 0
+        color: (hoverArea.containsMouse && root.hasColorHover) ? ThemeColors.bgButtonHover : ThemeColors.bgBase
         border.width: 1
-        border.color: ThemeColor.borderBase
+        border.color: ThemeColors.borderBase
+        visible: root.notif !== null
+
+        Rectangle {
+            width: 3
+            radius: 2
+            color: ThemeColors.urgent
+            visible: root.notif !== null && root.notif.urgency === NotificationUrgency.Critical
+
+            anchors {
+                left: parent.left
+                top: parent.top
+                bottom: parent.bottom
+                topMargin: root.hasBorderRadius ? 16 : 0
+                bottomMargin: root.hasBorderRadius ? 16 : 0
+            }
+
+        }
+
+        MouseArea {
+            id: hoverArea
+
+            anchors.fill: parent
+            hoverEnabled: true
+            propagateComposedEvents: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: {
+                if (!root.invokeDefaultAction())
+                    mouse.accepted = false;
+
+            }
+        }
 
         ColumnLayout {
             id: content
-
-            spacing: 8
 
             anchors {
                 left: parent.left
                 right: parent.right
                 top: parent.top
                 bottom: parent.bottom
-                leftMargin: 14
+                leftMargin: 18
                 rightMargin: 10
                 topMargin: 12
                 bottomMargin: 12
@@ -48,26 +105,52 @@ Item {
                     Layout.preferredHeight: 38
                     Layout.alignment: Qt.AlignTop
 
-                    IconImage {
+                    Image {
                         id: iconImage
 
-                        anchors.fill: parent
-                        source: root.notification.appIcon || ""
+                        fillMode: Image.PreserveAspectFit
+                        asynchronous: true
+                        source: {
+                            if (!root.notif)
+                                return "";
+
+                            var image = root.notif.image || root.notif.appIcon || "";
+                            if (!image)
+                                return "";
+
+                            if (image.startsWith("/"))
+                                return "file://" + image;
+
+                            if (image.startsWith("file://") || image.startsWith("image://"))
+                                return image;
+
+                            return "image://icon/" + image;
+                        }
                         visible: status === Image.Ready
+
+                        anchors {
+                            fill: parent
+                            topMargin: 5
+                        }
+
                     }
 
                     // Fallback
                     Rectangle {
-                        anchors.fill: parent
                         radius: 10
-                        color: ThemeColor.fgPrimary
-                        visible: !iconImage.visible || iconImage.status === Image.Error
+                        color: ThemeColors.fgPrimary
+                        visible: !iconImage.visible
 
-                        Text {
+                        anchors {
+                            fill: parent
+                            topMargin: 5
+                        }
+
+                        UiText {
                             anchors.centerIn: parent
-                            text: root.notification.appName ? root.notification.appName.charAt(0).toUpperCase() : "!"
-                            color: ThemeColor.fgOnAccent
-                            font.pixelSize: ThemeFont.md
+                            text: root.notif && root.notif.appName ? root.notif.appName.charAt(0).toUpperCase() : "!"
+                            color: ThemeColors.fgOnAccent
+                            font.pixelSize: ThemeFonts.md
                             font.bold: true
                         }
 
@@ -79,69 +162,78 @@ Item {
                     Layout.fillWidth: true
                     spacing: 4
 
-                    Text {
+                    RowLayout {
                         Layout.fillWidth: true
-                        text: root.notification.summary || "Notification"
-                        color: ThemeColor.accentPrimary
-                        font.pixelSize: ThemeFont.sm
+                        spacing: 6
+
+                        UiText {
+                            Layout.fillWidth: true
+                            text: root.notif ? root.notif.appName.charAt(0).toUpperCase() + root.notif.appName.slice(1) || "" : ""
+                            color: ThemeColors.fgMuted
+                            font.pixelSize: ThemeFonts.xs
+                            elide: Text.ElideRight
+                        }
+
+                        UiText {
+                            text: root.timestamp
+                            color: ThemeColors.fgMuted
+                            font.pixelSize: ThemeFonts.xs
+                        }
+
+                        UiButton {
+                            text: ThemeIcons.cross
+                            onClicked: root.removeRequested(root.notification)
+                        }
+
+                    }
+
+                    UiText {
+                        Layout.fillWidth: true
+                        text: root.notif ? root.notif.summary || "Notification" : ""
+                        color: ThemeColors.fgPrimary
+                        font.pixelSize: ThemeFonts.sm
                         font.bold: true
                         maximumLineCount: 2
                         wrapMode: Text.Wrap
                         elide: Text.ElideRight
                     }
 
-                    Text {
+                    UiText {
                         Layout.fillWidth: true
-                        text: root.notification.body || ""
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.sm
-                        wrapMode: Text.Wrap
+                        text: root.notif ? root.notif.body || "" : ""
+                        color: ThemeColors.fgMuted
+                        font.pixelSize: ThemeFonts.sm
                         maximumLineCount: 4
+                        wrapMode: Text.Wrap
                         elide: Text.ElideRight
                     }
 
-                    Text {
-                        Layout.fillWidth: true
-                        text: root.notification.appName || ""
-                        color: ThemeColor.fgPrimary
-                        font.pixelSize: ThemeFont.xs
-                        maximumLineCount: 1
-                        elide: Text.ElideRight
-                    }
-
-                }
-
-                UiButton {
-                    contentText: ThemeIcon.cross
-                    onClicked: {
-                        root.removeRequested(root.notification.id);
-                    }
                 }
 
             }
 
-            // ACTIONS
+            // Actions
             RowLayout {
                 Layout.fillWidth: true
                 spacing: 6
-                visible: root.notification.actions && root.notification.actions.length > 0
+                visible: root.relevantActions.length > 0
 
                 Repeater {
-                    model: root.notification.actions
+                    model: root.relevantActions
 
                     delegate: Rectangle {
                         required property var modelData
 
-                        Layout.preferredHeight: 30
                         Layout.fillWidth: true
+                        Layout.preferredHeight: 30
                         radius: 8
-                        color: actionMouse.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+                        color: actionMouse.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
 
-                        Text {
+                        UiText {
                             anchors.centerIn: parent
                             text: modelData.text || modelData.label || modelData.id || "Action"
-                            color: ThemeColor.fgPrimary
-                            font.pixelSize: ThemeFont.xs
+                            color: ThemeColors.fgPrimary
+                            font.pixelSize: ThemeFonts.xs
                             elide: Text.ElideRight
                         }
 
@@ -150,15 +242,20 @@ Item {
 
                             anchors.fill: parent
                             hoverEnabled: true
-                            onClicked: {
-                                root.actionRequested(root.notification.id, modelData.index);
-                            }
+                            onClicked: root.actionRequested(root.notification, modelData.index)
                         }
 
                     }
 
                 }
 
+            }
+
+        }
+
+        Behavior on color {
+            ColorAnimation {
+                duration: 120
             }
 
         }

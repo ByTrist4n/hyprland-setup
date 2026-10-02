@@ -3,4 +3,5 @@ module components.popups
 CalendarPopup 1.0 CalendarPopup.qml
 MusicPopup 1.0 MusicPopup.qml
 NetworkPopup 1.0 NetworkPopup.qml
+SettingPopup 1.0 SettingPopup.qml
 VolumePopup 1.0 VolumePopup.qml

@@ -1,0 +1,146 @@
+/* Fallback CSS variables if pywal colors.css is missing */
+:root {
+  --background: #1e1e2e;
+  --foreground: #cdd6f4;
+  --cursor: #f5e0dc;
+  --color0: #181825;
+  --color1: #f38ba8;
+  --color2: #a6e3a1;
+  --color3: #f9e2af;
+  --color4: #89b4fa;
+  --color5: #cba6f7;
+  --color6: #94e2d5;
+  --color7: #bac2de;
+  --color8: #45475a;
+  --color9: #f38ba8;
+  --color10: #a6e3a1;
+  --color11: #f9e2af;
+  --color12: #89b4fa;
+  --color13: #cba6f7;
+  --color14: #94e2d5;
+  --color15: #a6adc8;
+}
+
+/* Dynamic Pywal Imports (Overrides fallback variables if present) */
+@import url("file://WALKER_PYWAL_COLORS");
+
+/* Global CSS Reset */
+* {
+  all: unset;
+}
+
+/* Main Window & Layout Containers */
+.box-wrapper {
+  background: var(--background);
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--color8);
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+popover {
+  background: var(--background);
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid var(--color8);
+}
+
+/* Search Input Field */
+.input {
+  background: var(--background);
+  color: var(--foreground);
+  caret-color: var(--foreground);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.input placeholder {
+  opacity: 0.4;
+}
+
+/* Results List & Item Components */
+.list {
+  color: var(--foreground);
+}
+
+/* Clear default GTK row selection background */
+child,
+row,
+child:selected,
+row:selected {
+  background: transparent;
+}
+
+.item-box {
+  padding: 10px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+
+/* Hover state */
+.item-box:hover {
+  background: alpha(var(--color8), 0.4);
+}
+
+/* Selected state (Keyboard selection) */
+child:selected .item-box,
+row:selected .item-box,
+.item-box:selected {
+  background: var(--color8);
+}
+
+.item-subtext {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* Preview Box & Hint Elements */
+.preview-box,
+.elephant-hint,
+.placeholder {
+  color: var(--foreground);
+}
+
+/* Keybindings Footer Bar */
+.keybinds {
+  padding-top: 10px;
+  border-top: 1px solid var(--color8);
+  color: var(--foreground);
+  font-size: 12px;
+}
+
+.keybind-label {
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid var(--foreground);
+}
+
+.keybind-button {
+  opacity: 0.5;
+}
+
+.keybind-bind {
+  text-transform: lowercase;
+  opacity: 0.35;
+}
+
+/* Utilities, Icons & Scrollbar */
+.normal-icons {
+  -gtk-icon-size: 16px;
+}
+
+.large-icons {
+  -gtk-icon-size: 32px;
+}
+
+.error {
+  padding: 10px;
+  background: #ff5555;
+  color: var(--foreground);
+}
+
+scrollbar {
+  opacity: 0;
+}

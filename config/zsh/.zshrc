@@ -1,34 +1,19 @@
+export XDG_CONFIG_HOME="$HOME/.config"
+export ZSH_CUSTOM="$XDG_CONFIG_HOME/zsh/custom"
 export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/custom"
 
-# --- Oh My Zsh Global Configuration ---
+# Add ~/.local/bin to PATH
+export PATH="$HOME/.local/bin:$PATH"
 
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="headline/headline"
-
-zstyle ':omz:update' mode auto # update automatically without asking
-zstyle ':omz:update' frequency 13
-
-# Plugins list
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  zoxide
-  fzf
-  aliases
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# --- OVERRIDE HEADLINE THEME VARIABLES (AFTER SOURCING) ---
+# --- Headline Theme Configuration ---
+typeset -A HL_GIT_STATUS_SYMBOLS
 
 HL_SEP_MODE='on'
 HL_INFO_MODE='auto'
 HL_OVERWRITE='on'
 HL_LAYOUT_STYLE="%{$light_black%}"
 HL_LAYOUT_TEMPLATE=(
-  _PRE "${IS_SSH+ %{$reset$faint%\}ssh}" # shows " ssh" if this is an SSH session
+  _PRE "${IS_SSH+ %{$reset$faint%\}ssh}"
   USER ' ...'
   HOST " %{$reset$faint%}at%{$reset$HL_LAYOUT_STYLE%} ..."
   VENV " %{$reset$faint%}with%{$reset$HL_LAYOUT_STYLE%} ..."
@@ -61,21 +46,45 @@ HL_CLOCK_MODE='on'
 HL_CLOCK_TEMPLATE="%{$faint%} ... %{$reset$HL_LAYOUT_STYLE%}"
 HL_ERR_MODE='on'
 
-# --- User configuration ---
+# --- Oh My Zsh Global Settings ---
+ZSH_THEME="headline/headline"
 
-# -- Aliases --
+zstyle ':omz:update' mode auto
+zstyle ':omz:update' frequency 13
+
+# Plugin definitions (Only native Oh My Zsh plugins)
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+# Source main Oh My Zsh script
+source $ZSH/oh-my-zsh.sh
+
+# --- Custom Aliases ---
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
-# Standard grid view with icons
-alias ls='eza --icons --group-directories-first'
-# Detailed list view
-alias ll='eza -la --icons --octal-permissions --group-directories-first --time-style=long-iso'
-# Tree view with git status and depth restriction
-alias tree='eza --tree --icons --level=2'
 
-# Atuin plugin configuration
-eval "$(atuin init zsh)"
-bindkey '^[[A' atuin-up-search
+# Modern CLI tools integration (eza, zoxide, atuin)
+if command -v eza &>/dev/null; then
+  alias ls='eza --icons --group-directories-first'
+  alias ll='eza -la --icons --octal-permissions --group-directories-first --time-style=long-iso'
+  alias tree='eza --tree --icons --level=2'
+  alias tree2='eza --tree --icons --level=3'
+  alias tree3='eza --tree --icons --level=4'
+fi
 
-# Launch fastfetch on terminal startup
-fastfetch
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+if command -v atuin &>/dev/null; then
+  eval "$(atuin init zsh)"
+  bindkey '^[[A' atuin-up-search
+fi
+
+# Terminal startup banner
+if command -v fastfetch &>/dev/null; then
+  fastfetch
+fi

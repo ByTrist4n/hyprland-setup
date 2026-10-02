@@ -1,4 +1,5 @@
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -9,11 +10,13 @@ import Quickshell.Io
 Rectangle {
     id: root
 
+    property var settingPopup: null
+
     implicitWidth: settingRow.implicitWidth + 24
-    implicitHeight: settingRow.implicitHeight + 16
-    color: settingMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+    implicitHeight: 40
+    color: settingMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     radius: 8
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
     border.width: 1
 
     RowLayout {
@@ -22,12 +25,12 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 16
 
-        Text {
+        UiText {
             id: settingIcon
 
-            text: ThemeIcon.setting
-            color: ThemeColor.accentPrimary
-            font.pixelSize: ThemeFont.lg
+            text: ThemeIcons.setting
+            color: ThemeColors.accentPrimary
+            font.pixelSize: ThemeFonts.lg
         }
 
     }
@@ -39,7 +42,9 @@ Rectangle {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         onClicked: {
-            Hyprland.dispatch("hl.dsp.exec_cmd(\"wlogout\")");
+            if (settingPopup)
+                settingPopup.toggle();
+
         }
     }
 

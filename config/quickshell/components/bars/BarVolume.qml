@@ -1,5 +1,6 @@
 import "../../services"
 import "../../theme"
+import "../ui"
 import QtQuick
 import QtQuick.Layouts
 
@@ -9,11 +10,11 @@ Rectangle {
     required property var volumePopup
 
     implicitWidth: volumeRow.implicitWidth + 24
-    implicitHeight: volumeRow.implicitHeight + 16
-    radius: 10
-    color: volumeMouseArea.containsMouse ? ThemeColor.bgSurfaceActive : ThemeColor.bgSurface
+    implicitHeight: 40
+    radius: 8
+    color: volumeMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     border.width: 1
-    border.color: ThemeColor.borderBase
+    border.color: ThemeColors.borderBase
 
     RowLayout {
         id: volumeRow
@@ -21,35 +22,35 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 6
 
-        Text {
+        UiText {
             text: {
                 if (AudioService.muted)
-                    return ThemeIcon.volumeOff;
+                    return ThemeIcons.volumeOff;
 
                 const volume = AudioService.volume;
                 if (volume <= 0)
-                    return ThemeIcon.volumeLow;
+                    return ThemeIcons.volumeLow;
 
                 if (volume < 0.5)
-                    return ThemeIcon.volumeMedium;
+                    return ThemeIcons.volumeMedium;
 
-                return ThemeIcon.volume;
+                return ThemeIcons.volume;
             }
-            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.accentPrimary
-            font.pixelSize: ThemeFont.lg
+            color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.accentPrimary
+            font.pixelSize: ThemeFonts.lg
         }
 
-        Text {
+        UiText {
             text: AudioService.muted ? "Mute" : Math.round(AudioService.volume * 100) + "%"
-            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
-            font.pixelSize: ThemeFont.sm
+            color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
+            font.pixelSize: ThemeFonts.sm
             font.bold: true
         }
 
-        Text {
+        UiText {
             text: "| 󰍭  Mute"
-            color: AudioService.muted ? ThemeColor.fgMuted : ThemeColor.fgPrimary
-            font.pixelSize: ThemeFont.sm
+            color: AudioService.muted ? ThemeColors.fgMuted : ThemeColors.fgPrimary
+            font.pixelSize: ThemeFonts.sm
             font.bold: true
             visible: AudioService.micMuted
         }

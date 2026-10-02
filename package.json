@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky",
-    "format": "prettier --write . && stylua ."
+    "format": "prettier --write . && stylua . && qmlformat -i $(find . -name '*.qml')"
   },
   "devDependencies": {
     "@johnnymorganz/stylua-bin": "^2.5.2",

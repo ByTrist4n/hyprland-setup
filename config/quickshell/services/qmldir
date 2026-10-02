@@ -1,4 +1,6 @@
 module services
 
 singleton AudioService 1.0 AudioService.qml
+singleton BatteryService 1.0 BatteryService.qml
+singleton CaptureService 1.0 CaptureService.qml
 singleton MediaService 1.0 MediaService.qml
