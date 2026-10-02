@@ -45,6 +45,12 @@ print_link() {
 }
 export -f print_link
 
+# Discard any pending keystrokes in the terminal buffer
+flush_stdin() {
+  read -r -t 0.05 -N 10000 _ || true
+}
+export -f flush_stdin
+
 # Echo with step counter (e.g., [1/7])
 log_step() {
   local current_file="${BASH_SOURCE[1]}"
@@ -106,7 +112,7 @@ ask_yes_no() {
   else
     prompt_suffix="\033[1;33m[y/N]\033[0m"
   fi
-
+  flush_stdin
   while true; do
     echo ""
     echo -ne "  ${CYAN}${ICON_THINK:-[?]}${NC} ${prompt_text} ${prompt_suffix} "
@@ -141,6 +147,7 @@ ask_choice() {
   local max="$2"
   local choice
 
+  flush_stdin
   while true; do
     echo -ne "  ${CYAN}${ICON_THINK:-[?]}${NC} $prompt ${BOLD}[1-$max]${NC} " >&2
     read -r choice
@@ -162,7 +169,9 @@ spin() {
   local delay=0.1
   local spinstr='|/-\'
 
+  # Restore cursor if interrupted
   trap 'printf "\033[?25h"; exit 1' INT TERM
+  # Hide the terminal cursor
   printf "\033[?25l"
 
   while kill -0 "$pid" 2> /dev/null; do
@@ -173,6 +182,7 @@ spin() {
     printf "\r"
   done
 
+  # Clear line and restore cursor
   printf "\r\033[K\033[?25h"
   trap - INT TERM
 }
@@ -188,7 +198,7 @@ setup_icons() {
     ICON_SPARKLE="*"
     ICON_STAR="*"
     ICON_LOVE="<3"
-    ICON_PACKAGE="[P]"
+    ICON_PACKAGE="[PACKAGE]"
     ICON_SUCCESS="[OK]"
     ICON_FLEX="[OK]"
     ICON_THINK="[?]"
