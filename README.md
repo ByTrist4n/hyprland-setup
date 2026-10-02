@@ -26,23 +26,83 @@
 
 An automated configuration script that sets up a polished, functional Hyprland environment with a single command. Ideal for fresh **Arch Linux / CachyOS** installs, or when you want to completely revamp your desktop workflow.
 
-![Screenshot Desktop](./screenshots/screenshot_preview.jpg)
+![Screenshot Desktop](./screenshots/showcase.jpg)
 
 <details>
-  <summary><b>🖼️ Click to expand the full gallery</b></summary>
-  <br>
+<summary><b>🖼️ Click to expand the full gallery</b></summary>
+<br>
 
-**Information Bar**
-![Information Bar](./screenshots/screenshot_desktop.jpg)
+### 🖥️ Desktop
 
-**App Launcher**
-![App Launcher](./screenshots/screenshot_launch.jpg)
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./screenshots/general.jpg" alt="Desktop" /><br />
+      <b>Desktop</b><br />
+    </td>
+    <td align="center" width="50%">
+      <img src="./screenshots/launcher.jpg" alt="App Launcher" /><br />
+      <b>App Launcher</b><br />
+      <sub>Fast fuzzy search</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./screenshots/notification-center.jpg" alt="Notification Center" /><br />
+      <b>Notification Center</b><br />
+      <sub>Notifications center</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="./screenshots/pywal-theme-switcher.jpg" alt="Theme Switcher" /><br />
+      <b>Theme Switcher</b><br />
+      <sub>Pywal Theme Switcher</sub>
+    </td>
+  </tr>
+</table>
 
-**Notification Center**
-![Notification Center](./screenshots/screenshot_notification.jpg)
+### 🧩 Bar popups
 
-**Theme Switcher**
-![Theme Switcher](./screenshots/screenshot_theme_switch.jpg)
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="./screenshots/media-popup.jpg" alt="Media" /><br />
+      <b>Media</b><br />
+      <sub>Supports multiple MPRIS sources with dynamic player switching, and automatically focuses the corresponding application when clicking the media title.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="./screenshots/audio-popup.jpg" alt="Audio Controls" /><br />
+      <b>Audio Controls</b>
+    </td>
+    <td align="center" width="33%">
+      <img src="./screenshots/calendar-popup.jpg" alt="Calendar" /><br />
+      <b>Calendar</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="./screenshots/network-popup.jpg" alt="Network" /><br />
+      <b>Network & Bluetooth</b>
+    </td>
+    <td align="center" width="33%">
+      <img src="./screenshots/setting-popup.jpg" alt="System Controls" /><br />
+      <b>System Controls</b>
+    </td>
+  </tr>
+   <tr>
+    <td align="center" width="33%">
+      <img src="./screenshots/rec-indicator.jpg" alt="Rec Indicator" /><br />
+      <b>Rec Indicator</b>
+    </td>
+    <td align="center" width="33%">
+      <img src="./screenshots/mic-indicator.jpg" alt="Mic Indicator" /><br />
+      <b>Mic Indicator</b>
+    </td>
+     <td align="center" width="33%">
+      <img src="./screenshots/live-indicator.jpg" alt="Live Indicator" /><br />
+      <b>Live + Mic Indicator</b>
+    </td>
+  </tr>
+</table>
 
 </details>
 
@@ -71,11 +131,10 @@ The script will:
 > [!TIP]
 > Everything is logged to `/tmp/hyprland-setup-install.log` if something goes wrong.
 
-
 <details>
   <summary><b>Installation video</b></summary>
   <br>
-  
+
 <video src="https://github.com/user-attachments/assets/7d3ac98f-9228-4832-9aad-633fe276d130"></video>
 
 </details>
