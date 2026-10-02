@@ -155,7 +155,7 @@ ensure_multilib() {
 ensure_multilib
 
 log_step "Updating Pacman database..."
-sudo pacman -Sy --noconfirm >> "$LOG_FILE" 2>&1 &
+sudo pacman -Syu --noconfirm >> "$LOG_FILE" 2>&1 &
 spin $!
 
 if wait $!; then
