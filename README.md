@@ -71,6 +71,15 @@ The script will:
 > [!TIP]
 > Everything is logged to `/tmp/hyprland-setup-install.log` if something goes wrong.
 
+
+<details>
+  <summary><b>Installation video</b></summary>
+  <br>
+  
+<video src="https://github.com/user-attachments/assets/7d3ac98f-9228-4832-9aad-633fe276d130"></video>
+
+</details>
+
 ---
 
 <a id="features"></a>
