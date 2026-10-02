@@ -11,7 +11,7 @@ Rectangle {
     required property var notificationCenter
 
     implicitWidth: 40
-    implicitHeight: notificationText.implicitHeight + 16
+    implicitHeight: 40
     radius: 8
     color: notificationMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     border.width: 1

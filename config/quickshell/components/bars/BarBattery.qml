@@ -17,7 +17,7 @@ Rectangle {
 
     visible: activeAvailable
     implicitWidth: visible ? (batteryRow.implicitWidth + 24) : 0
-    implicitHeight: visible ? (batteryRow.implicitHeight + 16) : 0
+    implicitHeight: visible ? 40 : 0
     radius: 8
     color: batteryMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     border.width: 1

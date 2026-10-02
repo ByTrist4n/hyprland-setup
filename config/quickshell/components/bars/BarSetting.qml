@@ -13,7 +13,7 @@ Rectangle {
     property var settingPopup: null
 
     implicitWidth: settingRow.implicitWidth + 24
-    implicitHeight: settingRow.implicitHeight + 16
+    implicitHeight: 40
     color: settingMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     radius: 8
     border.color: ThemeColors.borderBase

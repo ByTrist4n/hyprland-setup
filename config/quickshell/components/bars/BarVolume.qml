@@ -10,7 +10,7 @@ Rectangle {
     required property var volumePopup
 
     implicitWidth: volumeRow.implicitWidth + 24
-    implicitHeight: volumeRow.implicitHeight + 16
+    implicitHeight: 40
     radius: 8
     color: volumeMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     border.width: 1

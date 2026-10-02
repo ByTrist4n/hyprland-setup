@@ -60,7 +60,7 @@ Rectangle {
     }
 
     implicitWidth: wsRow.implicitWidth + 16
-    implicitHeight: wsRow.implicitHeight + 16
+    implicitHeight: 40
     color: ThemeColors.bgBase
     radius: 8
     border.color: ThemeColors.borderBase

@@ -9,7 +9,7 @@ Rectangle {
     required property var networkPopup
 
     implicitWidth: networkRow.implicitWidth + 24
-    implicitHeight: networkRow.implicitHeight + 16
+    implicitHeight: 40
     radius: 8
     color: networkMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     border.width: 1

@@ -11,7 +11,7 @@ Rectangle {
     id: root
 
     implicitWidth: musicRow.implicitWidth + 16
-    implicitHeight: musicRow.implicitHeight + 16
+    implicitHeight: 40
     color: musicMouseArea.containsMouse ? ThemeColors.bgButtonHover : ThemeColors.bgBase
     radius: 8
     border.color: ThemeColors.borderBase
