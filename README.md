@@ -286,6 +286,7 @@ A single global yes/no confirmation is asked during installation.
   - [ ] Better system control
 - [ ] Color picker shortcut
 - [ ] Ability to select multiple optional applications from a list (currently, the installer only offers a global yes/no confirmation for the 6 optional apps)
+  - [ ] Add more options for optional apps :)
 - [ ] A collection of themes with different designs and colors
 - [ ] And more...
 
