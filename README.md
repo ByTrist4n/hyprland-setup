@@ -191,7 +191,9 @@ Encountered an issue? Open a ticket in the [Issues section](https://github.com/B
 - [x] Screenshot and markup workflow (`grim` + `slurp` + `satty`)
 - [x] Interactive installation menu with optional software selection
 - [x] Calculator in Walker
+- [x] Clipboard history in Walker
 - [ ] Quickshell widget library
+  - [x] Microphone / Live Stream / Camera Status Indicator
   - [ ] Music pop-up control
   - [ ] Todo block
   - [ ] Add a “Do Not Disturb” mode for notifications
