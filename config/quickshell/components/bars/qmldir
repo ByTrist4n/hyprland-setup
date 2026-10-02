@@ -1,5 +1,6 @@
 module components.bars
 
+BarBattery 1.0 BarBattery.qml
 BarDate 1.0 BarDate.qml
 BarMusic 1.0 BarMusic.qml
 BarNetwork 1.0 BarNetwork.qml

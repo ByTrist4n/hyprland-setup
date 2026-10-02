@@ -74,6 +74,10 @@ ShellRoot {
                         Layout.rightMargin: 8
                     }
 
+                    BarBattery {
+                        id: barBattery
+                    }
+
                     BarVolume {
                         id: barVolume
 

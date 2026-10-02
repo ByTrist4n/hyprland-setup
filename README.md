@@ -194,9 +194,12 @@ Encountered an issue? Open a ticket in the [Issues section](https://github.com/B
 - [x] Clipboard history in Walker
 - [ ] Quickshell widget library
   - [x] Microphone / Live Stream / Camera Status Indicator
+  - [x] Battery Widget
+  - [x] System Control
   - [ ] Music pop-up control
   - [ ] Todo block
   - [ ] Add a “Do Not Disturb” mode for notifications
+  - [ ] Better System Control :)
 - [ ] Add picker color shortcut
 - [ ] A collection of themes with different designs and colors
 - [ ] And more...
