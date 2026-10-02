@@ -58,4 +58,8 @@ QtObject {
     readonly property string productivity: ""
     readonly property string thunderbird: ""
     readonly property string mail: "󰶊"
+    readonly property string youtube: "󰗃"
+    readonly property string chrome: ""
+    readonly property string firefox: "󰈹"
+    readonly property string spotify: "󰓇" // bouuuh, spotify is bad
 }
