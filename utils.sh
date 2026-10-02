@@ -176,7 +176,7 @@ spin() {
 
   while kill -0 "$pid" 2> /dev/null; do
     local temp=${spinstr#?}
-    printf "  ${CYAN}[%c]${NC} Installing..." "${spinstr:0:1}"
+    printf "  ${CYAN}[%c]${NC} Processing..." "${spinstr:0:1}"
     spinstr=$temp${spinstr%"$temp"}
     read -rt "$delay" <> <(:) || true
     printf "\r"
