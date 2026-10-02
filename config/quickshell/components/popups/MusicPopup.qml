@@ -95,7 +95,7 @@ UiPopup {
 
                         anchors.fill: parent
                         hoverEnabled: true
-                        cursorShape: (MediaService && MediaService.activePlayer && MediaService.activePlayer.canRaise) ? Qt.PointingHandCursor : Qt.ArrowCursor
+                        cursorShape: (MediaService && MediaService.hasMedia) ? Qt.PointingHandCursor : Qt.ArrowCursor
                         onClicked: {
                             if (MediaService)
                                 MediaService.focusPlayerWindow();
