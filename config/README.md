@@ -4,9 +4,14 @@
 
 </div>
 
-[![](https://img.shields.io/github/last-commit/ByTrist4n/hyprland-dot-files?style=for-the-badge&labelColor=1e1e2e)](https://github.com/ByTrist4n/hyprland-dot-files)
-[![](https://img.shields.io/github/repo-size/ByTrist4n/hyprland-dot-files?style=for-the-badge&labelColor=1e1e2e&color=a6e3a1)](https://github.com/ByTrist4n/hyprland-dot-files)
-[![](https://img.shields.io/github/stars/ByTrist4n/hyprland-dot-files?style=for-the-badge&labelColor=1e1e2e&color=f9e2af&logo=github)](https://github.com/ByTrist4n/hyprland-dot-files/stargazers)
+[![](https://img.shields.io/github/last-commit/ByTrist4n/hyprland-dotfiles?style=for-the-badge&labelColor=1e1e2e)](https://github.com/ByTrist4n/hyprland-dotfiles)
+[![](https://img.shields.io/github/repo-size/ByTrist4n/hyprland-dotfiles?style=for-the-badge&labelColor=1e1e2e&color=a6e3a1)](https://github.com/ByTrist4n/hyprland-dotfiles)
+[![](https://img.shields.io/github/stars/ByTrist4n/hyprland-dotfiles?style=for-the-badge&labelColor=1e1e2e&color=f9e2af&logo=github)](https://github.com/ByTrist4n/hyprland-dotfiles/stargazers)
+
+> 🚀 **Automated Installer Available!**
+> This repository contains the raw configuration files (`config/`). If you want to automatically set up and install this complete Hyprland environment on **CachyOS** or **Arch Linux**, please use the primary setup repository:
+>
+> 👉 **[ByTrist4n / hyprland-setup](https://github.com/ByTrist4n/hyprland-setup)**
 
 ## About
 
@@ -16,30 +21,13 @@ It features custom dynamic shell components built with **Quickshell (QML)**, sea
 
 > ⭐ **If you like this setup, please consider leaving a star on GitHub! It helps a lot!** 🫰💖
 
-> 🚀 **Automated Installation:** To install and orchestrate this environment automatically on CachyOS / Arch Linux, check out my installer repository: **[ByTrist4n / hyprland-setup](https://github.com/ByTrist4n/hyprland-setup)**
+## Installation & Deployment
 
-## Tech Stack
+These dotfiles are automatically synchronized from the main setup repository.
 
-[![Arch Linux](https://img.shields.io/badge/CachyOS%20%2F%20Arch-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)](https://archlinux.org)
-[![Hyprland](https://img.shields.io/badge/Hyprland-v0.56+-blue?style=for-the-badge&labelColor=252733&logo=hyprland)](https://hypr.land)
+- **Recommended Method:** Use [hyprland-setup](https://github.com/ByTrist4n/hyprland-setup) for an automated, zero-configuration setup script.
+- **Manual Method:** Clone this repository and copy/link the folders directly into your `~/.config/` directory.
 
-| Tool / Package                                                                                  | Category       | Description                                                |
-| :---------------------------------------------------------------------------------------------- | :------------- | :--------------------------------------------------------- |
-| 🪟 [Hyprland](https://hypr.land)                                                                | Compositor     | Dynamic tiling Wayland compositor configured with Lua      |
-| 🐚 [Quickshell](https://outfoxxed.me/quickshell/)                                               | UI Shell       | Custom modular bar, popups, and visualizers built with QML |
-| 🎨 [Pywal](https://github.com/dylanaraps/pywal) / [Wpgtk](https://github.com/deviantfero/wpgtk) | Dynamic Colors | Dynamic palette generation based on wallpaper              |
-| 🔍 [Rofi](https://github.com/davatorium/rofi)                                                   | Launcher       | Custom application launcher and window switcher            |
-| 🔒 [Hyprlock](https://github.com/hyprwm/hyprlock)                                               | Security       | Fast and secure screen locker                              |
-| 💤 [Hypridle](https://github.com/hyprwm/hypridle)                                               | System         | Idle management daemon                                     |
-| 🚪 [Wlogout](https://github.com/ArtsyMacaw/wlogout)                                             | Session        | Wayland-based logout menu                                  |
-
-### ⚡ CLI & Terminal Utilities
-
-| Tool / Package                                             | Description                                               |
-| :--------------------------------------------------------- | :-------------------------------------------------------- |
-| 🐢 [Oh My Zsh](https://ohmyz.sh/)                          | Zsh framework with customized plugins & prompt            |
-| 👀 [Atuin](https://atuin.sh/)                              | Shell history with end-to-end encryption & SQLite backend |
-| 💄 [Eza](https://eza.rocks/)                               | Modern replacement for `ls` written in Rust               |
-| 🏎️ [Zoxide](https://github.com/ajeetdsouza/zoxide)         | Smarter `cd` command with fast navigation                 |
-| 💁 [Fastfetch](https://github.com/fastfetch-cli/fastfetch) | System information display tool                           |
-| 🔤 [JetBrainsMono Nerd Font](https://www.nerdfonts.com/)   | Primary font with developer glyphs & icons                |
+```bash
+git clone https://github.com/ByTrist4n/hyprland-dotfiles.git
+```
