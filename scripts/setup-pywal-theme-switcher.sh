@@ -133,17 +133,21 @@ REPO_URL="https://github.com/ByTrist4n/pywal-theme-switcher.git"
 THEME_SWITCHER_DIR="$(mktemp -d)"
 
 # Step 1: Install Pywal Theme Switcher
-if git clone --quiet --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
-  # Run installation with --rofi and -y (non-interactive mode)
-  if (cd "$THEME_SWITCHER_DIR" && ./install.sh --rofi -y >> "$LOG_FILE" 2>&1); then
-    log_success "Pywal Theme Switcher has been successfully configured."
+(
+  if git clone --quiet --depth 1 "$REPO_URL" "$THEME_SWITCHER_DIR"; then
+    (cd "$THEME_SWITCHER_DIR" && ./install.sh --rofi -y >> "$LOG_FILE" 2>&1)
   else
-    log_error "Failed to install Pywal Theme Switcher. Check $LOG_FILE"
-    rm -rf "$THEME_SWITCHER_DIR"
     exit 1
   fi
+) &
+PID=$!
+spin $PID
+wait $PID
+
+if [ $? -eq 0 ]; then
+  log_success "Pywal Theme Switcher has been successfully configured."
 else
-  log_error "Failed to clone Pywal Theme Switcher repository."
+  log_error "Failed to install Pywal Theme Switcher. Check $LOG_FILE"
   rm -rf "$THEME_SWITCHER_DIR"
   exit 1
 fi
@@ -152,17 +156,26 @@ rm -rf "$THEME_SWITCHER_DIR"
 
 # Step 2: Configure Kitty integration
 log_step "Configuring Kitty color integration..."
-setup_kitty_integration
+setup_kitty_integration &
+PID=$!
+spin $PID
+wait $PID
 
 # Step 3: Configure Dolphin integration
 log_step "Configuring Dolphin color scheme..."
-setup_dolphin_integration
+setup_dolphin_integration &
+PID=$!
+spin $PID
+wait $PID
 
 # Step 4: Configure SDDM integration hook
 SDDM_THEME_DIR="/usr/share/sddm/themes/sddm-hyprland-setup"
 if [ -d "$SDDM_THEME_DIR" ]; then
   log_step "Configuring SDDM wallpaper sync hook..."
-  setup_sddm_integration
+  setup_sddm_integration &
+  PID=$!
+  spin $PID
+  wait $PID
   log_success "SDDM wallpaper hook successfully set up."
 fi
 
@@ -170,6 +183,9 @@ fi
 WLOGOUT_CONF_DIR="$HOME/.config/wlogout"
 if [ -d "$WLOGOUT_CONF_DIR" ]; then
   log_step "Configuring wlogout color sync hook..."
-  setup_wlogout_integration
+  setup_wlogout_integration &
+  PID=$!
+  spin $PID
+  wait $PID
   log_success "wlogout hook successfully set up."
 fi
