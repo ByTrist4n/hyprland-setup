@@ -125,6 +125,7 @@ EOF
 }
 
 log_section "Setting up Pywal Theme Switcher..."
+log_step "Installing \"Pywal Theme Switcher\"..."
 log_info "Pywal Theme Switcher dynamically themes Hyprland, GTK, Qt & Quickshell."
 log_info "Repo: https://github.com/ByTrist4n/pywal-theme-switcher"
 
