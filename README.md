@@ -4,6 +4,9 @@
 
 **A clean, modern, ready-to-use Hyprland desktop, in a single command.**
 
+<br/>
+<br/>
+
 [![Release](https://img.shields.io/github/v/release/ByTrist4n/hyprland-setup?style=for-the-badge&color=1793d1&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup/releases)
 [![Last Commit](https://img.shields.io/github/last-commit/ByTrist4n/hyprland-setup?style=for-the-badge&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup/commits)
 [![GitHub stars](https://img.shields.io/github/stars/ByTrist4n/hyprland-setup?style=for-the-badge&logo=github&color=daaa3f&labelColor=252733)](https://github.com/ByTrist4n/hyprland-setup/stargazers)
@@ -14,11 +17,11 @@
 [![Hyprland](https://img.shields.io/badge/Hyprland-v0.55%2B-1793d1?logo=hyprland&style=for-the-badge&logoColor=1793d1&labelColor=252733)](https://hypr.land)
 [![Quickshell](https://img.shields.io/badge/Quickshell-QML-1793d1?style=for-the-badge&labelColor=252733)](https://quickshell.org)
 
+<br/>
+
 [Showcase](#showcase) • [Installation](#installation) • [Features](#features) • [Packages](#installed-packages) • [Roadmap](#roadmap)
 
 </div>
-
----
 
 <a id="showcase"></a>
 
@@ -106,8 +109,6 @@ An automated configuration script that sets up a polished, functional Hyprland e
 
 </details>
 
----
-
 <a id="installation"></a>
 
 ## 🚀 Installation
@@ -139,8 +140,6 @@ The script will:
 
 </details>
 
----
-
 <a id="features"></a>
 
 ## 🎯 Features
@@ -156,8 +155,6 @@ The script will:
 | 🔒  | **Lock & Idle**          | `hyprlock` + `hypridle`                                                                                                                                                         |
 | ⌨️  | **Input Methods**        | `fcitx5` preconfigured (GTK + Qt)                                                                                                                                               |
 | 🧩  | **Modular Installer**    | Core dependencies plus optional extra applications                                                                                                                              |
-
----
 
 <a id="installed-packages"></a>
 
@@ -264,8 +261,6 @@ A single global yes/no confirmation is asked during installation.
 
 </details>
 
----
-
 <a id="roadmap"></a>
 
 ## 🗺️ Roadmap
@@ -290,8 +285,6 @@ A single global yes/no confirmation is asked during installation.
 - [ ] A collection of themes with different designs and colors
 - [ ] And more...
 
----
-
 ## 💬 Ideas & Feedback
 
 Have a feature request or an idea? Feel free to start a thread in the [Discussions section](https://github.com/ByTrist4n/hyprland-setup/discussions).
@@ -299,8 +292,6 @@ Have a feature request or an idea? Feel free to start a thread in the [Discussio
 ## 🐛 Bug Reports
 
 Encountered an issue? Open a ticket in the [Issues section](https://github.com/ByTrist4n/hyprland-setup/issues).
-
----
 
 <div align="center">
 
