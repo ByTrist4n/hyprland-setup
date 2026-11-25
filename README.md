@@ -250,14 +250,14 @@ The script will:
 
 A single global yes/no confirmation is asked during installation.
 
-| Package                                                        | Source | Description                                 |
-| :------------------------------------------------------------- | :----: | :------------------------------------------ |
-| 📄 [`libreoffice-still`](https://www.libreoffice.org/)         | Pacman | Stable office suite                         |
-| 🎬 [`vlc`](https://www.videolan.org/vlc/)                      | Pacman | Media player                                |
-| 📁 [`yazi`](https://github.com/sxyazi/yazi)                    | Pacman | Fast terminal file manager written in Rust  |
-| 💻 [`vscodium-bin`](https://github.com/VSCodium/vscodium)      |  AUR   | Telemetry-free open-source build of VS Code |
-| 🧭 [`zen-browser-bin`](https://github.com/zen-browser/desktop) |  AUR   | Firefox-based browser focused on privacy    |
-| 🖱️ [`logiops`](https://github.com/PixlOne/logiops)             |  AUR   | Driver and utility for Logitech mice        |
+| Package                                                    | Source | Description                                 |
+| :--------------------------------------------------------- | :----: | :------------------------------------------ |
+| 📄 [`libreoffice-still`](https://www.libreoffice.org/)     | Pacman | Stable office suite                         |
+| 🎬 [`vlc`](https://www.videolan.org/vlc/)                  | Pacman | Media player                                |
+| 🧭 [`firefox`](https://github.com/mozilla-firefox/firefox) | Pacman | Firefox web browser                         |
+| 📁 [`yazi`](https://github.com/sxyazi/yazi)                | Pacman | Fast terminal file manager written in Rust  |
+| 💻 [`vscodium-bin`](https://github.com/VSCodium/vscodium)  |  AUR   | Telemetry-free open-source build of VS Code |
+| 🖱️ [`logiops`](https://github.com/PixlOne/logiops)         |  AUR   | Driver and utility for Logitech mice        |
 
 </details>
 

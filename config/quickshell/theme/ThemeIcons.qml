@@ -45,7 +45,7 @@ QtObject {
     readonly property string battery100: "󰁹"
     // App Icons
     readonly property string defaultIcon: ""
-    readonly property string browser: ""
+    readonly property string browser: "󰈹"
     readonly property string code: ""
     readonly property string terminal: "󰆍"
     readonly property string folder: ""

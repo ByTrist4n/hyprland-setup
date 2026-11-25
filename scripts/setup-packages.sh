@@ -76,13 +76,13 @@ EXTRA_PACMAN=(
   libreoffice-still
   vlc
   yazi
+  firefox
 )
 
 # Extra Optional Packages (AUR)
 EXTRA_AUR=(
   logiops
   vscodium-bin
-  zen-browser-bin
 )
 
 # Generic function to execute package installation cleanly
@@ -179,7 +179,7 @@ echo -e "  • ${CYAN}logiops${NC}           - Logitech MX app"
 echo -e "  • ${CYAN}vlc${NC}               - VLC media player"
 echo -e "  • ${CYAN}vscodium-bin${NC}      - Open-source Code Editor"
 echo -e "  • ${CYAN}yazi${NC}              - Terminal file manager"
-echo -e "  • ${CYAN}zen-browser-bin${NC}   - Best Web Browser (Firefox core)"
+echo -e "  • ${CYAN}firefox${NC}           - Best Web Browser"
 echo ""
 
 if ask_yes_no "Would you like to install these extra applications?"; then
