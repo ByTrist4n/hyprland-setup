@@ -8,7 +8,7 @@ hl.config({
     kb_layout = "us",
     kb_variant = "",
     kb_model = "",
-    kb_options = "caps:escape", -- map CapsLock to Escape
+    kb_options = "", -- map CapsLock to Escape
     kb_rules = "",
 
     -- Mouse Focus Settings
