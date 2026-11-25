@@ -9,7 +9,7 @@ local userPrefs = {
     terminal = "kitty",
     fileManager = "dolphin",
     menu = "walker", -- App Launcher with Calculator
-    browser = "zen-browser",
+    browser = "firefox",
     editor = "codium",
   },
 
